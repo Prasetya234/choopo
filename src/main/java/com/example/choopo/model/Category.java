@@ -46,8 +46,7 @@ public class Category {
 
     }
 
-    public Category(Long article_id, int article_status, int category_id, Date created_date, String subtitle, String title, String topic, int total_view) {
-        this.article_id = article_id;
+    public Category( int article_status, int category_id, Date created_date, String subtitle, String title, String topic, int total_view) {
         this.article_status = article_status;
         this.category_id = category_id;
         this.created_date = created_date;
@@ -56,27 +55,6 @@ public class Category {
         this.topic = topic;
         this.total_view = total_view;
     }
-
-    //
-//    @Id
-//    @GeneratedValue(strategy = GenerationType.AUTO)
-//    public Long getArticleId() {
-//        return article_id;
-//    }
-//
-//    public void setArticleId(int articleId) {
-//        this.article_id = article_id;
-//    }
-//
-//    @Column(name = "category_id", nullable = false)
-//    public int getCategoryId() {
-//        return categoryId;
-//    }
-//
-//    public void setCategoryId(int categoryId) {
-//        this.categoryId = categoryId;
-//    }
-
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
