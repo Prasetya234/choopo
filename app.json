@@ -1,0 +1,8 @@
+{
+  "name" : "choopo",
+  "buildpacks": [
+    {
+      "url": "heroku/gradle"
+    }
+  ]
+}
