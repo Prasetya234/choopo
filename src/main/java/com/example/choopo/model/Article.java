@@ -80,6 +80,15 @@ public class Article {
         this.category_id = category_id;
     }
 
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    public Date getCreated_date() {
+        return created_date;
+    }
+
+    public void setCreated_date(Date created_date) {
+        this.created_date = created_date;
+    }
+
     @Column(name = "subtitle", nullable = false)
     public String getSubtitle() {
         return subtitle;
