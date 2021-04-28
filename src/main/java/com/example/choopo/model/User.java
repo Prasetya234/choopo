@@ -6,7 +6,7 @@ import javax.validation.constraints.*;
 @Entity
 @Table(name = "user")
 public class User {
-    private Long user_id;
+    private long user_id;
 
     @NotNull
     private int user_type;
@@ -39,11 +39,11 @@ public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    public Long getUser_id() {
+    public long getUser_id() {
         return user_id;
     }
 
-    public void setUser_id(Long user_id) {
+    public void setUser_id(long user_id) {
         this.user_id = user_id;
     }
 

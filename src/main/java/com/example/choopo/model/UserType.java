@@ -6,7 +6,7 @@ import javax.validation.constraints.*;
 @Entity
 @Table(name = "user_type")
 public class UserType {
-    private Long user_type_id;
+    private long user_type_id;
 
     @NotNull
     @Size(max = 255, message = "user_type_name has exceeded the limit")
@@ -26,11 +26,11 @@ public class UserType {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    public Long getUser_type_id() {
+    public long getUser_type_id() {
         return user_type_id;
     }
 
-    public void setUser_type_id(Long user_type_id) {
+    public void setUser_type_id(long user_type_id) {
         this.user_type_id = user_type_id;
     }
 

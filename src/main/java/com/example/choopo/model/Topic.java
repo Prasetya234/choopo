@@ -6,7 +6,7 @@ import javax.validation.constraints.*;
 @Entity
 @Table(name="topic")
 public class Topic {
-    private Long topic_id;
+    private long topic_id;
 
     @NotNull
     @Size(max=255, message = "name has exceeded the limit")
@@ -24,11 +24,11 @@ public class Topic {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    public Long getTopic_id() {
+    public long getTopic_id() {
         return topic_id;
     }
 
-    public void setTopic_id(Long topic_id) {
+    public void setTopic_id(long topic_id) {
         this.topic_id = topic_id;
     }
 

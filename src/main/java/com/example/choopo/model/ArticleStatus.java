@@ -6,7 +6,7 @@ import javax.validation.constraints.*;
 @Entity
 @Table(name = "article_status")
 public class ArticleStatus {
-    private Long article_status_id;
+    private long article_status_id;
 
     @NotNull
     @Size(max = 255, message = "articleStatusName has exceeded the limit")
@@ -24,11 +24,11 @@ public class ArticleStatus {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    public Long getArticle_status_id() {
+    public long getArticle_status_id() {
         return article_status_id;
     }
 
-    public void setArticle_status_id(Long article_status_id) {
+    public void setArticle_status_id(long article_status_id) {
         this.article_status_id = article_status_id;
     }
 

@@ -7,7 +7,7 @@ import javax.validation.constraints.*;
 @Table(name="user_status")
 public class UserStatus {
 
-    private Long user_status_id;
+    private long user_status_id;
 
     @NotNull
     @Size(max= 255, message = "user_status_name has exceeded the limit")
@@ -27,11 +27,11 @@ public class UserStatus {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    public Long getUser_status_id() {
+    public long getUser_status_id() {
         return user_status_id;
     }
 
-    public void setUser_status_id(Long user_status_id) {
+    public void setUser_status_id(long user_status_id) {
         this.user_status_id = user_status_id;
     }
 

@@ -8,7 +8,7 @@ import javax.validation.constraints.Size;
 @Table(name = "body_type")
 public class BodyType {
 
-    private Long body_type_id;
+    private long body_type_id;
 
     @NotNull
     @Size(max = 255,message = "BodyTypeName has exceeded the limit")
@@ -28,11 +28,11 @@ public class BodyType {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    public Long getBody_type_id() {
+    public long getBody_type_id() {
         return body_type_id;
     }
 
-    public void setBody_type_id(Long body_type_id) {
+    public void setBody_type_id(long body_type_id) {
         this.body_type_id = body_type_id;
     }
 

@@ -11,7 +11,7 @@ import java.util.Date;
 @Table(name="article")
 public class Article {
 
-    private Long article_id;
+    private long article_id;
 
     @NotNull
     @Size(max = 255, message = "category has exceeded the limit")
@@ -58,11 +58,11 @@ public class Article {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    public Long getArticle_id() {
+    public long getArticle_id() {
         return article_id;
     }
 
-    public void setArticle_id(Long article_id) {
+    public void setArticle_id(long article_id) {
         this.article_id = article_id;
     }
 

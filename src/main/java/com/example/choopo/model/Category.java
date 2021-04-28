@@ -7,7 +7,7 @@ import javax.validation.constraints.*;
 @Table(name="category")
 public class Category {
 
-    private Long category_id;
+    private long category_id;
 
     @NotNull
     private int parent_id;
@@ -27,11 +27,11 @@ public class Category {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    public Long getCategory_id() {
+    public long getCategory_id() {
         return category_id;
     }
 
-    public void setCategory_id(Long category_id) {
+    public void setCategory_id(long category_id) {
         this.category_id = category_id;
     }
 

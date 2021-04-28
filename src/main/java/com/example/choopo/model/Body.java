@@ -7,7 +7,7 @@ import javax.validation.constraints.*;
 @Entity
 @Table(name="body")
 public class Body {
-    private Long body_id;
+    private long body_id;
 
     @NotNull
     private int body_type;
@@ -24,11 +24,11 @@ public class Body {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    public Long getBody_id() {
+    public long getBody_id() {
         return body_id;
     }
 
-    public void setBody_id(Long body_id) {
+    public void setBody_id(long body_id) {
         this.body_id = body_id;
     }
 
