@@ -13,11 +13,11 @@ public class Article {
 
     private long article_id;
 
-    @NotNull
+    @NotBlank
     @Size(min = 1,max = 255, message = "category has exceeded the limit")
     private int article_status;
 
-    @NotNull
+    @NotBlank
     @Size(min = 1,max = 255, message = "article has exceeded the limit")
     private int category_id;
 
@@ -25,19 +25,19 @@ public class Article {
     @Temporal(TemporalType.TIMESTAMP)
     private Date created_date;
 
-    @NotNull
+    @NotBlank
     @Size(min = 1,max = 255, message = "subtitle has exceeded the limit")
     private String subtitle;
 
-    @NotNull
+    @NotBlank
     @Size(min = 1,max = 255, message = "title has exceeded the limit")
     private String title;
 
-    @NotNull
+    @NotBlank
     @Size(min = 1,max = 255, message = "topic has exceeded the limit")
     private String topic;
 
-    @NotNull
+    @NotBlank
     @Size(min = 1,max = 255, message = "title_view has exceeded the limit")
     private int total_view;
 

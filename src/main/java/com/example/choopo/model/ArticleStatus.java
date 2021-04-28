@@ -8,7 +8,7 @@ import javax.validation.constraints.*;
 public class ArticleStatus {
     private long article_status_id;
 
-    @NotNull
+    @NotBlank
     @Size(min = 1,max = 255, message = "articleStatusName has exceeded the limit")
     private String article_status_name;
 

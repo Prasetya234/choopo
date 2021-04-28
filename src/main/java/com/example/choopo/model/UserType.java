@@ -8,7 +8,7 @@ import javax.validation.constraints.*;
 public class UserType {
     private long user_type_id;
 
-    @NotNull
+    @NotBlank
     @Size(min = 1, max = 255, message = "user_type_name has exceeded the limit")
     private String user_type_name;
 
@@ -34,7 +34,7 @@ public class UserType {
         this.user_type_id = user_type_id;
     }
 
-    @Column(name = "user_type_name", nullable = true)
+    @Column(name = "user_type_name", nullable = false)
     public String getUser_type_name() {
         return user_type_name;
     }
@@ -43,7 +43,7 @@ public class UserType {
         this.user_type_name = user_type_name;
     }
 
-    @Column(name = "user_type_code", nullable = true)
+    @Column(name = "user_type_code", nullable = false)
     public int getUser_type_code() {
         return user_type_code;
     }

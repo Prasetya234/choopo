@@ -1,6 +1,7 @@
 package com.example.choopo.model;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -10,7 +11,7 @@ public class BodyType {
 
     private long body_type_id;
 
-    @NotNull
+    @NotBlank
     @Size(min = 1,max = 255,message = "BodyTypeName has exceeded the limit")
     private String body_type_name;
 

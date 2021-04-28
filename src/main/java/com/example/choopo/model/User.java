@@ -11,14 +11,14 @@ public class User {
     @NotNull
     private int user_type;
 
-    @NotNull
+    @NotBlank
     @Size(min = 1, max = 255, message = "Username has exceeded the limit")
     private String user_name;
 
     @NotNull
     private int user_code;
 
-    @NotNull
+    @NotBlank
     @Size(min=2, max = 20, message = "The password must be 4 - 20 words long")
     private String password;
 

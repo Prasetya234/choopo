@@ -11,7 +11,7 @@ public class Body {
 
     @NotNull
     private int body_type;
-    @NotNull
+    @NotBlank
     @Size(min = 1,max = 255, message = "article has exceeded the limit")
     private String body_content;
 
