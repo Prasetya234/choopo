@@ -47,7 +47,7 @@ public class User {
         this.user_id = user_id;
     }
 
-    @Column
+    @Column(name = "user_type", nullable = false)
     public int getUser_type() {
         return user_type;
     }
@@ -56,7 +56,7 @@ public class User {
         this.user_type = user_type;
     }
 
-    @Column
+    @Column(name = "user_name", nullable = false)
     public String getUser_name() {
         return user_name;
     }
@@ -65,7 +65,7 @@ public class User {
         this.user_name = user_name;
     }
 
-    @Column
+    @Column(name = "user_code", nullable = false)
     public int getUser_code() {
         return user_code;
     }
@@ -74,7 +74,7 @@ public class User {
         this.user_code = user_code;
     }
 
-    @Column
+    @Column(name = "password", nullable = false)
     public String getPassword() {
         return password;
     }
@@ -83,7 +83,7 @@ public class User {
         this.password = password;
     }
 
-    @Column
+    @Column(name = "user_status", nullable = false)
     public int getUser_status() {
         return user_status;
     }

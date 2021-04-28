@@ -35,7 +35,7 @@ public class UserStatus {
         this.user_status_id = user_status_id;
     }
 
-    @Column
+    @Column(name = "user_status_name", nullable = false)
     public String getUser_status_name() {
         return user_status_name;
     }
@@ -44,7 +44,7 @@ public class UserStatus {
         this.user_status_name = user_status_name;
     }
 
-    @Column
+    @Column(name = "user_status_code", nullable = false)
     public int getUser_status_code() {
         return user_status_code;
     }

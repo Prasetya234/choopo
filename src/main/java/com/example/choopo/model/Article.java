@@ -66,7 +66,7 @@ public class Article {
         this.article_id = article_id;
     }
 
-    @Column
+    @Column(name = "article_status", nullable = false)
     public int getArticle_status() {
         return article_status;
     }
@@ -75,7 +75,7 @@ public class Article {
         this.article_status = article_status;
     }
 
-    @Column
+    @Column(name = "category_id", nullable = false)
     public int getCategory_id() {
         return category_id;
     }
@@ -84,7 +84,7 @@ public class Article {
         this.category_id = category_id;
     }
 
-    @Column
+    @Column(name = "created_date", nullable = false)
     public Date getCreated_date() {
         return created_date;
     }
@@ -93,7 +93,7 @@ public class Article {
         this.created_date = created_date;
     }
 
-    @Column
+    @Column(name = "subtitle", nullable = false)
     public String getSubtitle() {
         return subtitle;
     }
@@ -102,7 +102,7 @@ public class Article {
         this.subtitle = subtitle;
     }
 
-    @Column
+    @Column(name = "title", nullable = false)
     public String getTitle() {
         return title;
     }
@@ -111,7 +111,7 @@ public class Article {
         this.title = title;
     }
 
-    @Column
+    @Column(name = "topic", nullable = false)
     public String getTopic() {
         return topic;
     }
@@ -120,7 +120,7 @@ public class Article {
         this.topic = topic;
     }
 
-    @Column
+    @Column(name = "total_view", nullable = false)
     public int getTotal_view() {
         return total_view;
     }

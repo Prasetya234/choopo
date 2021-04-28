@@ -32,7 +32,7 @@ public class Topic {
         this.topic_id = topic_id;
     }
 
-    @Column
+    @Column(name = "topic_name", nullable = false)
     public String getTopic_name() {
         return topic_name;
     }
@@ -41,7 +41,7 @@ public class Topic {
         this.topic_name = topic_name;
     }
 
-    @Column
+    @Column(name = "topic_code", nullable = false)
     public int getTopic_code() {
         return topic_code;
     }

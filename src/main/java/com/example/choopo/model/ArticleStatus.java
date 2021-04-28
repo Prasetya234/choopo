@@ -32,7 +32,7 @@ public class ArticleStatus {
         this.article_status_id = article_status_id;
     }
 
-    @Column
+    @Column(name = "article_status_name", nullable = false)
     public String getArticle_status_name() {
         return article_status_name;
     }
@@ -41,7 +41,7 @@ public class ArticleStatus {
         this.article_status_name = article_status_name;
     }
 
-    @Column
+    @Column(name = "article_status_code",nullable = false)
     public int getArticle_status_code() {
         return article_status_code;
     }

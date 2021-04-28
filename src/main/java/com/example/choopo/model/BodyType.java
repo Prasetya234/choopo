@@ -36,7 +36,7 @@ public class BodyType {
         this.body_type_id = body_type_id;
     }
 
-    @Column
+    @Column(name = "body_type_name", nullable = false)
     public String getBody_type_name() {
         return body_type_name;
     }
@@ -45,7 +45,7 @@ public class BodyType {
         this.body_type_name = body_type_name;
     }
 
-    @Column
+    @Column(name = "body_type_code", nullable = false)
     public int getBody_type_code() {
         return body_type_code;
     }

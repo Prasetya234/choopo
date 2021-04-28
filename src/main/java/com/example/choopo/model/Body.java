@@ -32,7 +32,7 @@ public class Body {
         this.body_id = body_id;
     }
 
-    @Column
+    @Column(name = "body_type", nullable = false)
     public int getBody_type() {
         return body_type;
     }
@@ -41,7 +41,7 @@ public class Body {
         this.body_type = body_type;
     }
 
-    @Column
+    @Column(name = "body_content", nullable = false)
     public String getBody_content() {
         return body_content;
     }

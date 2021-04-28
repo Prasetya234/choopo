@@ -34,7 +34,7 @@ public class UserType {
         this.user_type_id = user_type_id;
     }
 
-    @Column
+    @Column(name = "user_type_name", nullable = false)
     public String getUser_type_name() {
         return user_type_name;
     }
@@ -43,7 +43,7 @@ public class UserType {
         this.user_type_name = user_type_name;
     }
 
-    @Column
+    @Column(name = "user_type_code", nullable = false)
     public int getUser_type_code() {
         return user_type_code;
     }

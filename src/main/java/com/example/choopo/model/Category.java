@@ -35,7 +35,7 @@ public class Category {
         this.category_id = category_id;
     }
 
-    @Column
+    @Column(name = "parent_id", nullable = false)
     public int getParent_id() {
         return parent_id;
     }
@@ -44,7 +44,7 @@ public class Category {
         this.parent_id = parent_id;
     }
 
-    @Column
+    @Column(name = "category_name", nullable = false)
     public String getCategory_name() {
         return category_name;
     }
