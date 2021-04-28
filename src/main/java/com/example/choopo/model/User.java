@@ -3,67 +3,75 @@ package com.example.choopo.model;
 import javax.persistence.*;
 import javax.validation.constraints.*;
 
+@Entity
+@Table(name = "user")
 public class User {
-    private Long userId;
+    private Long user_id;
 
     @NotNull
-    private int type;
+    private int user_type;
 
     @NotNull
     @Size(max = 255, message = "Username has exceeded the limit")
-    private String userName;
+    private String user_name;
 
     @NotNull
-    private int userCode;
+    private int user_code;
 
     @NotNull
     @Size(min=4, max = 20, message = "The password must be 4 - 20 words long")
     private String password;
 
-    public User(){}
+    @NotNull
+    private int user_status;
 
-    public User(int type, String userName, int userCode, String password) {
-        this.type = type;
-        this.userName = userName;
-        this.userCode = userCode;
+    public User(){
+
+    }
+
+    public User(int user_type, String user_name, int user_code, String password, int user_status) {
+        this.user_type = user_type;
+        this.user_name = user_name;
+        this.user_code = user_code;
         this.password = password;
+        this.user_status = user_status;
     }
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    public Long getUserId() {
-        return userId;
+    public Long getUser_id() {
+        return user_id;
     }
 
-    public void setUserId(Long userId) {
-        this.userId = userId;
-    }
-
-    @Column
-    public int getType() {
-        return type;
-    }
-
-    public void setType(int type) {
-        this.type = type;
+    public void setUser_id(Long user_id) {
+        this.user_id = user_id;
     }
 
     @Column
-    public String getUserName() {
-        return userName;
+    public int getUser_type() {
+        return user_type;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setUser_type(int user_type) {
+        this.user_type = user_type;
     }
 
     @Column
-    public int getUserCode() {
-        return userCode;
+    public String getUser_name() {
+        return user_name;
     }
 
-    public void setUserCode(int userCode) {
-        this.userCode = userCode;
+    public void setUser_name(String user_name) {
+        this.user_name = user_name;
+    }
+
+    @Column
+    public int getUser_code() {
+        return user_code;
+    }
+
+    public void setUser_code(int user_code) {
+        this.user_code = user_code;
     }
 
     @Column
@@ -73,5 +81,14 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    @Column
+    public int getUser_status() {
+        return user_status;
+    }
+
+    public void setUser_status(int user_status) {
+        this.user_status = user_status;
     }
 }

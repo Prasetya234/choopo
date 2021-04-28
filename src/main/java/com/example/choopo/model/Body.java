@@ -1,48 +1,52 @@
 package com.example.choopo.model;
 
 import javax.persistence.Column;
+import javax.persistence.*;
 import javax.validation.constraints.*;
 
+@Entity
+@Table(name="body")
 public class Body {
-    private Long bodyId;
+    private Long body_id;
 
     @NotNull
-    private int type;
+    private int body_type;
     @NotNull
     @Size(max = 255, message = "article has exceeded the limit")
-    private String content;
+    private String body_content;
 
     public Body(){}
 
-    public Body(int type, String content) {
-        this.type = type;
-        this.content = content;
+    public Body(int body_type, String body_content) {
+        this.body_type = body_type;
+        this.body_content = body_content;
+    }
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    public Long getBody_id() {
+        return body_id;
+    }
+
+    public void setBody_id(Long body_id) {
+        this.body_id = body_id;
     }
 
     @Column
-    public Long getBodyId() {
-        return bodyId;
+    public int getBody_type() {
+        return body_type;
     }
 
-    public void setBodyId(Long bodyId) {
-        this.bodyId = bodyId;
-    }
-
-    @Column
-    public int getType() {
-        return type;
-    }
-
-    public void setType(int type) {
-        this.type = type;
+    public void setBody_type(int body_type) {
+        this.body_type = body_type;
     }
 
     @Column
-    public String getContent() {
-        return content;
+    public String getBody_content() {
+        return body_content;
     }
 
-    public void setContent(String content) {
-        this.content = content;
+    public void setBody_content(String body_content) {
+        this.body_content = body_content;
     }
 }

@@ -3,48 +3,50 @@ package com.example.choopo.model;
 import javax.persistence.*;
 import javax.validation.constraints.*;
 
+@Entity
+@Table(name="topic")
 public class Topic {
-    private Long topicId;
+    private Long topic_id;
 
     @NotNull
     @Size(max=255, message = "name has exceeded the limit")
-    private String name;
+    private String topic_name;
 
     @NotNull
-    private int code;
+    private int topic_code;
 
     public Topic(){}
 
-    public Topic(String name, int code) {
-        this.name = name;
-        this.code = code;
+    public Topic(String topic_name, int topic_code) {
+        this.topic_name = topic_name;
+        this.topic_code = topic_code;
     }
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    public Long getTopicId() {
-        return topicId;
+    public Long getTopic_id() {
+        return topic_id;
     }
 
-    public void setTopicId(Long topicId) {
-        this.topicId = topicId;
-    }
-
-    @Column
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
+    public void setTopic_id(Long topic_id) {
+        this.topic_id = topic_id;
     }
 
     @Column
-    public int getCode() {
-        return code;
+    public String getTopic_name() {
+        return topic_name;
     }
 
-    public void setCode(int code) {
-        this.code = code;
+    public void setTopic_name(String topic_name) {
+        this.topic_name = topic_name;
+    }
+
+    @Column
+    public int getTopic_code() {
+        return topic_code;
+    }
+
+    public void setTopic_code(int topic_code) {
+        this.topic_code = topic_code;
     }
 }
