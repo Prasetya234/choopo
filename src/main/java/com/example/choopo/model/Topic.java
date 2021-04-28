@@ -9,7 +9,7 @@ public class Topic {
     private long topic_id;
 
     @NotNull
-    @Size(max=255, message = "name has exceeded the limit")
+    @Size(min = 1,max=255, message = "name has exceeded the limit")
     private String topic_name;
 
     @NotNull

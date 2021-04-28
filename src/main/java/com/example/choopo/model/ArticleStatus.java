@@ -9,7 +9,7 @@ public class ArticleStatus {
     private long article_status_id;
 
     @NotNull
-    @Size(max = 255, message = "articleStatusName has exceeded the limit")
+    @Size(min = 1,max = 255, message = "articleStatusName has exceeded the limit")
     private String article_status_name;
 
     @NotNull

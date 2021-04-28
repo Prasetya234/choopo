@@ -12,7 +12,7 @@ public class Body {
     @NotNull
     private int body_type;
     @NotNull
-    @Size(max = 255, message = "article has exceeded the limit")
+    @Size(min = 1,max = 255, message = "article has exceeded the limit")
     private String body_content;
 
     public Body(){}

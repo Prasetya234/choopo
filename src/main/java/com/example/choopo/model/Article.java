@@ -14,11 +14,11 @@ public class Article {
     private long article_id;
 
     @NotNull
-    @Size(max = 255, message = "category has exceeded the limit")
+    @Size(min = 1,max = 255, message = "category has exceeded the limit")
     private int article_status;
 
     @NotNull
-    @Size(max = 255, message = "article has exceeded the limit")
+    @Size(min = 1,max = 255, message = "article has exceeded the limit")
     private int category_id;
 
     @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss", timezone="Asia/Jakarta")
@@ -26,19 +26,19 @@ public class Article {
     private Date created_date;
 
     @NotNull
-    @Size(max = 255, message = "subtitle has exceeded the limit")
+    @Size(min = 1,max = 255, message = "subtitle has exceeded the limit")
     private String subtitle;
 
     @NotNull
-    @Size(max = 255, message = "title has exceeded the limit")
+    @Size(min = 1,max = 255, message = "title has exceeded the limit")
     private String title;
 
     @NotNull
-    @Size(max = 255, message = "topic has exceeded the limit")
+    @Size(min = 1,max = 255, message = "topic has exceeded the limit")
     private String topic;
 
     @NotNull
-    @Size(max = 255, message = "title_view has exceeded the limit")
+    @Size(min = 1,max = 255, message = "title_view has exceeded the limit")
     private int total_view;
 
 

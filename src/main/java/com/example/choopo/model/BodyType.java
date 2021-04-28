@@ -11,7 +11,7 @@ public class BodyType {
     private long body_type_id;
 
     @NotNull
-    @Size(max = 255,message = "BodyTypeName has exceeded the limit")
+    @Size(min = 1,max = 255,message = "BodyTypeName has exceeded the limit")
     private String body_type_name;
 
     @NotNull

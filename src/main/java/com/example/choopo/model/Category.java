@@ -13,7 +13,7 @@ public class Category {
     private int parent_id;
 
     @NotNull
-    @Size(max = 255, message = "CategoryName has exceeded the limit")
+    @Size(min = 1,max = 255, message = "CategoryName has exceeded the limit")
     private String category_name;
 
     public  Category(){
