@@ -14,11 +14,9 @@ public class Article {
     private long article_id;
 
     @NotBlank
-    @Size(min = 1,max = 255, message = "category has exceeded the limit")
     private int article_status;
 
     @NotBlank
-    @Size(min = 1,max = 255, message = "article has exceeded the limit")
     private int category_id;
 
     @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss", timezone="Asia/Jakarta")
@@ -38,7 +36,6 @@ public class Article {
     private String topic;
 
     @NotBlank
-    @Size(min = 1,max = 255, message = "title_view has exceeded the limit")
     private int total_view;
 
 
@@ -46,10 +43,9 @@ public class Article {
 
     }
 
-    public Article(int article_status, int category_id, Date created_date, String subtitle, String title, String topic, int total_view) {
+    public Article(int article_status, int category_id, String subtitle, String title, String topic, int total_view) {
         this.article_status = article_status;
         this.category_id = category_id;
-        this.created_date = created_date;
         this.subtitle = subtitle;
         this.title = title;
         this.topic = topic;
@@ -82,15 +78,6 @@ public class Article {
 
     public void setCategory_id(int category_id) {
         this.category_id = category_id;
-    }
-
-    @Column(name = "created_date", nullable = false)
-    public Date getCreated_date() {
-        return created_date;
-    }
-
-    public void setCreated_date(Date created_date) {
-        this.created_date = created_date;
     }
 
     @Column(name = "subtitle", nullable = false)
