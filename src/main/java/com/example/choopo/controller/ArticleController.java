@@ -11,8 +11,8 @@ import javax.validation.Valid;
 import java.util.*;
 
 @RestController
-@RequestMapping("/article")
-public class AricleController {
+@RequestMapping("/reference/article")
+public class ArticleController {
     @Autowired
     private ArticleRepository articleRepository;
 
@@ -52,7 +52,7 @@ public class AricleController {
 
         articleRepository.delete(article);
         Map<String, Boolean> response = new HashMap<>();
-        response.put("deleted", Boolean.TRUE);
+        response.put("DELETED", Boolean.TRUE);
         return response;
     }
 }
