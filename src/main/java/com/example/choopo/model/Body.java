@@ -49,4 +49,13 @@ public class Body {
     public void setBody_content(String body_content) {
         this.body_content = body_content;
     }
+
+    @Override
+    public String toString() {
+        return "Body{" +
+                "body_id=" + body_id +
+                ", body_type=" + body_type +
+                ", body_content='" + body_content + '\'' +
+                '}';
+    }
 }

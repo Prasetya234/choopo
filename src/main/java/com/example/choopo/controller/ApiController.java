@@ -1,8 +1,5 @@
 package com.example.choopo.controller;
 
-
-
-
 public class ApiController {
 
 //    @GetMapping

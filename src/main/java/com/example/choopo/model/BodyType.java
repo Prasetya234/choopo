@@ -53,4 +53,13 @@ public class BodyType {
     public void setBody_type_code(int body_type_code) {
         this.body_type_code = body_type_code;
     }
+
+    @Override
+    public String toString() {
+        return "BodyType{" +
+                "body_type_id=" + body_type_id +
+                ", body_type_name='" + body_type_name + '\'' +
+                ", body_type_code=" + body_type_code +
+                '}';
+    }
 }

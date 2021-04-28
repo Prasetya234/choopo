@@ -49,4 +49,13 @@ public class Topic {
     public void setTopic_code(int topic_code) {
         this.topic_code = topic_code;
     }
+
+    @Override
+    public String toString() {
+        return "Topic{" +
+                "topic_id=" + topic_id +
+                ", topic_name='" + topic_name + '\'' +
+                ", topic_code=" + topic_code +
+                '}';
+    }
 }

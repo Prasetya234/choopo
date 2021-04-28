@@ -51,4 +51,13 @@ public class UserType {
     public void setUser_type_code(int user_type_code) {
         this.user_type_code = user_type_code;
     }
+
+    @Override
+    public String toString() {
+        return "UserType{" +
+                "user_type_id=" + user_type_id +
+                ", user_type_name='" + user_type_name + '\'' +
+                ", user_type_code=" + user_type_code +
+                '}';
+    }
 }

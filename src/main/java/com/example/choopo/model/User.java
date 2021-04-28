@@ -91,4 +91,16 @@ public class User {
     public void setUser_status(int user_status) {
         this.user_status = user_status;
     }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "user_id=" + user_id +
+                ", user_type=" + user_type +
+                ", user_name='" + user_name + '\'' +
+                ", user_code=" + user_code +
+                ", password='" + password + '\'' +
+                ", user_status=" + user_status +
+                '}';
+    }
 }

@@ -52,4 +52,13 @@ public class UserStatus {
     public void setUser_status_code(int user_status_code) {
         this.user_status_code = user_status_code;
     }
+
+    @Override
+    public String toString() {
+        return "UserStatus{" +
+                "user_status_id=" + user_status_id +
+                ", user_status_name='" + user_status_name + '\'' +
+                ", user_status_code=" + user_status_code +
+                '}';
+    }
 }

@@ -128,4 +128,18 @@ public class Article {
     public void setTotal_view(int total_view) {
         this.total_view = total_view;
     }
+
+    @Override
+    public String toString() {
+        return "Article{" +
+                "article_id=" + article_id +
+                ", article_status=" + article_status +
+                ", category_id=" + category_id +
+                ", created_date=" + created_date +
+                ", subtitle='" + subtitle + '\'' +
+                ", title='" + title + '\'' +
+                ", topic='" + topic + '\'' +
+                ", total_view=" + total_view +
+                '}';
+    }
 }

@@ -49,4 +49,13 @@ public class ArticleStatus {
     public void setArticle_status_code(int article_status_code) {
         this.article_status_code = article_status_code;
     }
+
+    @Override
+    public String toString() {
+        return "ArticleStatus{" +
+                "article_status_id=" + article_status_id +
+                ", article_status_name='" + article_status_name + '\'' +
+                ", article_status_code=" + article_status_code +
+                '}';
+    }
 }

@@ -52,4 +52,13 @@ public class Category {
     public void setCategory_name(String category_name) {
         this.category_name = category_name;
     }
+
+    @Override
+    public String toString() {
+        return "Category{" +
+                "category_id=" + category_id +
+                ", parent_id=" + parent_id +
+                ", category_name='" + category_name + '\'' +
+                '}';
+    }
 }
