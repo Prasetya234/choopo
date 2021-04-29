@@ -50,7 +50,7 @@ public class BodyController {
 
         bodyRepository.delete(body);
         Map<String, Boolean> response = new HashMap<>();
-        response.put("deleted", Boolean.TRUE);
+        response.put("DELETED", Boolean.TRUE);
         return response;
     }
 }

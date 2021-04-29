@@ -38,7 +38,8 @@ public class UserTypeController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<UserType> updateEmployee(@PathVariable(value = "id") Long user_type_id, @Valid @RequestBody UserType userTypeDetails) throws ResourceNotFoundExceotion {
+    public ResponseEntity<UserType> updateEmployee(@PathVariable(value = "id") Long user_type_id, @Valid @RequestBody UserType userTypeDetails)
+            throws ResourceNotFoundExceotion {
         UserType userType = userTypeRepository.findById(user_type_id).orElseThrow(() -> new ResourceNotFoundExceotion("USER NOT FOUND " + user_type_id));
 
         userType.setUser_type_name(userTypeDetails.getUser_type_name());
@@ -48,7 +49,7 @@ public class UserTypeController {
     }
 
     @DeleteMapping("/{id}")
-    public Map<String, Boolean> deleteUserType(@PathVariable(value = "id") Long user_type_id)
+    public Map<String, Boolean> deleteUserTypeById(@PathVariable(value = "id") Long user_type_id)
             throws ResourceNotFoundExceotion {
         UserType userType = userTypeRepository.findById(user_type_id)
                 .orElseThrow(() -> new ResourceNotFoundExceotion("ID NOT FOUND  " + user_type_id));

@@ -51,7 +51,7 @@ public class ArticleStatusController {
 
         articleStatusRepository.delete(articleStatus);
         Map<String, Boolean> response = new HashMap<>();
-        response.put("deleted", Boolean.TRUE);
+        response.put("DELETED", Boolean.TRUE);
         return response;
     }
 }
