@@ -13,14 +13,13 @@ public class Article {
 
     private long article_id;
 
-    @NotBlank
+    @NotNull
     private int article_status;
 
-    @NotBlank
+    @NotNull
     private int category_id;
 
-    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss", timezone="Asia/Jakarta")
-    @Temporal(TemporalType.TIMESTAMP)
+    @NotNull
     private Date created_date;
 
     @NotBlank
@@ -35,7 +34,7 @@ public class Article {
     @Size(min = 1,max = 255, message = "topic has exceeded the limit")
     private String topic;
 
-    @NotBlank
+    @NotNull
     private int total_view;
 
 
@@ -43,9 +42,10 @@ public class Article {
 
     }
 
-    public Article(int article_status, int category_id, String subtitle, String title, String topic, int total_view) {
+    public Article(int article_status, int category_id, Date created_date, String subtitle, String title, String topic, int total_view) {
         this.article_status = article_status;
         this.category_id = category_id;
+        this.created_date = created_date;
         this.subtitle = subtitle;
         this.title = title;
         this.topic = topic;
@@ -80,7 +80,8 @@ public class Article {
         this.category_id = category_id;
     }
 
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column
+    @Temporal(TemporalType.DATE)
     public Date getCreated_date() {
         return created_date;
     }
