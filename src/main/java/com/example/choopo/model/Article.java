@@ -1,10 +1,13 @@
 package com.example.choopo.model;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
+
+import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
 import javax.validation.constraints.*;
-import java.util.Date;
+import java.time.LocalDateTime;
+
+import java.sql.*;
 
 
 @Entity
@@ -19,8 +22,9 @@ public class Article {
     @NotNull
     private int category_id;
 
-    @NotNull
+    @Temporal(TemporalType.TIMESTAMP)
     private Date created_date;
+
 
     @NotBlank
     @Size(min = 1,max = 255, message = "subtitle has exceeded the limit")
@@ -42,10 +46,9 @@ public class Article {
 
     }
 
-    public Article(int article_status, int category_id, Date created_date, String subtitle, String title, String topic, int total_view) {
+    public Article(int article_status, int category_id, String subtitle, String title, String topic, int total_view) {
         this.article_status = article_status;
         this.category_id = category_id;
-        this.created_date = created_date;
         this.subtitle = subtitle;
         this.title = title;
         this.topic = topic;
@@ -81,7 +84,7 @@ public class Article {
     }
 
     @Column
-    @Temporal(TemporalType.DATE)
+    @CreationTimestamp
     public Date getCreated_date() {
         return created_date;
     }
