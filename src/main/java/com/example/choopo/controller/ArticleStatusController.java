@@ -37,7 +37,7 @@ public class ArticleStatusController {
 
     @PutMapping("/{id}")
     public ResponseEntity<ArticleStatus> updateArticleStatus(@PathVariable(value = "id") Long article_status_id, @Valid @RequestBody ArticleStatus articleStatusDetails) throws ResourceNotFoundExceotion {
-        ArticleStatus articleStatus = articleStatusRepository.findById(article_status_id).orElseThrow(() -> new ResourceNotFoundExceotion("ARTICLE STATUS NOT FOUND" + article_status_id));
+        ArticleStatus articleStatus = articleStatusRepository.findById(article_status_id).orElseThrow(() -> new ResourceNotFoundExceotion("ARTICLE STATUS NOT FOUND " + article_status_id));
 
         articleStatus.setArticle_status_name(articleStatusDetails.getArticle_status_name());
         articleStatus.setArticle_status_code(articleStatusDetails.getArticle_status_code());
