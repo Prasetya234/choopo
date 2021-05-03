@@ -46,7 +46,6 @@ public class ArticleController {
         article.setSubtitle(articleDetails.getSubtitle());
         article.setTitle(articleDetails.getTitle());
         article.setTopic(articleDetails.getTopic());
-        article.setTotal_view(articleDetails.getTotal_view());
         final Article updateArticle = articleRepository.save(article);
         return ResponseEntity.ok(updateArticle);
     }
