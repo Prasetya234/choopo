@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/reference/user")
+@RequestMapping("/user")
 public class UserController {
 
     @Autowired

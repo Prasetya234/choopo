@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/reference/body")
+@RequestMapping("/body")
 public class BodyController {
     @Autowired
     private BodyRepository bodyRepository;

@@ -4,7 +4,7 @@ import javax.persistence.*;
 import javax.validation.constraints.*;
 
 @Entity
-@Table(name = "user")
+@Table(name = "useres")
 public class User {
     private long user_id;
 

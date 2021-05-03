@@ -11,7 +11,7 @@ import javax.validation.Valid;
 import java.util.*;
 
 @RestController
-@RequestMapping("/reference/article")
+@RequestMapping("/article")
 public class ArticleController {
     @Autowired
     private ArticleRepository articleRepository;
