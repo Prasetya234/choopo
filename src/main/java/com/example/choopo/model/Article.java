@@ -8,6 +8,7 @@ import javax.validation.constraints.*;
 import java.time.LocalDateTime;
 
 import java.sql.*;
+import java.util.Objects;
 
 
 @Entity
@@ -46,13 +47,13 @@ public class Article {
 
     }
 
-    public Article(int article_status, int category_id, String subtitle, String title, String topic, int total_view) {
+    public Article(int article_status, int category_id, String subtitle, String title, String topic) {
         this.article_status = article_status;
         this.category_id = category_id;
         this.subtitle = subtitle;
         this.title = title;
         this.topic = topic;
-        this.total_view = total_view;
+
     }
 
     @Id
@@ -127,6 +128,12 @@ public class Article {
 
     public void setTotal_view(int total_view) {
         this.total_view = total_view;
+    }
+
+    @Override
+    public int hashCode(){
+        int total = 1 + Objects.hashCode(this.total_view);
+        return total;
     }
 
     @Override

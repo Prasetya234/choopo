@@ -4,6 +4,9 @@ import com.example.choopo.exception.ResourceNotFoundExceotion;
 import com.example.choopo.model.Article;
 import com.example.choopo.repository.ArticleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,7 +27,9 @@ public class ArticleController {
     @GetMapping("/{id}")
     public ResponseEntity<Article> getArticleById(@PathVariable(value = "id") Long article_id) throws ResourceNotFoundExceotion {
         Article article  = articleRepository.findById(article_id).orElseThrow(() -> new ResourceNotFoundExceotion("ARTICLE NOT FOUND"));
-        return ResponseEntity.ok().body(article);
+        article.setTotal_view(article.getTotal_view() + 1);
+        final Article updateArticle = articleRepository.save(article);
+        return ResponseEntity.ok().body(updateArticle);
     }
 
     @PostMapping("/")
