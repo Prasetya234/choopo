@@ -68,7 +68,6 @@
 			<groupId>org.apache.tomcat</groupId>
 			<artifactId>tomcat-jdbc</artifactId>
 		</dependency>
-
 		<!-- PostgreSQL used in Staging and Production environment, e.g. on Heroku -->
 		<dependency>
 			<groupId>org.postgresql</groupId>
@@ -76,6 +75,7 @@
 			<version>${postgresql.version}</version>
 		</dependency>
 	</dependencies>
+
 	<build>
 		<plugins>
 			<plugin>

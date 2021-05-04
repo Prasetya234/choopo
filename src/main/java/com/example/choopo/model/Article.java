@@ -5,16 +5,17 @@ import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
 import javax.validation.constraints.*;
-import java.time.LocalDateTime;
 
 import java.sql.*;
 import java.util.Objects;
 
+// Model
 
 @Entity
 @Table(name="article")
 public class Article {
 
+    // variable declaration or called Fields
     private long article_id;
 
     @NotNull
@@ -43,10 +44,12 @@ public class Article {
     private int total_view;
 
 
+    // Constructor
     public Article() {
 
     }
 
+    // Constructor with Param
     public Article(int article_status, int category_id, String subtitle, String title, String topic) {
         this.article_status = article_status;
         this.category_id = category_id;
@@ -56,6 +59,8 @@ public class Article {
 
     }
 
+
+    // Getter and Setter
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     public long getArticle_id() {
@@ -136,6 +141,10 @@ public class Article {
         return total;
     }
 
+    /**
+     * Returns JSON string with id and your data
+     * Implementation can change in future, not to rely to convert object to JSON
+     */
     @Override
     public String toString() {
         return "Article{" +
