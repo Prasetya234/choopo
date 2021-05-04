@@ -23,7 +23,7 @@ public class ArticleController {
 
     @GetMapping("/{id}")
     public ResponseEntity<Article> getArticleById(@PathVariable(value = "id") Long article_id) throws ResourceNotFoundExceotion {
-        Article article  = articleRepository.findById(article_id).orElseThrow(() -> new ResourceNotFoundExceotion("ARTICLE NOT FOUND"));
+        Article article  = articleRepository.findById(article_id).orElseThrow(() -> new ResourceNotFoundExceotion("ARTICLE ID NOT FOUND"));
         article.setTotal_view(article.getTotal_view() + 1);
         final Article updateArticle = articleRepository.save(article);
         return ResponseEntity.ok().body(updateArticle);
@@ -36,7 +36,7 @@ public class ArticleController {
 
     @PutMapping("/{id}")
     public ResponseEntity<Article> updateArticle(@PathVariable(value = "id") Long article_id, @Valid @RequestBody Article articleDetails) throws ResourceNotFoundExceotion {
-        Article article = articleRepository.findById(article_id).orElseThrow(() -> new ResourceNotFoundExceotion("ARTICLE NOT FOUND" + article_id));
+        Article article = articleRepository.findById(article_id).orElseThrow(() -> new ResourceNotFoundExceotion("ARTICLE ID NOT FOUND" + article_id));
 
         article.setArticle_status(articleDetails.getArticle_status());
         article.setCategory_id(articleDetails.getCategory_id());
@@ -49,7 +49,7 @@ public class ArticleController {
 
     @DeleteMapping("/{id}")
     public Map<String, Boolean> deleteArticle(@PathVariable(value = "id") Long article_id) throws ResourceNotFoundExceotion {
-        Article article = articleRepository.findById(article_id).orElseThrow(() -> new ResourceNotFoundExceotion("ARTICLE NOT FOUND " + article_id));
+        Article article = articleRepository.findById(article_id).orElseThrow(() -> new ResourceNotFoundExceotion("ARTICLE ID NOT FOUND " + article_id));
 
         articleRepository.delete(article);
         Map<String, Boolean> response = new HashMap<>();

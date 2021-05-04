@@ -25,7 +25,7 @@ public class BodyController {
 
     @GetMapping("/{id}")
     public ResponseEntity<Body> getBodyById(@PathVariable(value = "id") Long body_id) throws ResourceNotFoundExceotion {
-        Body body = bodyRepository.findById(body_id).orElseThrow(() -> new ResourceNotFoundExceotion("BODY NOT FOUND"));
+        Body body = bodyRepository.findById(body_id).orElseThrow(() -> new ResourceNotFoundExceotion("BODY ID NOT FOUND"));
         return ResponseEntity.ok().body(body);
     }
 
@@ -36,7 +36,7 @@ public class BodyController {
 
     @PutMapping("/{id}")
     public ResponseEntity<Body> updateBody(@PathVariable(value = "id") Long body_id, @Valid @RequestBody Body bodyDetails) throws ResourceNotFoundExceotion {
-        Body body = bodyRepository.findById(body_id).orElseThrow(() -> new ResourceNotFoundExceotion("BODY NOT FOUND " + body_id));
+        Body body = bodyRepository.findById(body_id).orElseThrow(() -> new ResourceNotFoundExceotion("BODY ID NOT FOUND " + body_id));
 
         body.setBody_type(bodyDetails.getBody_type());
         body.setBody_content(bodyDetails.getBody_content());
@@ -46,7 +46,7 @@ public class BodyController {
 
     @DeleteMapping("/{id}")
     public Map<String, Boolean> deleteBody(@PathVariable(value = "id") Long body_id) throws ResourceNotFoundExceotion {
-        Body body = bodyRepository.findById(body_id).orElseThrow(() -> new ResourceNotFoundExceotion("BODY NOT FOUND " + body_id));
+        Body body = bodyRepository.findById(body_id).orElseThrow(() -> new ResourceNotFoundExceotion("BODY ID NOT FOUND " + body_id));
 
         bodyRepository.delete(body);
         Map<String, Boolean> response = new HashMap<>();

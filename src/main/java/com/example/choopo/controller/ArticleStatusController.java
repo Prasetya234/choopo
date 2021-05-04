@@ -24,7 +24,7 @@ public class ArticleStatusController {
 
     @GetMapping("/{id}")
     public ResponseEntity<ArticleStatus> getArticleStatusById(@PathVariable(value = "id") Long article_status_id) throws ResourceNotFoundExceotion {
-        ArticleStatus articleStatus = articleStatusRepository.findById(article_status_id).orElseThrow(() -> new ResourceNotFoundExceotion("ARTICLE STATUS NOT FOUND"));
+        ArticleStatus articleStatus = articleStatusRepository.findById(article_status_id).orElseThrow(() -> new ResourceNotFoundExceotion("ARTICLE STATUS ID NOT FOUND"));
         return ResponseEntity.ok().body(articleStatus);
     }
 
@@ -35,7 +35,7 @@ public class ArticleStatusController {
 
     @PutMapping("/{id}")
     public ResponseEntity<ArticleStatus> updateArticleStatus(@PathVariable(value = "id") Long article_status_id, @Valid @RequestBody ArticleStatus articleStatusDetails) throws ResourceNotFoundExceotion {
-        ArticleStatus articleStatus = articleStatusRepository.findById(article_status_id).orElseThrow(() -> new ResourceNotFoundExceotion("ARTICLE STATUS NOT FOUND " + article_status_id));
+        ArticleStatus articleStatus = articleStatusRepository.findById(article_status_id).orElseThrow(() -> new ResourceNotFoundExceotion("ARTICLE STATUS ID NOT FOUND " + article_status_id));
 
         articleStatus.setArticle_status_name(articleStatusDetails.getArticle_status_name());
         articleStatus.setArticle_status_code(articleStatusDetails.getArticle_status_code());
@@ -45,7 +45,7 @@ public class ArticleStatusController {
 
     @DeleteMapping("/{id}")
     public Map<String, Boolean> deleteArticleStatus(@PathVariable(value = "id") Long article_status_id) throws ResourceNotFoundExceotion {
-        ArticleStatus articleStatus = articleStatusRepository.findById(article_status_id).orElseThrow(() -> new ResourceNotFoundExceotion("ARTICLE STATUS NOT FOUND " + article_status_id));
+        ArticleStatus articleStatus = articleStatusRepository.findById(article_status_id).orElseThrow(() -> new ResourceNotFoundExceotion("ARTICLE STATUS ID NOT FOUND " + article_status_id));
 
         articleStatusRepository.delete(articleStatus);
         Map<String, Boolean> response = new HashMap<>();
