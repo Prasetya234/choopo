@@ -14,12 +14,16 @@ public class Body {
     @NotBlank
     @Size(min = 1,max = 255, message = "article has exceeded the limit")
     private String body_content;
+    @NotBlank
+    @Size(min = 1,max = 255, message = "article has exceeded the limit")
+    private String article_id;
 
     public Body(){}
 
-    public Body(int body_type, String body_content) {
+    public Body(int body_type, String body_content,String article_id) {
         this.body_type = body_type;
         this.body_content = body_content;
+        this.article_id = article_id;
     }
 
     @Id
@@ -50,12 +54,22 @@ public class Body {
         this.body_content = body_content;
     }
 
+    @Column(name= "article_id",nullable = false)
+    public String getArticle_id() {
+        return article_id;
+    }
+
+    public void setArticle_id(String article_id) {
+        this.article_id = article_id;
+    }
+
     @Override
     public String toString() {
         return "Body{" +
                 "body_id=" + body_id +
                 ", body_type=" + body_type +
                 ", body_content='" + body_content + '\'' +
+                ", article_id='" + article_id + '\'' +
                 '}';
     }
 }

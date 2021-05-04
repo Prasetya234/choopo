@@ -1,7 +1,9 @@
 package com.example.choopo.controller;
 
 import com.example.choopo.exception.ResourceNotFoundExceotion;
+import com.example.choopo.model.Article;
 import com.example.choopo.model.Body;
+import com.example.choopo.repository.ArticleRepository;
 import com.example.choopo.repository.BodyRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -17,6 +19,7 @@ import java.util.Map;
 public class BodyController {
     @Autowired
     private BodyRepository bodyRepository;
+    private ArticleRepository articleRepository;
 
     @GetMapping("/")
     public List<Body> getAllBody(){
