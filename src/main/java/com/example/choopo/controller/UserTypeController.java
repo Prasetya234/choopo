@@ -10,9 +10,7 @@ import com.example.choopo.exception.ResourceNotFoundExceotion;
 import org.springframework.http.ResponseEntity;
 
 import javax.validation.Valid;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @RestController
 @RequestMapping("/reference/user-type")

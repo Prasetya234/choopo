@@ -8,7 +8,6 @@ import javax.validation.constraints.*;
 
 import java.sql.*;
 import java.util.Objects;
-import java.util.Optional;
 
 // Model
 
@@ -28,7 +27,6 @@ public class Article {
     @Temporal(TemporalType.TIMESTAMP)
     private Date created_date;
 
-
     @NotBlank
     @Size(min = 1,max = 255, message = "subtitle has exceeded the limit")
     private String subtitle;
@@ -43,7 +41,6 @@ public class Article {
 
     @NotNull
     private int total_view;
-
 
     // Constructor
     public Article() {
