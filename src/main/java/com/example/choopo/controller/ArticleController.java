@@ -4,10 +4,14 @@ import com.example.choopo.exception.ResourceNotFoundExceotion;
 import com.example.choopo.model.Article;
 import com.example.choopo.repository.ArticleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+
 import java.util.*;
 
 @RestController
@@ -17,8 +21,28 @@ public class ArticleController {
     private ArticleRepository articleRepository;
 
     @GetMapping("/")
-    public List<Article> getAllArticle() {
-        return articleRepository.findAll();
+    public ResponseEntity<Map<String, Object>> findByTitle(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "5") int size
+    ) {
+        try {
+
+            List<Article> tutorials = new ArrayList<Article>();
+            PageRequest pageRequest = PageRequest.of(page, size);
+
+            Page<Article> pageTuts = articleRepository.findAll(pageRequest);
+            tutorials = pageTuts.getContent();
+
+            Map<String, Object> response = new HashMap<>();
+            response.put("article", tutorials);
+            response.put("currentPage", pageTuts.getNumber());
+            response.put("totalItems", pageTuts.getTotalElements());
+            response.put("totalPages", pageTuts.getTotalPages());
+
+            return new ResponseEntity<>(response, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @GetMapping("/{id}")
