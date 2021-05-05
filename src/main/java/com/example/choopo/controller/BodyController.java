@@ -28,9 +28,8 @@ public class BodyController {
     }
 
     @GetMapping("/findBodyByArticle/{article_id}")
-     public ResponseEntity<Body> byArticleId(@PathVariable(value = "article_id") String article_id) throws ResourceNotFoundExceotion{
-        Body body = bodyRepository.findByArticleId(article_id);
-        return ResponseEntity.ok().body(body);
+     public List<Body> byArticleId(@PathVariable(value = "article_id") String article_id) throws ResourceNotFoundExceotion{
+        return bodyRepository.findByArticleId(article_id);
     }
 
     @PostMapping("/")
