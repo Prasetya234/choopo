@@ -1,10 +1,9 @@
 package com.example.choopo.model;
 
-import javax.persistence.Column;
 import javax.persistence.*;
 import javax.validation.constraints.*;
 
-@Entity
+@Entity(name="body")
 @Table(name="body")
 public class Body {
     private long body_id;
@@ -12,15 +11,17 @@ public class Body {
     @NotNull
     private int body_type;
     @NotBlank
-    @Size(min = 1,max = 255, message = "article has exceeded the limit")
+    @Size(min = 1,max = 255, message = "body has exceeded the limit")
     private String body_content;
+
     @NotBlank
-    @Size(min = 1,max = 255, message = "article has exceeded the limit")
+    @Size(min = 1, max = 255, message = "body has exceeded the limit")
     private String article_id;
+    public Body(){
 
-    public Body(){}
+    }
 
-    public Body(int body_type, String body_content,String article_id) {
+    public Body(int body_type, String body_content, String article_id) {
         this.body_type = body_type;
         this.body_content = body_content;
         this.article_id = article_id;
@@ -54,7 +55,7 @@ public class Body {
         this.body_content = body_content;
     }
 
-    @Column(name= "article_id",nullable = false)
+    @Column(name = "article_id" , nullable = false)
     public String getArticle_id() {
         return article_id;
     }

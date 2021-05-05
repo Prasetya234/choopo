@@ -32,6 +32,12 @@ public class BodyController {
         return ResponseEntity.ok().body(body);
     }
 
+    @GetMapping("/findBodyByArticle/{article_id}")
+     public ResponseEntity<Body> byArticleId(@PathVariable(value = "article_id") String article_id) throws ResourceNotFoundExceotion{
+        Body body = bodyRepository.findByArticleId(article_id);
+        return ResponseEntity.ok().body(body);
+    }
+
     @PostMapping("/")
     public Body createBody(@Valid @RequestBody Body body) {
         return  bodyRepository.save(body);
