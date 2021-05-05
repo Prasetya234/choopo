@@ -22,8 +22,8 @@ public class ArticleController {
 
     @GetMapping("/")
     public ResponseEntity<Map<String, Object>> findByTitle(
-            @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "5") int size
+            @RequestParam() int page,
+            @RequestParam() int size
     ) {
         try {
 
@@ -33,11 +33,15 @@ public class ArticleController {
             Page<Article> pageTuts = articleRepository.findAll(pageRequest);
             tutorials = pageTuts.getContent();
 
+
             Map<String, Object> response = new HashMap<>();
-            response.put("article", tutorials);
+            response.put("status","SUCCESS");
+            response.put("message","SUCCESS");
             response.put("currentPage", pageTuts.getNumber());
-            response.put("totalItems", pageTuts.getTotalElements());
+            response.put("size",pageTuts.getSize());
+            response.put("totalElement", pageTuts.getTotalElements());
             response.put("totalPages", pageTuts.getTotalPages());
+            response.put("content", tutorials);
 
             return new ResponseEntity<>(response, HttpStatus.OK);
         } catch (Exception e) {
