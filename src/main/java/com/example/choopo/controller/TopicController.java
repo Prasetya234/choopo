@@ -50,9 +50,23 @@ public class TopicController {
 
     @GetMapping("/{id}")
     public ResponseEntity<Topic> getTopicById(@PathVariable (value = "id")Long topic_id)
-            throws ResourceNotFoundExceotion {
-        Topic topic = topicRepository.findById(topic_id).orElseThrow(() -> new ResourceNotFoundExceotion("TOPIC ID NOTFOUND"));
-        return ResponseEntity.ok().body(topic);
+//            throws ResourceNotFoundExceotion {
+//        Topic topic = topicRepository.findById(topic_id).orElseThrow(() -> new ResourceNotFoundExceotion("TOPIC ID NOTFOUND"));
+//        return ResponseEntity.ok().body(topic);
+//    }
+    {
+        try {
+            Optional<Topic> topic = topicRepository.findById(topic_id);
+
+            Map<String, Object> response = new HashMap<>();
+            response.put("message","SUCCESS");
+            response.put("status","SUCCESS");
+            response.put("content", topic);
+
+            return new ResponseEntity(response, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @PutMapping("/{id}")

@@ -49,9 +49,23 @@ public class UserStatusController {
 
     @GetMapping("/{id}")
     public ResponseEntity<UserStatus> getUserStatusById(@PathVariable (value = "id")Long user_status_id)
-            throws ResourceNotFoundExceotion{
-        UserStatus userStatus = userStatusRepository.findById(user_status_id).orElseThrow(() -> new ResourceNotFoundExceotion("USER STATUS ID NOTFOUND"));
-        return ResponseEntity.ok().body(userStatus);
+//            throws ResourceNotFoundExceotion{
+//        UserStatus userStatus = userStatusRepository.findById(user_status_id).orElseThrow(() -> new ResourceNotFoundExceotion("USER STATUS ID NOTFOUND"));
+//        return ResponseEntity.ok().body(userStatus);
+//    }
+    {
+        try {
+            Optional<UserStatus> userStatus = userStatusRepository.findById(user_status_id);
+
+            Map<String, Object> response = new HashMap<>();
+            response.put("message","SUCCESS");
+            response.put("status","SUCCESS");
+            response.put("content", userStatus);
+
+            return new ResponseEntity(response, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @PutMapping("/{id}")

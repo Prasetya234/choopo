@@ -50,9 +50,23 @@ public class UserTypeController {
 
     @GetMapping("/{id}")
     public ResponseEntity<UserType> getUserTypeById(@PathVariable(value = "id") Long  user_type_id)
-            throws ResourceNotFoundExceotion {
-        UserType userType = userTypeRepository.findById(user_type_id).orElseThrow(() -> new ResourceNotFoundExceotion("USERTYPE NOTFOUND"));
-        return ResponseEntity.ok().body(userType);
+//            throws ResourceNotFoundExceotion {
+//        UserType userType = userTypeRepository.findById(user_type_id).orElseThrow(() -> new ResourceNotFoundExceotion("USERTYPE NOTFOUND"));
+//        return ResponseEntity.ok().body(userType);
+//    }
+    {
+        try {
+            Optional<UserType> userType = userTypeRepository.findById(user_type_id);
+
+            Map<String, Object> response = new HashMap<>();
+            response.put("message","SUCCESS");
+            response.put("status","SUCCESS");
+            response.put("content", userType);
+
+            return new ResponseEntity(response, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @PutMapping("/{id}")
