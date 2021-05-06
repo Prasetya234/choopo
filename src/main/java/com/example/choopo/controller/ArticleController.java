@@ -73,14 +73,12 @@ public class ArticleController {
         Article article  = articleRepository.findById(article_id).orElseThrow(() -> new ResourceNotFoundExceotion("ARTICLE ID NOT FOUND"));
         article.setTotal_view(article.getTotal_view() + 1);
         final Article updateArticle = articleRepository.save(article);
-//        return ResponseEntity.ok().body(updateArticle);
 
         try {
             Map<String, Object> response = new HashMap<>();
             response.put("message","SUCCESS");
             response.put("status","SUCCESS");
             response.put("content", updateArticle);
-
 
             return new ResponseEntity(response, HttpStatus.OK);
         } catch (Exception e) {
@@ -102,6 +100,7 @@ public class ArticleController {
         article.setCategory_id(articleDetails.getCategory_id());
         article.setSubtitle(articleDetails.getSubtitle());
         article.setTitle(articleDetails.getTitle());
+        article.setMain_image(articleDetails.getMain_image());
         article.setTopic(articleDetails.getTopic());
         final Article updateArticle = articleRepository.save(article);
         return ResponseEntity.ok(updateArticle);

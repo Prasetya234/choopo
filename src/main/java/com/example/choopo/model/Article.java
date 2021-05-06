@@ -36,6 +36,10 @@ public class Article {
     private String title;
 
     @NotBlank
+    @Size(min = 1, max = 255, message = "main title has exceeded the limit")
+    private String main_image;
+
+    @NotBlank
     @Size(min = 1,max = 255, message = "topic has exceeded the limit")
     private String topic;
 
@@ -48,15 +52,14 @@ public class Article {
     }
 
     // Constructor with Param
-    public Article(int article_status, int category_id, String subtitle, String title, String topic) {
+    public Article(int article_status, int category_id, String subtitle, String title, String main_image, String topic) {
         this.article_status = article_status;
         this.category_id = category_id;
         this.subtitle = subtitle;
         this.title = title;
+        this.main_image = main_image;
         this.topic = topic;
-
     }
-
 
     // Getter and Setter
     @Id
@@ -115,6 +118,15 @@ public class Article {
         this.title = title;
     }
 
+    @Column(name = "main_image", nullable = false)
+    public String getMain_image() {
+        return main_image;
+    }
+
+    public void setMain_image(String main_image) {
+        this.main_image = main_image;
+    }
+
     @Column(name = "topic", nullable = false)
     public String getTopic() {
         return topic;
@@ -132,6 +144,7 @@ public class Article {
     public void setTotal_view(int total_view) {
         this.total_view = total_view;
     }
+
 
     @Override
     public int hashCode(){
@@ -152,6 +165,7 @@ public class Article {
                 ", created_date=" + created_date +
                 ", subtitle='" + subtitle + '\'' +
                 ", title='" + title + '\'' +
+                ", main_image='" + main_image + '\'' +
                 ", topic='" + topic + '\'' +
                 ", total_view=" + total_view +
                 '}';
