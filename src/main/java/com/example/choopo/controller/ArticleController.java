@@ -2,7 +2,6 @@ package com.example.choopo.controller;
 
 import com.example.choopo.exception.ResourceNotFoundExceotion;
 import com.example.choopo.model.Article;
-import com.example.choopo.model.ArticleStatus;
 import com.example.choopo.repository.ArticleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -13,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
+import java.security.SecureRandom;
 import java.util.*;
 
 @RestController
@@ -20,6 +20,25 @@ import java.util.*;
 public class ArticleController {
     @Autowired
     private ArticleRepository articleRepository;
+
+    @GetMapping("/scramble")
+    public ResponseEntity<Map<String, Object>> findMathRandom(){
+        try {
+
+            List<Article> articles = new ArrayList<>();
+
+            articles = articleRepository.articleScramble();
+
+            Map<String, Object> response = new HashMap<>();
+            response.put("message","SUCCESS");
+            response.put("status","SUCCESS");
+            response.put("content", articles);
+
+            return new ResponseEntity<>(response, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 
     @GetMapping("/")
     public ResponseEntity<Map<String, Object>> findByTitle(
