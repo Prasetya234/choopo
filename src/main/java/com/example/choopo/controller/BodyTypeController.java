@@ -2,6 +2,7 @@ package com.example.choopo.controller;
 
 import com.example.choopo.exception.ResourceNotFoundExceotion;
 import com.example.choopo.model.BodyType;
+import com.example.choopo.model.Category;
 import com.example.choopo.model.UserType;
 import com.example.choopo.repository.BodyTypeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,8 +44,21 @@ public class BodyTypeController {
 
     @GetMapping("/{id}")
     public ResponseEntity<BodyType> getBodyTypeById(@PathVariable(value = "id") Long body_type_id) throws ResourceNotFoundExceotion {
-        BodyType bodyType = bodyTypeRepository.findById(body_type_id).orElseThrow(() -> new ResourceNotFoundExceotion("BODY TYPE ID NOT FOUND"));
-        return ResponseEntity.ok().body(bodyType);
+//        BodyType bodyType = bodyTypeRepository.findById(body_type_id).orElseThrow(() -> new ResourceNotFoundExceotion("BODY TYPE ID NOT FOUND"));
+//        return ResponseEntity.ok().body(bodyType);
+        Optional<BodyType> bodyType = Optional.ofNullable(bodyTypeRepository.findById(body_type_id).orElseThrow(() -> new ResourceNotFoundExceotion("BODY TYPE ID NOT FOUND")));
+
+        try {
+            Map<String, Object> response = new HashMap<>();
+            response.put("message","SUCCESS");
+            response.put("status","SUCCESS");
+            response.put("content", bodyType);
+
+            return new ResponseEntity(response, HttpStatus.OK);
+        } catch (Exception e) {
+            ResourceNotFoundExceotion message = new ResourceNotFoundExceotion("BODY TYPE ID NOT FOUND");
+            return new ResponseEntity(message, HttpStatus.BAD_REQUEST);
+        }
     }
 
     @PostMapping("/")

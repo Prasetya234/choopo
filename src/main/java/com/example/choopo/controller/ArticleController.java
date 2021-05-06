@@ -2,6 +2,7 @@ package com.example.choopo.controller;
 
 import com.example.choopo.exception.ResourceNotFoundExceotion;
 import com.example.choopo.model.Article;
+import com.example.choopo.model.ArticleStatus;
 import com.example.choopo.repository.ArticleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -22,8 +23,8 @@ public class ArticleController {
 
     @GetMapping("/")
     public ResponseEntity<Map<String, Object>> findByTitle(
-            @RequestParam() int page,
-            @RequestParam() int size
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "5") int size
     ) {
         try {
 
@@ -54,7 +55,20 @@ public class ArticleController {
         Article article  = articleRepository.findById(article_id).orElseThrow(() -> new ResourceNotFoundExceotion("ARTICLE ID NOT FOUND"));
         article.setTotal_view(article.getTotal_view() + 1);
         final Article updateArticle = articleRepository.save(article);
-        return ResponseEntity.ok().body(updateArticle);
+//        return ResponseEntity.ok().body(updateArticle);
+
+        try {
+            Map<String, Object> response = new HashMap<>();
+            response.put("message","SUCCESS");
+            response.put("status","SUCCESS");
+            response.put("content", updateArticle);
+
+
+            return new ResponseEntity(response, HttpStatus.OK);
+        } catch (Exception e) {
+            ResourceNotFoundExceotion message = new ResourceNotFoundExceotion("ARTICLE ID NOT FOUND");
+            return new ResponseEntity(message, HttpStatus.BAD_REQUEST);
+        }
     }
 
     @PostMapping("/")

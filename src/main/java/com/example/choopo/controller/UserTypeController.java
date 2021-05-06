@@ -1,6 +1,7 @@
 package com.example.choopo.controller;
 
 import com.example.choopo.model.Topic;
+import com.example.choopo.model.UserStatus;
 import com.example.choopo.model.UserType;
 import com.example.choopo.repository.UserTypeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,15 +50,14 @@ public class UserTypeController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<UserType> getUserTypeById(@PathVariable(value = "id") Long  user_type_id)
-//            throws ResourceNotFoundExceotion {
+    public ResponseEntity<UserType> getUserTypeById(@PathVariable(value = "id") Long  user_type_id) throws ResourceNotFoundExceotion {
 //        UserType userType = userTypeRepository.findById(user_type_id).orElseThrow(() -> new ResourceNotFoundExceotion("USERTYPE NOTFOUND"));
 //        return ResponseEntity.ok().body(userType);
 //    }
-    {
-        try {
-            Optional<UserType> userType = userTypeRepository.findById(user_type_id);
 
+        Optional<UserType> userType = Optional.ofNullable(userTypeRepository.findById(user_type_id).orElseThrow(() -> new ResourceNotFoundExceotion("USER TYPE ID NOT FOUND")));
+
+        try {
             Map<String, Object> response = new HashMap<>();
             response.put("message","SUCCESS");
             response.put("status","SUCCESS");
@@ -65,7 +65,8 @@ public class UserTypeController {
 
             return new ResponseEntity(response, HttpStatus.OK);
         } catch (Exception e) {
-            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+            ResourceNotFoundExceotion message = new ResourceNotFoundExceotion("USER TYPE ID NOT FOUND");
+            return new ResponseEntity(message, HttpStatus.BAD_REQUEST);
         }
     }
 

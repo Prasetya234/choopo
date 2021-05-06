@@ -2,6 +2,7 @@ package com.example.choopo.controller;
 
 import com.example.choopo.exception.ResourceNotFoundExceotion;
 import com.example.choopo.model.ArticleStatus;
+import com.example.choopo.model.Body;
 import com.example.choopo.model.UserType;
 import com.example.choopo.repository.ArticleStatusRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,8 +45,21 @@ public class ArticleStatusController {
 
     @GetMapping("/{id}")
     public ResponseEntity<ArticleStatus> getArticleStatusById(@PathVariable(value = "id") Long article_status_id) throws ResourceNotFoundExceotion {
-        ArticleStatus articleStatus = articleStatusRepository.findById(article_status_id).orElseThrow(() -> new ResourceNotFoundExceotion("ARTICLE STATUS ID NOT FOUND"));
-        return ResponseEntity.ok().body(articleStatus);
+//        ArticleStatus articleStatus = articleStatusRepository.findById(article_status_id).orElseThrow(() -> new ResourceNotFoundExceotion("ARTICLE STATUS ID NOT FOUND"));
+//        return ResponseEntity.ok().body(articleStatus);
+        Optional<ArticleStatus> articleStatus = Optional.ofNullable(articleStatusRepository.findById(article_status_id).orElseThrow(() -> new ResourceNotFoundExceotion("ARTICLE STATUS ID NOT FOUND")));
+
+        try {
+            Map<String, Object> response = new HashMap<>();
+            response.put("message","SUCCESS");
+            response.put("status","SUCCESS");
+            response.put("content", articleStatus);
+
+            return new ResponseEntity(response, HttpStatus.OK);
+        } catch (Exception e) {
+            ResourceNotFoundExceotion message = new ResourceNotFoundExceotion("ARTICLE STATUS ID NOT FOUND");
+            return new ResponseEntity(message, HttpStatus.BAD_REQUEST);
+        }
     }
 
     @PostMapping("/")

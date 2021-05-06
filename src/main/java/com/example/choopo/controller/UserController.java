@@ -42,22 +42,16 @@ public class UserController {
         }
     }
 
-
     @PostMapping("/")
     public User createUser(@Valid @RequestBody User user){
         return userRepository.save(user);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<User> getUserById(@PathVariable (value = "id")Long user_id)
-//            throws ResourceNotFoundExceotion{
-//        User user = userRepository.findById(user_id).orElseThrow(() -> new ResourceNotFoundExceotion("USER ID NOTFOUND"));
-//        return ResponseEntity.ok().body(user);
-//    }
-    {
-        try {
-            Optional<User> user = userRepository.findById(user_id);
+    public ResponseEntity<User> getUserById(@PathVariable (value = "id")Long user_id) throws ResourceNotFoundExceotion{
+        Optional<User> user = Optional.ofNullable(userRepository.findById(user_id).orElseThrow(() -> new ResourceNotFoundExceotion("USER ID NOT FOUND")));
 
+        try {
             Map<String, Object> response = new HashMap<>();
             response.put("message","SUCCESS");
             response.put("status","SUCCESS");
@@ -65,7 +59,8 @@ public class UserController {
 
             return new ResponseEntity(response, HttpStatus.OK);
         } catch (Exception e) {
-            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+            ResourceNotFoundExceotion message = new ResourceNotFoundExceotion("USER ID NOT FOUND");
+            return new ResponseEntity(message, HttpStatus.BAD_REQUEST);
         }
     }
 
