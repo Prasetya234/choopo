@@ -1,6 +1,7 @@
 package com.example.choopo.controller;
 
 import com.example.choopo.exception.ResourceNotFoundExceotion;
+import com.example.choopo.model.Article;
 import com.example.choopo.model.Topic;
 import com.example.choopo.repository.TopicRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,28 +20,28 @@ public class TopicController {
     @Autowired
     public TopicRepository topicRepository;
 
-    @GetMapping("/")
-    public List<Topic> getAllTopic(){
-        return topicRepository.findAll();
-    }
-
 //    @GetMapping("/")
-//    public ResponseEntity<Map<String, Object>> getAll() {
-//        try {
-//            List<Topic> tutorials = new ArrayList<>();
-//
-//             tutorials = topicRepository.findAll();
-//
-//            Map<String, Object> response = new HashMap<>();
-//            response.put("status","SUCCESS");
-//            response.put("message","SUCCESS");
-//            response.put("content", tutorials);
-//
-//            return new ResponseEntity<>(response, HttpStatus.OK);
-//        } catch (Exception e) {
-//            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
-//        }
+//    public List<Topic> getAllTopic(){
+//        return topicRepository.findAll();
 //    }
+
+    @GetMapping("/")
+    public ResponseEntity<Map<String, Object>> getAll() {
+        try {
+            List<Topic> topics = new ArrayList<>();
+
+            topics = topicRepository.findAll();
+
+            Map<String, Object> response = new HashMap<>();
+            response.put("message","SUCCESS");
+            response.put("status","SUCCESS");
+            response.put("content", topics);
+
+            return new ResponseEntity<>(response, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 
     @PostMapping("/")
     public Topic createTopic (@Valid @RequestBody Topic topic){

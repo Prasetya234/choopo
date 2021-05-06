@@ -2,8 +2,10 @@ package com.example.choopo.controller;
 
 import com.example.choopo.exception.ResourceNotFoundExceotion;
 import com.example.choopo.model.Body;
+import com.example.choopo.model.UserType;
 import com.example.choopo.repository.BodyRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,9 +18,27 @@ public class BodyController {
     @Autowired
     private BodyRepository bodyRepository;
 
+//    @GetMapping("/")
+//    public List<Body> getAllBody(){
+//        return bodyRepository.findAll();
+//    }
+
     @GetMapping("/")
-    public List<Body> getAllBody(){
-        return bodyRepository.findAll();
+    public ResponseEntity<Map<String, Object>> getAll() {
+        try {
+            List<Body> bodies = new ArrayList<>();
+
+            bodies = bodyRepository.findAll();
+
+            Map<String, Object> response = new HashMap<>();
+            response.put("message","SUCCESS");
+            response.put("status","SUCCESS");
+            response.put("content", bodies);
+
+            return new ResponseEntity<>(response, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @GetMapping("/{id}")

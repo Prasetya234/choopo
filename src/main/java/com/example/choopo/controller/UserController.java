@@ -1,9 +1,11 @@
 package com.example.choopo.controller;
 
 import com.example.choopo.exception.ResourceNotFoundExceotion;
+import com.example.choopo.model.Topic;
 import com.example.choopo.model.User;
 import com.example.choopo.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,10 +19,30 @@ public class UserController {
     @Autowired
     private UserRepository userRepository;
 
+//    @GetMapping("/")
+//    public List<User> getAllUser(){
+//        return userRepository.findAll();
+//    }
+
     @GetMapping("/")
-    public List<User> getAllUser(){
-        return userRepository.findAll();
+    public ResponseEntity<Map<String, Object>> getAll() {
+        try {
+            List<User> users = new ArrayList<>();
+
+            users = userRepository.findAll();
+
+            Map<String, Object> response = new HashMap<>();
+            response.put("status","SUCCESS");
+            response.put("message","SUCCESS");
+            response.put("content", users);
+
+            return new ResponseEntity<>(response, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
+
+
     @PostMapping("/")
     public User createUser(@Valid @RequestBody User user){
         return userRepository.save(user);
