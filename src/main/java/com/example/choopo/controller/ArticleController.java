@@ -100,7 +100,7 @@ public class ArticleController {
         article.setCategory_id(articleDetails.getCategory_id());
         article.setSubtitle(articleDetails.getSubtitle());
         article.setTitle(articleDetails.getTitle());
-        article.setMain_image(articleDetails.getMain_image());
+        article.setMain_image(articleDetails.getMain_image())   ;
         article.setTopic(articleDetails.getTopic());
         final Article updateArticle = articleRepository.save(article);
         return ResponseEntity.ok(updateArticle);
