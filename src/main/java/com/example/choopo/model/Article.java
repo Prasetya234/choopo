@@ -16,16 +16,16 @@ import java.util.Objects;
 public class Article {
 
     // variable declaration or called Fields
-    private long article_id;
+    private long articleId;
 
     @NotNull
-    private int article_status;
+    private int articleStatus;
 
     @NotNull
-    private int category_id;
+    private int categoryId;
 
     @Temporal(TemporalType.TIMESTAMP)
-    private Date created_date;
+    private Date createdDate;
 
     @NotBlank
     @Size(min = 1,max = 255, message = "subtitle has exceeded the limit")
@@ -37,14 +37,14 @@ public class Article {
 
     @NotBlank
     @Size(min = 1, max = 255, message = "main title has exceeded the limit")
-    private String main_image;
+    private String mainImage;
 
     @NotBlank
     @Size(min = 1,max = 255, message = "topic has exceeded the limit")
     private String topic;
 
     @NotNull
-    private int total_view;
+    private int totalView;
 
     // Constructor
     public Article() {
@@ -52,52 +52,55 @@ public class Article {
     }
 
     // Constructor with Param
-    public Article(int article_status, int category_id, String subtitle, String title, String main_image, String topic) {
-        this.article_status = article_status;
-        this.category_id = category_id;
+
+
+    public Article(int articleStatus, int categoryId, String subtitle, String title, String mainImage, String topic ) {
+        this.articleStatus = articleStatus;
+        this.categoryId = categoryId;
         this.subtitle = subtitle;
         this.title = title;
-        this.main_image = main_image;
+        this.mainImage = mainImage;
         this.topic = topic;
     }
 
     // Getter and Setter
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    public long getArticle_id() {
-        return article_id;
+    @Column(name = "article_id")
+    public long getArticleId() {
+        return articleId;
     }
 
-    public void setArticle_id(long article_id) {
-        this.article_id = article_id;
+    public void setArticleId(long articleId) {
+        this.articleId = articleId;
     }
 
     @Column(name = "article_status", nullable = false)
-    public int getArticle_status() {
-        return article_status;
+    public int getArticleStatus() {
+        return articleStatus;
     }
 
-    public void setArticle_status(int article_status) {
-        this.article_status = article_status;
+    public void setArticleStatus(int articleStatus) {
+        this.articleStatus = articleStatus;
     }
 
     @Column(name = "category_id", nullable = false)
-    public int getCategory_id() {
-        return category_id;
+    public int getCategoryId() {
+        return categoryId;
     }
 
-    public void setCategory_id(int category_id) {
-        this.category_id = category_id;
+    public void setCategoryId(int categoryId) {
+        this.categoryId = categoryId;
     }
 
-    @Column
+    @Column(name = "created_date")
     @CreationTimestamp
-    public Date getCreated_date() {
-        return created_date;
+    public Date getCreatedDate() {
+        return createdDate;
     }
 
-    public void setCreated_date(Date created_date) {
-        this.created_date = created_date;
+    public void setCreatedDate(Date createdDate) {
+        this.createdDate = createdDate;
     }
 
     @Column(name = "subtitle", nullable = false)
@@ -119,12 +122,12 @@ public class Article {
     }
 
     @Column(name = "main_image", nullable = false)
-    public String getMain_image() {
-        return main_image;
+    public String getMainImage() {
+        return mainImage;
     }
 
-    public void setMain_image(String main_image) {
-        this.main_image = main_image;
+    public void setMainImage(String mainImage) {
+        this.mainImage = mainImage;
     }
 
     @Column(name = "topic", nullable = false)
@@ -137,18 +140,18 @@ public class Article {
     }
 
     @Column(name = "total_view", nullable = false)
-    public int getTotal_view() {
-        return total_view;
+    public int getTotalView() {
+        return totalView;
     }
 
-    public void setTotal_view(int total_view) {
-        this.total_view = total_view;
+    public void setTotalView(int totalView) {
+        this.totalView = totalView;
     }
 
 
     @Override
     public int hashCode(){
-        int total = 1 + Objects.hashCode(this.total_view);
+        int total = 1 + Objects.hashCode(this.totalView);
         return total;
     }
 
@@ -156,18 +159,19 @@ public class Article {
      * Returns JSON string with id and your data
      * Implementation can change in future, not to rely to convert object to JSON
      */
+
     @Override
     public String toString() {
         return "Article{" +
-                "article_id=" + article_id +
-                ", article_status=" + article_status +
-                ", category_id=" + category_id +
-                ", created_date=" + created_date +
+                "articleId=" + articleId +
+                ", articleStatus=" + articleStatus +
+                ", categoryId=" + categoryId +
+                ", createdDate=" + createdDate +
                 ", subtitle='" + subtitle + '\'' +
                 ", title='" + title + '\'' +
-                ", main_image='" + main_image + '\'' +
+                ", mainImage='" + mainImage + '\'' +
                 ", topic='" + topic + '\'' +
-                ", total_view=" + total_view +
+                ", totalView=" + totalView +
                 '}';
     }
 }

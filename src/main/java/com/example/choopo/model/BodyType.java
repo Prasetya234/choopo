@@ -7,58 +7,59 @@ import javax.validation.constraints.*;
 @Table(name = "body_type")
 public class BodyType {
 
-    private long body_type_id;
+    private long bodyTypeId;
 
     @NotBlank
     @Size(min = 1,max = 255,message = "BodyTypeName has exceeded the limit")
-    private String body_type_name;
+    private String bodyTypeName;
 
     @NotNull
-    private int body_type_code;
+    private int bodyTypeCode;
 
     public BodyType(){
 
     }
 
-    public BodyType(String body_type_name, int body_type_code) {
-        this.body_type_name = body_type_name;
-        this.body_type_code = body_type_code;
+    public BodyType(String bodyTypeName, int bodyTypeCode) {
+        this.bodyTypeName = bodyTypeName;
+        this.bodyTypeCode = bodyTypeCode;
     }
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    public long getBody_type_id() {
-        return body_type_id;
+    @Column(name = "body_type_id")
+    public long getBodyTypeId() {
+        return bodyTypeId;
     }
 
-    public void setBody_type_id(long body_type_id) {
-        this.body_type_id = body_type_id;
+    public void setBodyTypeId(long bodyTypeId) {
+        this.bodyTypeId = bodyTypeId;
     }
 
     @Column(name = "body_type_name", nullable = false)
-    public String getBody_type_name() {
-        return body_type_name;
+    public String getBodyTypeName() {
+        return bodyTypeName;
     }
 
-    public void setBody_type_name(String body_type_name) {
-        this.body_type_name = body_type_name;
+    public void setBodyTypeName(String bodyTypeName) {
+        this.bodyTypeName = bodyTypeName;
     }
 
     @Column(name = "body_type_code", nullable = false)
-    public int getBody_type_code() {
-        return body_type_code;
+    public int getBodyTypeCode() {
+        return bodyTypeCode;
     }
 
-    public void setBody_type_code(int body_type_code) {
-        this.body_type_code = body_type_code;
+    public void setBodyTypeCode(int bodyTypeCode) {
+        this.bodyTypeCode = bodyTypeCode;
     }
 
     @Override
     public String toString() {
         return "BodyType{" +
-                "body_type_id=" + body_type_id +
-                ", body_type_name='" + body_type_name + '\'' +
-                ", body_type_code=" + body_type_code +
+                "bodyTypeId=" + bodyTypeId +
+                ", bodyTypeName='" + bodyTypeName + '\'' +
+                ", bodyTypeCode=" + bodyTypeCode +
                 '}';
     }
 }

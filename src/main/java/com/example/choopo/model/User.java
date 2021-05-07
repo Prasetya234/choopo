@@ -6,72 +6,73 @@ import javax.validation.constraints.*;
 @Entity
 @Table(name = "useres")
 public class User {
-    private long user_id;
+    private long userId;
 
     @NotNull
-    private int user_type;
+    private int userType;
 
     @NotBlank
     @Size(min = 1, max = 255, message = "Username has exceeded the limit")
-    private String user_name;
+    private String userName;
 
     @NotNull
-    private int user_code;
+    private int userCode;
 
     @NotBlank
     @Size(min=2, max = 20, message = "The password must be 4 - 20 words long")
     private String password;
 
     @NotNull
-    private int user_status;
+    private int userStatus;
 
     public User(){
 
     }
 
-    public User(int user_type, String user_name, int user_code, String password, int user_status) {
-        this.user_type = user_type;
-        this.user_name = user_name;
-        this.user_code = user_code;
+    public User(int userType, String userName, int userCode, String password, int userStatus) {
+        this.userType = userType;
+        this.userName = userName;
+        this.userCode = userCode;
         this.password = password;
-        this.user_status = user_status;
+        this.userStatus = userStatus;
     }
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    public long getUser_id() {
-        return user_id;
+    @Column(name = "user_id")
+    public long getUserId() {
+        return userId;
     }
 
-    public void setUser_id(long user_id) {
-        this.user_id = user_id;
+    public void setUserId(long userId) {
+        this.userId = userId;
     }
 
     @Column(name = "user_type", nullable = false)
-    public int getUser_type() {
-        return user_type;
+    public int getUserType() {
+        return userType;
     }
 
-    public void setUser_type(int user_type) {
-        this.user_type = user_type;
+    public void setUserType(int userType) {
+        this.userType = userType;
     }
 
     @Column(name = "user_name", nullable = false)
-    public String getUser_name() {
-        return user_name;
+    public String getUserName() {
+        return userName;
     }
 
-    public void setUser_name(String user_name) {
-        this.user_name = user_name;
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
     @Column(name = "user_code", nullable = false)
-    public int getUser_code() {
-        return user_code;
+    public int getUserCode() {
+        return userCode;
     }
 
-    public void setUser_code(int user_code) {
-        this.user_code = user_code;
+    public void setUserCode(int userCode) {
+        this.userCode = userCode;
     }
 
     @Column(name = "password", nullable = false)
@@ -84,23 +85,23 @@ public class User {
     }
 
     @Column(name = "user_status", nullable = false)
-    public int getUser_status() {
-        return user_status;
+    public int getUserStatus() {
+        return userStatus;
     }
 
-    public void setUser_status(int user_status) {
-        this.user_status = user_status;
+    public void setUserStatus(int userStatus) {
+        this.userStatus = userStatus;
     }
 
     @Override
     public String toString() {
         return "User{" +
-                "user_id=" + user_id +
-                ", user_type=" + user_type +
-                ", user_name='" + user_name + '\'' +
-                ", user_code=" + user_code +
+                "userId=" + userId +
+                ", userType=" + userType +
+                ", userName='" + userName + '\'' +
+                ", userCode=" + userCode +
                 ", password='" + password + '\'' +
-                ", user_status=" + user_status +
+                ", userStatus=" + userStatus +
                 '}';
     }
 }

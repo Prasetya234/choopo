@@ -6,58 +6,59 @@ import javax.validation.constraints.*;
 @Entity
 @Table(name = "user_type")
 public class UserType {
-    private long user_type_id;
+    private long userTypeId;
 
     @NotBlank
     @Size(min = 1, max = 255, message = "user_type_name has exceeded the limit")
-    private String user_type_name;
+    private String userTypeName;
 
     @NotNull
-    private int user_type_code;
+    private int userTypeCode;
 
     public UserType(){
 
     }
 
-    public UserType(String user_type_name, int user_type_code) {
-        this.user_type_name = user_type_name;
-        this.user_type_code = user_type_code;
+    public UserType(String userTypeName, int userTypeCode) {
+        this.userTypeName = userTypeName;
+        this.userTypeCode = userTypeCode;
     }
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    public long getUser_type_id() {
-        return user_type_id;
+    @Column(name = "user_type_id")
+    public long getUserTypeId() {
+        return userTypeId;
     }
 
-    public void setUser_type_id(long user_type_id) {
-        this.user_type_id = user_type_id;
+    public void setUserTypeId(long userTypeId) {
+        this.userTypeId = userTypeId;
     }
 
     @Column(name = "user_type_name", nullable = false)
-    public String getUser_type_name() {
-        return user_type_name;
+    public String getUserTypeName() {
+        return userTypeName;
     }
 
-    public void setUser_type_name(String user_type_name) {
-        this.user_type_name = user_type_name;
+    public void setUserTypeName(String userTypeName) {
+        this.userTypeName = userTypeName;
     }
 
     @Column(name = "user_type_code", nullable = false)
-    public int getUser_type_code() {
-        return user_type_code;
+    public int getUserTypeCode() {
+        return userTypeCode;
     }
 
-    public void setUser_type_code(int user_type_code) {
-        this.user_type_code = user_type_code;
+    public void setUserTypeCode(int userTypeCode) {
+        this.userTypeCode = userTypeCode;
     }
 
     @Override
     public String toString() {
         return "UserType{" +
-                "user_type_id=" + user_type_id +
-                ", user_type_name='" + user_type_name + '\'' +
-                ", user_type_code=" + user_type_code +
+                "userTypeId=" + userTypeId +
+                ", userTypeName='" + userTypeName + '\'' +
+                ", userTypeCode=" + userTypeCode +
                 '}';
     }
 }

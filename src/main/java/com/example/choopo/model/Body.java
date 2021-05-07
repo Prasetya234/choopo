@@ -6,71 +6,72 @@ import javax.validation.constraints.*;
 @Entity(name="body")
 @Table(name="body")
 public class Body {
-    private long body_id;
+    private long bodyId;
 
     @NotNull
-    private int body_type;
+    private int bodyType;
     @NotBlank
     @Size(min = 1,max = 255, message = "body has exceeded the limit")
-    private String body_content;
+    private String bodyContent;
 
     @NotBlank
     @Size(min = 1, max = 255, message = "body has exceeded the limit")
-    private String article_id;
+    private String articleId;
     public Body(){
 
     }
 
-    public Body(int body_type, String body_content, String article_id) {
-        this.body_type = body_type;
-        this.body_content = body_content;
-        this.article_id = article_id;
+    public Body(int bodyType, String bodyContent, String articleId) {
+        this.bodyType = bodyType;
+        this.bodyContent = bodyContent;
+        this.articleId = articleId;
     }
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    public long getBody_id() {
-        return body_id;
+    @Column(name = "body_id")
+    public long getBodyId() {
+        return bodyId;
     }
 
-    public void setBody_id(long body_id) {
-        this.body_id = body_id;
+    public void setBodyId(long bodyId) {
+        this.bodyId = bodyId;
     }
 
     @Column(name = "body_type", nullable = false)
-    public int getBody_type() {
-        return body_type;
+    public int getBodyType() {
+        return bodyType;
     }
 
-    public void setBody_type(int body_type) {
-        this.body_type = body_type;
+    public void setBodyType(int bodyType) {
+        this.bodyType = bodyType;
     }
 
     @Column(name = "body_content", nullable = false)
-    public String getBody_content() {
-        return body_content;
+    public String getBodyContent() {
+        return bodyContent;
     }
 
-    public void setBody_content(String body_content) {
-        this.body_content = body_content;
+    public void setBodyContent(String bodyContent) {
+        this.bodyContent = bodyContent;
     }
 
     @Column(name = "article_id" , nullable = false)
-    public String getArticle_id() {
-        return article_id;
+    public String getArticleId() {
+        return articleId;
     }
 
-    public void setArticle_id(String article_id) {
-        this.article_id = article_id;
+    public void setArticleId(String articleId) {
+        this.articleId = articleId;
     }
 
     @Override
     public String toString() {
         return "Body{" +
-                "body_id=" + body_id +
-                ", body_type=" + body_type +
-                ", body_content='" + body_content + '\'' +
-                ", article_id='" + article_id + '\'' +
+                "bodyId=" + bodyId +
+                ", bodyType=" + bodyType +
+                ", bodyContent='" + bodyContent + '\'' +
+                ", articleId='" + articleId + '\'' +
                 '}';
     }
 }

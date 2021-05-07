@@ -7,58 +7,59 @@ import javax.validation.constraints.*;
 @Table(name="category")
 public class Category {
 
-    private long category_id;
+    private long categoryId;
 
     @NotNull
-    private int parent_id;
+    private int parentId;
 
     @NotBlank
     @Size(min = 1,max = 255, message = "CategoryName has exceeded the limit")
-    private String category_name;
+    private String categoryName;
 
     public  Category(){
 
     }
 
-    public Category(int parent_id, String category_name) {
-        this.parent_id = parent_id;
-        this.category_name = category_name;
+    public Category(int parentId, String categoryName) {
+        this.parentId = parentId;
+        this.categoryName = categoryName;
     }
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    public long getCategory_id() {
-        return category_id;
+    @Column(name = "category_id")
+    public long getCategoryId() {
+        return categoryId;
     }
 
-    public void setCategory_id(long category_id) {
-        this.category_id = category_id;
+    public void setCategoryId(long categoryId) {
+        this.categoryId = categoryId;
     }
 
     @Column(name = "parent_id", nullable = false)
-    public int getParent_id() {
-        return parent_id;
+    public int getParentId() {
+        return parentId;
     }
 
-    public void setParent_id(int parent_id) {
-        this.parent_id = parent_id;
+    public void setParentId(int parentId) {
+        this.parentId = parentId;
     }
 
     @Column(name = "category_name", nullable = false)
-    public String getCategory_name() {
-        return category_name;
+    public String getCategoryName() {
+        return categoryName;
     }
 
-    public void setCategory_name(String category_name) {
-        this.category_name = category_name;
+    public void setCategoryName(String categoryName) {
+        this.categoryName = categoryName;
     }
 
     @Override
     public String toString() {
         return "Category{" +
-                "category_id=" + category_id +
-                ", parent_id=" + parent_id +
-                ", category_name='" + category_name + '\'' +
+                "categoryId=" + categoryId +
+                ", parentId=" + parentId +
+                ", categoryName='" + categoryName + '\'' +
                 '}';
     }
 }

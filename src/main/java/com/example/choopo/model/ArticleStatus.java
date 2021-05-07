@@ -6,56 +6,57 @@ import javax.validation.constraints.*;
 @Entity
 @Table(name = "article_status")
 public class ArticleStatus {
-    private long article_status_id;
+    private long articleStatusId;
 
     @NotBlank
     @Size(min = 1,max = 255, message = "articleStatusName has exceeded the limit")
-    private String article_status_name;
+    private String articleStatusName;
 
     @NotNull
-    private int article_status_code;
+    private int articleStatusCode;
 
     public ArticleStatus(){}
 
-    public ArticleStatus(String article_status_name, int article_status_code) {
-        this.article_status_name = article_status_name;
-        this.article_status_code = article_status_code;
+    public ArticleStatus(String articleStatusName, int articleStatusCode) {
+        this.articleStatusName = articleStatusName;
+        this.articleStatusCode = articleStatusCode;
     }
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    public long getArticle_status_id() {
-        return article_status_id;
+    @Column(name = "article_status_id")
+    public long getArticleStatusId() {
+        return articleStatusId;
     }
 
-    public void setArticle_status_id(long article_status_id) {
-        this.article_status_id = article_status_id;
+    public void setArticleStatusId(long articleStatusId) {
+        this.articleStatusId = articleStatusId;
     }
 
     @Column(name = "article_status_name", nullable = false)
-    public String getArticle_status_name() {
-        return article_status_name;
+    public String getArticleStatusName() {
+        return articleStatusName;
     }
 
-    public void setArticle_status_name(String article_status_name) {
-        this.article_status_name = article_status_name;
+    public void setArticleStatusName(String articleStatusName) {
+        this.articleStatusName = articleStatusName;
     }
 
     @Column(name = "article_status_code",nullable = false)
-    public int getArticle_status_code() {
-        return article_status_code;
+    public int getArticleStatusCode() {
+        return articleStatusCode;
     }
 
-    public void setArticle_status_code(int article_status_code) {
-        this.article_status_code = article_status_code;
+    public void setArticleStatusCode(int articleStatusCode) {
+        this.articleStatusCode = articleStatusCode;
     }
 
     @Override
     public String toString() {
         return "ArticleStatus{" +
-                "article_status_id=" + article_status_id +
-                ", article_status_name='" + article_status_name + '\'' +
-                ", article_status_code=" + article_status_code +
+                "articleStatusId=" + articleStatusId +
+                ", articleStatusName='" + articleStatusName + '\'' +
+                ", articleStatusCode=" + articleStatusCode +
                 '}';
     }
 }

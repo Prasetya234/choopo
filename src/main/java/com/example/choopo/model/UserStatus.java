@@ -7,58 +7,59 @@ import javax.validation.constraints.*;
 @Table(name="user_status")
 public class UserStatus {
 
-    private long user_status_id;
+    private long userStatusId;
 
     @NotBlank
     @Size(min = 1, max= 255, message = "user_status_name has exceeded the limit")
-    private String user_status_name;
+    private String userStatusName;
 
     @NotNull
-    private int user_status_code;
+    private int userStatusCode;
 
-    public  UserStatus(){
+    public UserStatus(){
 
     }
 
-    public UserStatus(String user_status_name, int user_status_code) {
-        this.user_status_name = user_status_name;
-        this.user_status_code = user_status_code;
+    public UserStatus(String userStatusName, int userStatusCode) {
+        this.userStatusName = userStatusName;
+        this.userStatusCode = userStatusCode;
     }
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    public long getUser_status_id() {
-        return user_status_id;
+    @Column(name = "user_status_id")
+    public long getUserStatusId() {
+        return userStatusId;
     }
 
-    public void setUser_status_id(long user_status_id) {
-        this.user_status_id = user_status_id;
+    public void setUserStatusId(long userStatusId) {
+        this.userStatusId = userStatusId;
     }
 
     @Column(name = "user_status_name", nullable = false)
-    public String getUser_status_name() {
-        return user_status_name;
+    public String getUserStatusName() {
+        return userStatusName;
     }
 
-    public void setUser_status_name(String user_status_name) {
-        this.user_status_name = user_status_name;
+    public void setUserStatusName(String userStatusName) {
+        this.userStatusName = userStatusName;
     }
 
     @Column(name = "user_status_code", nullable = false)
-    public int getUser_status_code() {
-        return user_status_code;
+    public int getUserStatusCode() {
+        return userStatusCode;
     }
 
-    public void setUser_status_code(int user_status_code) {
-        this.user_status_code = user_status_code;
+    public void setUserStatusCode(int userStatusCode) {
+        this.userStatusCode = userStatusCode;
     }
 
     @Override
     public String toString() {
         return "UserStatus{" +
-                "user_status_id=" + user_status_id +
-                ", user_status_name='" + user_status_name + '\'' +
-                ", user_status_code=" + user_status_code +
+                "userStatusId=" + userStatusId +
+                ", userStatusName='" + userStatusName + '\'' +
+                ", userStatusCode=" + userStatusCode +
                 '}';
     }
 }

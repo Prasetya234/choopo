@@ -90,7 +90,7 @@ public class ArticleController {
     @GetMapping("/{id}")
     public ResponseEntity<Article> getArticleById(@PathVariable(value = "id") Long article_id) throws ResourceNotFoundExceotion {
         Article article  = articleRepository.findById(article_id).orElseThrow(() -> new ResourceNotFoundExceotion("ARTICLE ID NOT FOUND"));
-        article.setTotal_view(article.getTotal_view() + 1);
+        article.setTotalView(article.getTotalView() + 1);
         final Article updateArticle = articleRepository.save(article);
 
         try {
@@ -115,11 +115,11 @@ public class ArticleController {
     public ResponseEntity<Article> updateArticle(@PathVariable(value = "id") Long article_id, @Valid @RequestBody Article articleDetails) throws ResourceNotFoundExceotion {
         Article article = articleRepository.findById(article_id).orElseThrow(() -> new ResourceNotFoundExceotion("ARTICLE ID NOT FOUND" + article_id));
 
-        article.setArticle_status(articleDetails.getArticle_status());
-        article.setCategory_id(articleDetails.getCategory_id());
+        article.setArticleStatus(articleDetails.getArticleStatus());
+        article.setCategoryId(articleDetails.getCategoryId());
         article.setSubtitle(articleDetails.getSubtitle());
         article.setTitle(articleDetails.getTitle());
-        article.setMain_image(articleDetails.getMain_image())   ;
+        article.setMainImage(articleDetails.getMainImage())   ;
         article.setTopic(articleDetails.getTopic());
         final Article updateArticle = articleRepository.save(article);
         return ResponseEntity.ok(updateArticle);

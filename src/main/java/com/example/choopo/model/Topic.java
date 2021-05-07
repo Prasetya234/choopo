@@ -6,56 +6,58 @@ import javax.validation.constraints.*;
 @Entity
 @Table(name="topic")
 public class Topic {
-    private long topic_id;
+    private long topicId;
 
     @NotBlank
     @Size(min = 1,max=255, message = "name has exceeded the limit")
-    private String topic_name;
+    private String topicName;
 
     @NotNull
-    private int topic_code;
+    private int topicCode;
 
     public Topic(){}
 
-    public Topic(String topic_name, int topic_code) {
-        this.topic_name = topic_name;
-        this.topic_code = topic_code;
+    public Topic(String topicName, int topicCode) {
+        this.topicName = topicName;
+        this.topicCode = topicCode;
     }
+
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    public long getTopic_id() {
-        return topic_id;
+    @Column(name = "topic_id")
+    public long getTopicId() {
+        return topicId;
     }
 
-    public void setTopic_id(long topic_id) {
-        this.topic_id = topic_id;
+    public void setTopicId(long topicId) {
+        this.topicId = topicId;
     }
 
     @Column(name = "topic_name", nullable = false)
-    public String getTopic_name() {
-        return topic_name;
+    public String getTopicName() {
+        return topicName;
     }
 
-    public void setTopic_name(String topic_name) {
-        this.topic_name = topic_name;
+    public void setTopicName(String topicName) {
+        this.topicName = topicName;
     }
 
     @Column(name = "topic_code", nullable = false)
-    public int getTopic_code() {
-        return topic_code;
+    public int getTopicCode() {
+        return topicCode;
     }
 
-    public void setTopic_code(int topic_code) {
-        this.topic_code = topic_code;
+    public void setTopicCode(int topicCode) {
+        this.topicCode = topicCode;
     }
 
     @Override
     public String toString() {
         return "Topic{" +
-                "topic_id=" + topic_id +
-                ", topic_name='" + topic_name + '\'' +
-                ", topic_code=" + topic_code +
+                "topicId=" + topicId +
+                ", topicName='" + topicName + '\'' +
+                ", topicCode=" + topicCode +
                 '}';
     }
 }

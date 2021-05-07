@@ -20,11 +20,6 @@ public class ArticleStatusController {
     @Autowired
     private ArticleStatusRepository articleStatusRepository;
 
-//    @GetMapping("/")
-//    public List<ArticleStatus> getAllEmployees(){
-//        return articleStatusRepository.findAll();
-//    }
-
     @GetMapping("/")
     public ResponseEntity<Map<String, Object>> getAll() {
         try {
@@ -71,8 +66,8 @@ public class ArticleStatusController {
     public ResponseEntity<ArticleStatus> updateArticleStatus(@PathVariable(value = "id") Long article_status_id, @Valid @RequestBody ArticleStatus articleStatusDetails) throws ResourceNotFoundExceotion {
         ArticleStatus articleStatus = articleStatusRepository.findById(article_status_id).orElseThrow(() -> new ResourceNotFoundExceotion("ARTICLE STATUS ID NOT FOUND " + article_status_id));
 
-        articleStatus.setArticle_status_name(articleStatusDetails.getArticle_status_name());
-        articleStatus.setArticle_status_code(articleStatusDetails.getArticle_status_code());
+        articleStatus.setArticleStatusName(articleStatusDetails.getArticleStatusName());
+        articleStatus.setArticleStatusCode(articleStatusDetails.getArticleStatusCode());
         final ArticleStatus updateArticleStatus = articleStatusRepository.save(articleStatus);
         return ResponseEntity.ok(updateArticleStatus);
     }

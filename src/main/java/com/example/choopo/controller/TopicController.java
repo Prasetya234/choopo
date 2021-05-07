@@ -71,8 +71,8 @@ public class TopicController {
             throws ResourceNotFoundExceotion {
         Topic topic = topicRepository.findById(topic_id).orElseThrow(() -> new ResourceNotFoundExceotion("TOPIC ID NOT FOUND"));
 
-        topic.setTopic_name(topicDetails.getTopic_name());
-        topic.setTopic_code(topicDetails.getTopic_code());
+        topic.setTopicName(topicDetails.getTopicName());
+        topic.setTopicCode(topicDetails.getTopicCode());
         final Topic updateTopicById = topicRepository.save(topic);
         return ResponseEntity.ok(updateTopicById);
     }
