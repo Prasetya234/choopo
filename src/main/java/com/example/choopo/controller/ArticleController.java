@@ -20,7 +20,7 @@ public class ArticleController {
     @Autowired
     private ArticleRepository articleRepository;
 
-    @GetMapping("/top-ten")
+    @GetMapping("/top-10")
     public ResponseEntity<Map<String, Object>> findTopTen() {
         try {
             List<Article> articles = new ArrayList<>();
