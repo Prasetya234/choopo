@@ -73,8 +73,8 @@ public class UserStatusController {
             throws ResourceNotFoundExceotion {
         UserStatus userStatus = userStatusRepository.findById(user_status_id).orElseThrow(() -> new ResourceNotFoundExceotion("USER STATUS ID NOTFOUND"));
 
-        userStatus.setUser_status_code(userStatusDetails.getUser_status_code());
-        userStatus.setUser_status_name(userStatusDetails.getUser_status_name());
+        userStatus.setUserStatusCode(userStatusDetails.getUserStatusCode());
+        userStatus.setUserStatusName(userStatusDetails.getUserStatusName());
         final UserStatus updateUserStatusById = userStatusRepository.save(userStatus);
         return ResponseEntity.ok(updateUserStatusById);
     }

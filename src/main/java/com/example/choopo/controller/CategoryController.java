@@ -73,8 +73,8 @@ public class CategoryController {
             throws ResourceNotFoundExceotion{
         Category category = categoryRepository.findById(category_id).orElseThrow(() -> new ResourceNotFoundExceotion("CATEGORY ID NOTFOUND"));
 
-        category.setCategory_name(categoryDetails.getCategory_name());
-        category.setParent_id(categoryDetails.getParent_id());
+        category.setCategoryName(categoryDetails.getCategoryName());
+        category.setParentId(categoryDetails.getParentId());
         final Category updateCategory = categoryRepository.save(category);
         return ResponseEntity.ok(updateCategory);
     }

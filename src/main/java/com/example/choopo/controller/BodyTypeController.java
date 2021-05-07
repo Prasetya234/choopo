@@ -20,7 +20,7 @@ public class BodyTypeController {
     @Autowired
     private BodyTypeRepository bodyTypeRepository;
 
-//    @GetMapping("/")
+    //    @GetMapping("/")
 //    public List<BodyType> getAllBodyType(){
 //        return bodyTypeRepository.findAll();
 //    }
@@ -70,8 +70,8 @@ public class BodyTypeController {
     public ResponseEntity<BodyType> updateBodyType(@PathVariable(value = "id") Long body_type_id, @Valid @RequestBody BodyType bodyTypeDetails) throws ResourceNotFoundExceotion {
         BodyType bodyType = bodyTypeRepository.findById(body_type_id).orElseThrow(() -> new ResourceNotFoundExceotion("BODY TYPE ID NOT FOUND " + body_type_id));
 
-        bodyType.setBody_type_name(bodyTypeDetails.getBody_type_name());
-        bodyType.setBody_type_code(bodyTypeDetails.getBody_type_code());
+        bodyType.setBodyTypeName(bodyTypeDetails.getBodyTypeName());
+        bodyType.setBodyTypeCode(bodyTypeDetails.getBodyTypeCode());
         final BodyType updatedBodyType = bodyTypeRepository.save(bodyType);
         return ResponseEntity.ok(updatedBodyType);
     }

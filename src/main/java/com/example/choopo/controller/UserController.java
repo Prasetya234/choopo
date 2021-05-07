@@ -69,11 +69,11 @@ public class UserController {
             throws ResourceNotFoundExceotion{
         User user = userRepository.findById(user_id).orElseThrow(() -> new ResourceNotFoundExceotion("USER ID NOTFOUND"));
 
-        user.setUser_type(userDetails.getUser_type());
-        user.setUser_name(userDetails.getUser_name());
-        user.setUser_code(userDetails.getUser_code());
+        user.setUserType(userDetails.getUserType());
+        user.setUserName(userDetails.getUserName());
+        user.setUserCode(userDetails.getUserCode());
         user.setPassword(userDetails.getPassword());
-        user.setUser_status(user.getUser_status());
+        user.setUserStatus(user.getUserStatus());
         final User updateUserById = userRepository.save(user);
         return ResponseEntity.ok(updateUserById);
     }

@@ -75,8 +75,8 @@ public class UserTypeController {
             throws ResourceNotFoundExceotion {
         UserType userType = userTypeRepository.findById(user_type_id).orElseThrow(() -> new ResourceNotFoundExceotion("USER NOT FOUND " + user_type_id));
 
-        userType.setUser_type_name(userTypeDetails.getUser_type_name());
-        userType.setUser_type_code(userTypeDetails.getUser_type_code());
+        userType.setUserTypeName(userTypeDetails.getUserTypeName());
+        userType.setUserTypeCode(userTypeDetails.getUserTypeCode());
         final UserType updatedEmployee = userTypeRepository.save(userType);
         return ResponseEntity.ok(updatedEmployee);
     }

@@ -62,7 +62,7 @@ public class BodyController {
     }
 
     @GetMapping("/findBodyByArticle/{article_id}")
-     public List<Body> byArticleId(@PathVariable(value = "article_id") String article_id) throws ResourceNotFoundExceotion{
+    public List<Body> byArticleId(@PathVariable(value = "article_id") String article_id) throws ResourceNotFoundExceotion{
         return bodyRepository.findByArticleId(article_id);
     }
 
@@ -75,8 +75,8 @@ public class BodyController {
     public ResponseEntity<Body> updateBody(@PathVariable(value = "id") Long body_id, @Valid @RequestBody Body bodyDetails) throws ResourceNotFoundExceotion {
         Body body = bodyRepository.findById(body_id).orElseThrow(() -> new ResourceNotFoundExceotion("BODY ID NOT FOUND " + body_id));
 
-        body.setBody_type(bodyDetails.getBody_type());
-        body.setBody_content(bodyDetails.getBody_content());
+        body.setBodyType(bodyDetails.getBodyType());
+        body.setBodyContent(bodyDetails.getBodyContent());
         final Body updatedBody = bodyRepository.save(body);
         return ResponseEntity.ok(updatedBody);
     }
