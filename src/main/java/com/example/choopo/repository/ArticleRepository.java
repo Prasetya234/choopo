@@ -13,4 +13,7 @@ public interface ArticleRepository extends JpaRepository<Article, Long> {
 
     @Query(value="select a.*  from article a order by random() limit 5", nativeQuery=true)
     List<Article> articleScramble();
+
+    @Query(value = "select b.* from article b order by b.total_view desc limit 10", nativeQuery = true)
+    List<Article> articleTopTen();
 }

@@ -20,6 +20,25 @@ public class ArticleController {
     @Autowired
     private ArticleRepository articleRepository;
 
+    @GetMapping("/top-ten")
+    public ResponseEntity<Map<String, Object>> findTopTen() {
+        try {
+            List<Article> articles = new ArrayList<>();
+
+            articles = articleRepository.articleTopTen();
+
+            Map<String, Object> response = new HashMap<>();
+            response.put("message","SUCCESS");
+            response.put("status","SUCCESS");
+            response.put("content", articles);
+
+            return new ResponseEntity<>(response, HttpStatus.OK);
+        } catch(Exception e) {
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+
     @GetMapping("/scramble")
     public ResponseEntity<Map<String, Object>> findMathRandom(){
         try {
