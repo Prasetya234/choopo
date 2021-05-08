@@ -16,4 +16,7 @@ public interface ArticleRepository extends JpaRepository<Article, Long> {
 
     @Query(value = "select b.* from article b order by b.total_view desc limit 10", nativeQuery = true)
     List<Article> articleTopTen();
+
+    @Query(value = "select b.* from article b order by b.created_date desc limit 10", nativeQuery = true)
+    List<Article> articleLatestNews();
 }

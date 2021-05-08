@@ -20,6 +20,24 @@ public class ArticleController {
     @Autowired
     private ArticleRepository articleRepository;
 
+    @GetMapping("/top-news")
+    public ResponseEntity<Map<String, Object>> findLatestNews(){
+        try {
+            List<Article> articles = new ArrayList<>();
+
+            articles = articleRepository.articleLatestNews();
+
+            Map<String, Object> response = new HashMap<>();
+            response.put("message","SUCCESS");
+            response.put("status","SUCCESS");
+            response.put("content", articles);
+
+            return new ResponseEntity<>(response, HttpStatus.OK);
+        } catch(Exception e) {
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
     @GetMapping("/top-10")
     public ResponseEntity<Map<String, Object>> findTopTen() {
         try {
