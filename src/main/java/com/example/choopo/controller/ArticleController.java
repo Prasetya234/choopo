@@ -15,7 +15,7 @@ import javax.validation.Valid;
 
 import java.util.*;
 
-import static com.example.choopo.controller.ResponseUtil.resourceUri;
+import static com.example.choopo.response.ResponseUtil.*;
 
 
 @RestController

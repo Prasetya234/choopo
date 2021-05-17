@@ -1,5 +1,7 @@
 package com.example.choopo.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
 import javax.validation.constraints.*;
 
@@ -8,8 +10,7 @@ import javax.validation.constraints.*;
 public class Body {
     private long bodyId;
 
-    @NotNull
-    private int bodyType;
+
     @NotBlank
     @Size(min = 1,max = 255, message = "body has exceeded the limit")
     private String bodyContent;
@@ -17,12 +18,14 @@ public class Body {
     @NotBlank
     @Size(min = 1, max = 255, message = "body has exceeded the limit")
     private String articleId;
+
+    private BodyType bodyType;
+
     public Body(){
 
     }
 
-    public Body(int bodyType, String bodyContent, String articleId) {
-        this.bodyType = bodyType;
+    public Body(String bodyContent, String articleId) {
         this.bodyContent = bodyContent;
         this.articleId = articleId;
     }
@@ -36,15 +39,6 @@ public class Body {
 
     public void setBodyId(long bodyId) {
         this.bodyId = bodyId;
-    }
-
-    @Column(name = "body_type", nullable = false)
-    public int getBodyType() {
-        return bodyType;
-    }
-
-    public void setBodyType(int bodyType) {
-        this.bodyType = bodyType;
     }
 
     @Column(name = "body_content", nullable = false)
@@ -65,11 +59,24 @@ public class Body {
         this.articleId = articleId;
     }
 
+    @ManyToOne(
+            fetch = FetchType.LAZY,
+            optional = false
+    )
+    @JoinColumn(name = "body_type_id", nullable = false)
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+    public BodyType getBodyType() {
+        return bodyType;
+    }
+
+    public void setBodyType(BodyType bodyType) {
+        this.bodyType = bodyType;
+    }
+
     @Override
     public String toString() {
         return "Body{" +
                 "bodyId=" + bodyId +
-                ", bodyType=" + bodyType +
                 ", bodyContent='" + bodyContent + '\'' +
                 ", articleId='" + articleId + '\'' +
                 '}';

@@ -1,11 +1,14 @@
 package com.example.choopo.controller;
 
 import com.example.choopo.exception.ResourceNotFoundExceotion;
+import com.example.choopo.model.Article;
 import com.example.choopo.model.Body;
 import com.example.choopo.model.BodyType;
 import com.example.choopo.model.UserType;
 import com.example.choopo.repository.BodyRepository;
+import com.example.choopo.repository.BodyTypeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.support.SimpleJpaRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -13,11 +16,15 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.*;
 
+import static com.example.choopo.response.ResponseUtil.resourceBody;
+import static com.example.choopo.response.ResponseUtil.resourceUri;
+
 @RestController
 @RequestMapping("/body")
 public class BodyController {
     @Autowired
     private BodyRepository bodyRepository;
+    private BodyTypeRepository bodyTypeRepository;
 
 //    @GetMapping("/")
 //    public List<Body> getAllBody(){
@@ -66,9 +73,34 @@ public class BodyController {
         return bodyRepository.findByArticleId(article_id);
     }
 
-    @PostMapping("/")
-    public Body createBody(@Valid @RequestBody Body body) {
-        return  bodyRepository.save(body);
+//    @PostMapping("/")
+//    public Body createBody(@Valid @RequestBody Body body) {
+//        return  bodyRepository.save(body);
+//    }
+
+    @PostMapping("/{id}")
+    public ResponseEntity<Body> createBook(
+            @PathVariable(value = "id") Long body_type_id,
+            @Valid @RequestBody Body bodyRequest
+    ) throws ResourceNotFoundExceotion {
+        return bodyTypeRepository.findById(body_type_id)
+                .map(
+                        bodyType -> {
+                            bodyRequest.setBodyType(bodyType);
+                            return bodyRepository.save(bodyRequest);
+                        }
+                )
+                .map(
+                        body -> {
+                            try {
+                                return ResponseEntity.created(resourceBody(body.getBodyId()))
+                                        .body(body);
+                            } catch (ResourceNotFoundExceotion resourceNotFoundExceotion) {
+                                resourceNotFoundExceotion.printStackTrace();
+                            }
+                            return ResponseEntity.ok(bodyRequest);
+                        }
+                ).orElseThrow(() -> new ResourceNotFoundExceotion("ARTICLE STATUS ID NOT FOUND"));
     }
 
     @PutMapping("/{id}")
