@@ -1,13 +1,12 @@
 package com.example.choopo.model;
 
-
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
 import javax.validation.constraints.*;
 
-import java.sql.*;
-import java.util.Objects;
+import java.sql.Date;
 
 // Model
 
@@ -16,10 +15,9 @@ import java.util.Objects;
 public class Article {
 
     // variable declaration or called Fields
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private long articleId;
-
-    @NotNull
-    private int articleStatus;
 
     @NotNull
     private int categoryId;
@@ -46,16 +44,14 @@ public class Article {
     @NotNull
     private int totalView;
 
+    private ArticleStatus articleStatus;
     // Constructor
     public Article() {
 
     }
 
     // Constructor with Param
-
-
-    public Article(int articleStatus, int categoryId, String subtitle, String title, String mainImage, String topic ) {
-        this.articleStatus = articleStatus;
+    public Article( int categoryId, String subtitle, String title, String mainImage, String topic ) {
         this.categoryId = categoryId;
         this.subtitle = subtitle;
         this.title = title;
@@ -73,15 +69,6 @@ public class Article {
 
     public void setArticleId(long articleId) {
         this.articleId = articleId;
-    }
-
-    @Column(name = "article_status", nullable = false)
-    public int getArticleStatus() {
-        return articleStatus;
-    }
-
-    public void setArticleStatus(int articleStatus) {
-        this.articleStatus = articleStatus;
     }
 
     @Column(name = "category_id", nullable = false)
@@ -121,7 +108,7 @@ public class Article {
         this.title = title;
     }
 
-    @Column(name = "main_image", nullable = false)
+    @Column(name = "main_image",columnDefinition = "TEXT(1000000)", nullable = false)
     public String getMainImage() {
         return mainImage;
     }
@@ -148,11 +135,18 @@ public class Article {
         this.totalView = totalView;
     }
 
+    @ManyToOne(
+            fetch = FetchType.LAZY,
+            optional = false
+    )
+    @JoinColumn(name = "article_status_id", nullable = false)
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+    public ArticleStatus getArticleStatus() {
+        return articleStatus;
+    }
 
-    @Override
-    public int hashCode(){
-        int total = 1 + Objects.hashCode(this.totalView);
-        return total;
+    public void setArticleStatus(ArticleStatus articleStatus) {
+        this.articleStatus = articleStatus;
     }
 
     /**
@@ -164,7 +158,6 @@ public class Article {
     public String toString() {
         return "Article{" +
                 "articleId=" + articleId +
-                ", articleStatus=" + articleStatus +
                 ", categoryId=" + categoryId +
                 ", createdDate=" + createdDate +
                 ", subtitle='" + subtitle + '\'' +

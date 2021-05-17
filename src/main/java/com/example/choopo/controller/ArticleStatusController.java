@@ -2,8 +2,7 @@ package com.example.choopo.controller;
 
 import com.example.choopo.exception.ResourceNotFoundExceotion;
 import com.example.choopo.model.ArticleStatus;
-import com.example.choopo.model.Body;
-import com.example.choopo.model.UserType;
+import com.example.choopo.repository.ArticleRepository;
 import com.example.choopo.repository.ArticleStatusRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -19,6 +18,9 @@ public class ArticleStatusController {
 
     @Autowired
     private ArticleStatusRepository articleStatusRepository;
+
+    @Autowired
+    private ArticleRepository articleRepository;
 
     @GetMapping("/")
     public ResponseEntity<Map<String, Object>> getAll() {
@@ -40,8 +42,6 @@ public class ArticleStatusController {
 
     @GetMapping("/{id}")
     public ResponseEntity<ArticleStatus> getArticleStatusById(@PathVariable(value = "id") Long article_status_id) throws ResourceNotFoundExceotion {
-//        ArticleStatus articleStatus = articleStatusRepository.findById(article_status_id).orElseThrow(() -> new ResourceNotFoundExceotion("ARTICLE STATUS ID NOT FOUND"));
-//        return ResponseEntity.ok().body(articleStatus);
         Optional<ArticleStatus> articleStatus = Optional.ofNullable(articleStatusRepository.findById(article_status_id).orElseThrow(() -> new ResourceNotFoundExceotion("ARTICLE STATUS ID NOT FOUND")));
 
         try {
@@ -57,10 +57,18 @@ public class ArticleStatusController {
         }
     }
 
-    @PostMapping("/")
-    public ArticleStatus createArticleStatus(@Valid @RequestBody ArticleStatus articleStatus) {
-        return articleStatusRepository.save(articleStatus);
-    }
+   @PostMapping("/")
+   public ArticleStatus createArticleStatus(@Valid @RequestBody ArticleStatus articleStatus) {
+       return articleStatusRepository.save(articleStatus);
+   }
+
+//    @PostMapping("/{article}/article")
+//    public ArticleStatus createArtcileStatus(@PathVariable(value = "article") Article article, @Valid @RequestBody ArticleStatus articleStatus) {
+//        ArticleStatus status = articleStatusRepository.save(articleStatus);
+//        ArticleStatus articleStatus1 = (ArticleStatus) articleStatusRepository.findByIdAndArticleId(article);
+//        status = articleStatus1;
+//        return articleStatus;
+//    }
 
     @PutMapping("/{id}")
     public ResponseEntity<ArticleStatus> updateArticleStatus(@PathVariable(value = "id") Long article_status_id, @Valid @RequestBody ArticleStatus articleStatusDetails) throws ResourceNotFoundExceotion {

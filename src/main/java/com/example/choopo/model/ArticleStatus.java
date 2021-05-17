@@ -51,6 +51,7 @@ public class ArticleStatus {
         this.articleStatusCode = articleStatusCode;
     }
 
+
     @Override
     public String toString() {
         return "ArticleStatus{" +
