@@ -2,6 +2,7 @@ package com.example.choopo.controller;
 
 import com.example.choopo.exception.ResourceNotFoundExceotion;
 import com.example.choopo.model.Article;
+import com.example.choopo.model.ArticleStatus;
 import com.example.choopo.repository.ArticleRepository;
 import com.example.choopo.repository.ArticleStatusRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,9 +15,6 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 
 import java.util.*;
-
-import static com.example.choopo.response.ResponseUtil.*;
-
 
 @RestController
 @RequestMapping("/article")
@@ -131,31 +129,28 @@ public class ArticleController {
         }
     }
 
-    @PostMapping("/{id}/status")
-    public ResponseEntity<Article> createBook(
-            @PathVariable(value = "id") Long article_status_id,
-            @Valid @RequestBody Article articleRequest
-    ) throws ResourceNotFoundExceotion {
-        return articleStatusRepository.findById(article_status_id)
-                .map(
-                        articleStatus -> {
-                            articleRequest.setArticleStatus(articleStatus);
-                            return articleRepository.save(articleRequest);
-                        }
-                    )
-                .map(
-                        article -> {
-                            try {
-                                return ResponseEntity.created(resourceUri(article.getArticleId()))
-                                        .body(article);
-                            } catch (ResourceNotFoundExceotion resourceNotFoundExceotion) {
-                                resourceNotFoundExceotion.printStackTrace();
-                            }
-                            return ResponseEntity.ok(articleRequest);
-                        }
-                ).orElseThrow(() -> new ResourceNotFoundExceotion("ARTICLE STATUS ID NOT FOUND"));
+    @PostMapping("/")
+    public Article createArticle(@Valid @RequestBody Article articleRequest) throws ResourceNotFoundExceotion {
+        return articleStatusRepository.findById(articleRequest.getArticleStatus().getArticleStatusId()).map(articleStatus -> {
+            articleRequest.setArticleStatus(articleStatus);
+            return articleRepository.save(articleRequest);
+        }).orElseThrow(() -> new ResourceNotFoundExceotion("ARTICLE STATUS ID NOT FOUND"));
     }
 
+//    @PostMapping("/")
+//    public Article createArticle(@RequestBody Article articleRequest)
+//    {
+//        ArticleStatus articleStatus = new ArticleStatus();
+//        articleStatus.setArticleStatusId(1);
+//        articleStatus.setArticleStatusName("PUBLIKASI");
+//        articleStatus.setArticleStatusCode(1);
+//
+//        articleRequest.setArticleStatus(articleStatus);
+//
+//        articleRepository.save(articleRequest);
+//
+//        return articleRequest;
+//    }
 
     @PutMapping("/{id}")
     public ResponseEntity<Article> updateArticle(@PathVariable(value = "id") Long article_id, @Valid @RequestBody Article articleDetails) throws ResourceNotFoundExceotion {

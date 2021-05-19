@@ -1,6 +1,5 @@
 package com.example.choopo.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
@@ -44,19 +43,23 @@ public class Article {
     @NotNull
     private int totalView;
 
+    @NotNull(message = "DATA KOSONG")
     private ArticleStatus articleStatus;
+    
+    
     // Constructor
     public Article() {
 
     }
-
+    
     // Constructor with Param
-    public Article( int categoryId, String subtitle, String title, String mainImage, String topic ) {
+    public Article(int categoryId, String subtitle, String title, String mainImage, String topic, ArticleStatus articleStatus) {
         this.categoryId = categoryId;
         this.subtitle = subtitle;
         this.title = title;
         this.mainImage = mainImage;
         this.topic = topic;
+        this.articleStatus = articleStatus;
     }
 
     // Getter and Setter
@@ -135,12 +138,9 @@ public class Article {
         this.totalView = totalView;
     }
 
-    @ManyToOne(
-            fetch = FetchType.LAZY,
-            optional = false
-    )
-    @JoinColumn(name = "article_status_id", nullable = false)
-    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+    @OneToOne(fetch = FetchType.LAZY,
+            cascade =  CascadeType.MERGE)
+    @JoinColumn(name = "article_status", nullable = false)
     public ArticleStatus getArticleStatus() {
         return articleStatus;
     }

@@ -15,13 +15,13 @@ public interface ArticleRepository extends JpaRepository<Article, Long> {
     @Query(value = "select a.* from article a", nativeQuery = true)
     List<Article> findByTitle(Pageable pageable);
 
-    @Query(value = "select a.*  from article a order by random() limit 5", nativeQuery = true)
+    @Query(value = "select b.*  from article b order by random() limit 5", nativeQuery = true)
     List<Article> articleScramble();
 
-    @Query(value = "select b.* from article b order by b.total_view desc limit 10", nativeQuery = true)
+    @Query(value = "select c.* from article c order by c.total_view desc limit 10", nativeQuery = true)
     List<Article> articleTopTen();
 
-    @Query(value = "select c.* from article c order by c.created_date desc limit 10", nativeQuery = true)
+    @Query(value = "select d.* from article d order by d.created_date desc limit 10", nativeQuery = true)
     List<Article> articleLatestNews();
 
 }
