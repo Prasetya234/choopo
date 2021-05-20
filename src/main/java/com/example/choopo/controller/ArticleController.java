@@ -2,9 +2,9 @@ package com.example.choopo.controller;
 
 import com.example.choopo.exception.ResourceNotFoundExceotion;
 import com.example.choopo.model.Article;
-import com.example.choopo.model.ArticleStatus;
 import com.example.choopo.repository.ArticleRepository;
 import com.example.choopo.repository.ArticleStatusRepository;
+import com.example.choopo.repository.CategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -24,6 +24,9 @@ public class ArticleController {
 
     @Autowired
     private ArticleStatusRepository articleStatusRepository;
+
+    @Autowired
+    private CategoryRepository categoryRepository;
 
     @GetMapping("/top-news")
     public ResponseEntity<Map<String, Object>> findLatestNews(){
@@ -131,31 +134,32 @@ public class ArticleController {
 
     @PostMapping("/")
     public Article createArticle(@Valid @RequestBody Article articleRequest) throws ResourceNotFoundExceotion {
-        return articleStatusRepository.findById(articleRequest.getArticleStatus().getArticleStatusId()).map(articleStatus -> {
-            articleRequest.setArticleStatus(articleStatus);
-            return articleRepository.save(articleRequest);
-        }).orElseThrow(() -> new ResourceNotFoundExceotion("ARTICLE STATUS ID NOT FOUND"));
+        Article articleStatus1 = articleStatusRepository.findById(articleRequest.getArticleStatus().getArticleStatusId())
+                .map(articleStatus -> {
+                    articleRequest.setArticleStatus(articleStatus);
+                    return articleRequest;
+                }).orElseThrow(() -> new ResourceNotFoundExceotion("ARTICLE STATUS ID NOT FOUND"));
+        Article category1 = categoryRepository.findById(articleRequest.getCategory().getCategoryId())
+                .map(category -> {
+                    articleRequest.setCategory(category);
+                    return articleStatus1;
+                }).orElseThrow(() -> new ResourceNotFoundExceotion("CATEGORY STATUS ID NOT FOUND"));
+        return articleRepository.save(articleRequest);
+
     }
 
 //    @PostMapping("/")
-//    public Article createArticle(@RequestBody Article articleRequest) {
-//        ArticleStatus articleStatus = new ArticleStatus();
-//        articleStatus.setArticleStatusId(1);
-//        articleStatus.setArticleStatusName("PUBLIKASI");
-//        articleStatus.setArticleStatusCode(1);
-//
-//        articleRequest.setArticleStatusId(articleStatus);
-//
-//        articleRepository.save(articleRequest);
-//
-//        return articleRequest;
+//    public Article createArticle(@Valid @RequestBody Article articleRequest) throws ResourceNotFoundExceotion {
+//        return articleStatusRepository.findById(articleRequest.getArticleStatus().getArticleStatusId()).map(articleStatus -> {
+//            articleRequest.setArticleStatus(articleStatus);
+//            return articleRepository.save(articleRequest);
+//        }).orElseThrow(() -> new ResourceNotFoundExceotion("ARTICLE STATUS ID NOT FOUND"));
 //    }
 
     @PutMapping("/{id}")
     public ResponseEntity<Article> updateArticle(@PathVariable(value = "id") Long article_id, @Valid @RequestBody Article articleDetails) throws ResourceNotFoundExceotion {
         Article article = articleRepository.findById(article_id).orElseThrow(() -> new ResourceNotFoundExceotion("ARTICLE ID NOT FOUND" + article_id));
 
-        article.setCategoryId(articleDetails.getCategoryId());
         article.setSubtitle(articleDetails.getSubtitle());
         article.setTitle(articleDetails.getTitle());
         article.setMainImage(articleDetails.getMainImage());

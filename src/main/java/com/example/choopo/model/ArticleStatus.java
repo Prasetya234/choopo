@@ -15,12 +15,16 @@ public class ArticleStatus {
     @NotNull
     private int articleStatusCode;
 
+//    @OneToOne(mappedBy = "articleStatus", targetEntity=Article.class , cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY, optional = false)
+//    private Article article;
+
     public ArticleStatus(){}
 
     public ArticleStatus(String articleStatusName, int articleStatusCode) {
         this.articleStatusName = articleStatusName;
         this.articleStatusCode = articleStatusCode;
     }
+
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
