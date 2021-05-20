@@ -1,11 +1,13 @@
 package com.example.choopo.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
 import javax.validation.constraints.*;
 
-import java.sql.Date;
+import java.util.Date;
 
 // Model Article
 
@@ -19,7 +21,8 @@ public class Article {
     private long articleId;
 
 
-    @Temporal(TemporalType.TIMESTAMP)
+//    @Temporal(TemporalType.TIMESTAMP)
+    @JsonFormat(pattern = "dd-MM-yyyy HH:mm:ss", timezone = "Asia/Jakarta")
     private Date createdDate;
 
     @NotBlank(message = "DATA TIDAK BOLEH KOSONG KOSONG")
@@ -52,8 +55,7 @@ public class Article {
 
     }
 
-    public Article(Date createdDate, String subtitle, String title, String mainImage, String topic) {
-        this.createdDate = createdDate;
+    public Article(String subtitle, String title, String mainImage, String topic) {
         this.subtitle = subtitle;
         this.title = title;
         this.mainImage = mainImage;
@@ -129,6 +131,7 @@ public class Article {
 
     @OneToOne(fetch = FetchType.LAZY, cascade =  CascadeType.MERGE)
     @JoinColumn(name = "article_status_id", nullable = false)
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     public ArticleStatus getArticleStatus() {
         return articleStatus;
     }
@@ -139,6 +142,7 @@ public class Article {
 
     @OneToOne(fetch = FetchType.LAZY, cascade =  CascadeType.MERGE)
     @JoinColumn(name = "category", nullable = false)
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     public Category getCategory() {
         return category;
     }

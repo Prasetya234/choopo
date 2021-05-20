@@ -14,8 +14,8 @@ public interface ArticleRepository extends JpaRepository<Article, Long> {
 
     @Query(value = "select a.* from article a", nativeQuery = true)
     List<Article> findByTitle(Pageable pageable);
-
-    @Query(value = "select b.*  from article b order by random() limit 5", nativeQuery = true)
+//SELECT NUM FROM (SELECT round(RAND()*99999) AS NUM) article WHERE NUM NOT IN (SELECT NUM FROM article) LIMIT 5
+    @Query(value = "SELECT b.* FROM article b ORDER BY RAND() LIMIT 5", nativeQuery = true)
     List<Article> articleScramble();
 
     @Query(value = "select c.* from article c order by c.total_view desc limit 10", nativeQuery = true)

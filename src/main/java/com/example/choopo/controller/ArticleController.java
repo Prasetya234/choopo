@@ -19,14 +19,12 @@ import java.util.*;
 @RestController
 @RequestMapping("/article")
 public class ArticleController {
-    @Autowired
-    private ArticleRepository articleRepository;
 
-    @Autowired
-    private ArticleStatusRepository articleStatusRepository;
+    @Autowired private ArticleRepository articleRepository;
 
-    @Autowired
-    private CategoryRepository categoryRepository;
+    @Autowired private ArticleStatusRepository articleStatusRepository;
+
+    @Autowired private CategoryRepository categoryRepository;
 
     @GetMapping("/top-news")
     public ResponseEntity<Map<String, Object>> findLatestNews(){
@@ -143,7 +141,7 @@ public class ArticleController {
                 .map(category -> {
                     articleRequest.setCategory(category);
                     return articleStatus1;
-                }).orElseThrow(() -> new ResourceNotFoundExceotion("CATEGORY STATUS ID NOT FOUND"));
+                }).orElseThrow(() -> new ResourceNotFoundExceotion("CATEGORY ID NOT FOUND"));
         return articleRepository.save(articleRequest);
 
     }
