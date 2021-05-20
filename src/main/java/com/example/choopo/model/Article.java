@@ -18,6 +18,7 @@ public class Article {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long articleId;
 
+
     @Temporal(TemporalType.TIMESTAMP)
     private Date createdDate;
 
@@ -43,15 +44,16 @@ public class Article {
     @NotNull(message = "DATA TIDAK BOLEH KOSONG KOSONG")
     private ArticleStatus articleStatus;
 
-    @NotNull(message = "DATA TIDAK BOLEH KOSONG")
+    @NotNull(message = "DATA TIDAK BOLEH KOSONG KOSONG")
     private Category category;
-    
+
     // Constructor
     public Article() {
 
     }
 
-    public Article(String subtitle, String title, String mainImage, String topic) {
+    public Article(Date createdDate, String subtitle, String title, String mainImage, String topic) {
+        this.createdDate = createdDate;
         this.subtitle = subtitle;
         this.title = title;
         this.mainImage = mainImage;
