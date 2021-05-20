@@ -7,7 +7,7 @@ import javax.validation.constraints.*;
 
 import java.sql.Date;
 
-// Model
+// Model Article
 
 @Entity
 @Table(name="article")
@@ -24,35 +24,33 @@ public class Article {
     @Temporal(TemporalType.TIMESTAMP)
     private Date createdDate;
 
-    @NotBlank
-    @Size(min = 1,max = 255, message = "subtitle has exceeded the limit")
+    @NotBlank(message = "DATA TIDAK BOLEH KOSONG KOSONG")
+    @Size(max = 255, message = "subtitle has exceeded the limit")
     private String subtitle;
 
-    @NotBlank
-    @Size(min = 1,max = 255, message = "title has exceeded the limit")
+    @NotBlank(message = "DATA TIDAK BOLEH KOSONG KOSONG")
+    @Size(max = 255, message = "title has exceeded the limit")
     private String title;
 
-    @NotBlank
-    @Size(min = 1, max = 255, message = "main title has exceeded the limit")
+    @NotBlank(message = "DATA TIDAK BOLEH KOSONG KOSONG")
+    @Size(max = 1000000, message = "main title has exceeded the limit")
     private String mainImage;
 
-    @NotBlank
-    @Size(min = 1,max = 255, message = "topic has exceeded the limit")
+    @NotBlank(message = "DATA TIDAK BOLEH KOSONG KOSONG")
+    @Size(max = 255, message = "topic has exceeded the limit")
     private String topic;
 
     @NotNull
     private int totalView;
 
-    @NotNull(message = "DATA KOSONG")
+    @NotNull(message = "DATA TIDAK BOLEH KOSONG KOSONG")
     private ArticleStatus articleStatus;
-    
     
     // Constructor
     public Article() {
 
     }
-    
-    // Constructor with Param
+
     public Article(int categoryId, String subtitle, String title, String mainImage, String topic, ArticleStatus articleStatus) {
         this.categoryId = categoryId;
         this.subtitle = subtitle;
@@ -138,9 +136,8 @@ public class Article {
         this.totalView = totalView;
     }
 
-    @OneToOne(fetch = FetchType.LAZY,
-            cascade =  CascadeType.MERGE)
-    @JoinColumn(name = "article_status", nullable = false)
+    @OneToOne(fetch = FetchType.LAZY, cascade =  CascadeType.MERGE)
+    @JoinColumn(name = "article_status_id", nullable = false)
     public ArticleStatus getArticleStatus() {
         return articleStatus;
     }
@@ -153,7 +150,6 @@ public class Article {
      * Returns JSON string with id and your data
      * Implementation can change in future, not to rely to convert object to JSON
      */
-
     @Override
     public String toString() {
         return "Article{" +

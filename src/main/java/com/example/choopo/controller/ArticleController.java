@@ -138,14 +138,13 @@ public class ArticleController {
     }
 
 //    @PostMapping("/")
-//    public Article createArticle(@RequestBody Article articleRequest)
-//    {
+//    public Article createArticle(@RequestBody Article articleRequest) {
 //        ArticleStatus articleStatus = new ArticleStatus();
 //        articleStatus.setArticleStatusId(1);
 //        articleStatus.setArticleStatusName("PUBLIKASI");
 //        articleStatus.setArticleStatusCode(1);
 //
-//        articleRequest.setArticleStatus(articleStatus);
+//        articleRequest.setArticleStatusId(articleStatus);
 //
 //        articleRepository.save(articleRequest);
 //
