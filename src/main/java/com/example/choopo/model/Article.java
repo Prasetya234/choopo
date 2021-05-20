@@ -18,8 +18,8 @@ public class Article {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long articleId;
 
-    @NotNull
-    private int categoryId;
+//    @NotNull
+//    private int categoryId;
 
     @Temporal(TemporalType.TIMESTAMP)
     private Date createdDate;
@@ -45,19 +45,23 @@ public class Article {
 
     @NotNull(message = "DATA TIDAK BOLEH KOSONG KOSONG")
     private ArticleStatus articleStatus;
-    
+
+    @NotNull(message = "DATA TIDAK BOLEH KOSONG KOSONG")
+    private Category category;
+
     // Constructor
     public Article() {
 
     }
 
-    public Article(int categoryId, String subtitle, String title, String mainImage, String topic, ArticleStatus articleStatus) {
-        this.categoryId = categoryId;
+    public Article(String subtitle, String title, String mainImage, String topic, int totalView, ArticleStatus articleStatus, Category category) {
         this.subtitle = subtitle;
         this.title = title;
         this.mainImage = mainImage;
         this.topic = topic;
+        this.totalView = totalView;
         this.articleStatus = articleStatus;
+        this.category = category;
     }
 
     // Getter and Setter
@@ -70,15 +74,6 @@ public class Article {
 
     public void setArticleId(long articleId) {
         this.articleId = articleId;
-    }
-
-    @Column(name = "category_id", nullable = false)
-    public int getCategoryId() {
-        return categoryId;
-    }
-
-    public void setCategoryId(int categoryId) {
-        this.categoryId = categoryId;
     }
 
     @Column(name = "created_date")
@@ -146,6 +141,16 @@ public class Article {
         this.articleStatus = articleStatus;
     }
 
+    @OneToOne(fetch = FetchType.LAZY, cascade =  CascadeType.MERGE)
+    @JoinColumn(name = "category_id", nullable = false)
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
+    }
+
     /**
      * Returns JSON string with id and your data
      * Implementation can change in future, not to rely to convert object to JSON
@@ -154,7 +159,6 @@ public class Article {
     public String toString() {
         return "Article{" +
                 "articleId=" + articleId +
-                ", categoryId=" + categoryId +
                 ", createdDate=" + createdDate +
                 ", subtitle='" + subtitle + '\'' +
                 ", title='" + title + '\'' +

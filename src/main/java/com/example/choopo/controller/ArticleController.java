@@ -5,6 +5,7 @@ import com.example.choopo.model.Article;
 import com.example.choopo.model.ArticleStatus;
 import com.example.choopo.repository.ArticleRepository;
 import com.example.choopo.repository.ArticleStatusRepository;
+import com.example.choopo.repository.CategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -24,6 +25,9 @@ public class ArticleController {
 
     @Autowired
     private ArticleStatusRepository articleStatusRepository;
+
+    @Autowired
+    private CategoryRepository categoryRepository;
 
     @GetMapping("/top-news")
     public ResponseEntity<Map<String, Object>> findLatestNews(){
@@ -135,6 +139,10 @@ public class ArticleController {
             articleRequest.setArticleStatus(articleStatus);
             return articleRepository.save(articleRequest);
         }).orElseThrow(() -> new ResourceNotFoundExceotion("ARTICLE STATUS ID NOT FOUND"));
+//        return categoryRepository.findById(articleRequest.getCategory().getCategoryId()).map(category -> {
+//            articleRequest.setCategory(category);
+//            return articleRepository.save(articleRequest);
+//        }).orElseThrow(() -> new ResourceNotFoundExceotion("ARTICLE STATUS ID NOT FOUND"));
     }
 
 //    @PostMapping("/")
@@ -155,7 +163,6 @@ public class ArticleController {
     public ResponseEntity<Article> updateArticle(@PathVariable(value = "id") Long article_id, @Valid @RequestBody Article articleDetails) throws ResourceNotFoundExceotion {
         Article article = articleRepository.findById(article_id).orElseThrow(() -> new ResourceNotFoundExceotion("ARTICLE ID NOT FOUND" + article_id));
 
-        article.setCategoryId(articleDetails.getCategoryId());
         article.setSubtitle(articleDetails.getSubtitle());
         article.setTitle(articleDetails.getTitle());
         article.setMainImage(articleDetails.getMainImage());
