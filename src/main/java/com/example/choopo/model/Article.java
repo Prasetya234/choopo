@@ -21,7 +21,7 @@ public class Article {
     private long articleId;
 
 
-//    @Temporal(TemporalType.TIMESTAMP)
+    @Temporal(TemporalType.TIMESTAMP)
     @JsonFormat(pattern = "dd-MM-yyyy HH:mm:ss", timezone = "Asia/Jakarta")
     private Date createdDate;
 

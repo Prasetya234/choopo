@@ -5,7 +5,7 @@ import javax.validation.constraints.*;
 
 @Entity
 @Table(name = "body_type")
-public class BodyType {
+public class  BodyType {
 
     private long bodyTypeId;
 
