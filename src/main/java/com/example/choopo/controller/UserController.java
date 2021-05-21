@@ -1,12 +1,9 @@
 package com.example.choopo.controller;
 
 import com.example.choopo.exception.ResourceNotFoundExceotion;
-import com.example.choopo.model.Topic;
 import com.example.choopo.model.User;
-import com.example.choopo.repository.UserRepository;
 import com.example.choopo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
