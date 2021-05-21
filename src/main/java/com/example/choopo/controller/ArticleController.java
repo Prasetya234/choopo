@@ -15,7 +15,7 @@ import java.util.*;
 @RequestMapping("/article")
 public class ArticleController {
 
-    @Autowired ArticleService articleService;
+    @Autowired private ArticleService articleService;
 
     @GetMapping("/top-news")
     public ResponseEntity<Map<String, Object>> findLatestNews(){

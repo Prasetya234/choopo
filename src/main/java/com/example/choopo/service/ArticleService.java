@@ -26,11 +26,11 @@ import java.util.Map;
 @Service
 public class ArticleService {
 
-    @Autowired ArticleRepository articleRepository;
+    @Autowired private ArticleRepository articleRepository;
 
-    @Autowired ArticleStatusRepository articleStatusRepository;
+    @Autowired private ArticleStatusRepository articleStatusRepository;
 
-    @Autowired CategoryRepository categoryRepository;
+    @Autowired private CategoryRepository categoryRepository;
 
     // POST ARTICLE
     public Article createArticle(@Valid @RequestBody Article articleRequest) throws ResourceNotFoundExceotion {

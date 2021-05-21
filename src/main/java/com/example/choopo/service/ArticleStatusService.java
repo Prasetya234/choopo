@@ -16,7 +16,7 @@ import java.util.*;
 @Service
 public class ArticleStatusService {
 
-    @Autowired ArticleStatusRepository articleStatusRepository;
+    @Autowired private ArticleStatusRepository articleStatusRepository;
 
     // POST ARTICLE STATUS
     public ArticleStatus createArticleStatus(ArticleStatus articleStatus) {

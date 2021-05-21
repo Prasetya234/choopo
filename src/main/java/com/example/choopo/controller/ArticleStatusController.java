@@ -2,7 +2,6 @@ package com.example.choopo.controller;
 
 import com.example.choopo.exception.ResourceNotFoundExceotion;
 import com.example.choopo.model.ArticleStatus;
-import com.example.choopo.repository.ArticleStatusRepository;
 import com.example.choopo.service.ArticleStatusService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -14,8 +13,6 @@ import java.util.*;
 @RestController
 @RequestMapping("/reference/article-status")
 public class ArticleStatusController {
-
-    @Autowired private ArticleStatusRepository articleStatusRepository;
 
     @Autowired private ArticleStatusService articleStatusService;
 

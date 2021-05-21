@@ -4,6 +4,7 @@ import com.example.choopo.exception.ResourceNotFoundExceotion;
 import com.example.choopo.model.Topic;
 import com.example.choopo.model.User;
 import com.example.choopo.repository.UserRepository;
+import com.example.choopo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,76 +17,30 @@ import java.util.*;
 @RequestMapping("/user")
 public class UserController {
 
-    @Autowired
-    private UserRepository userRepository;
-
-//    @GetMapping("/")
-//    public List<User> getAllUser(){
-//        return userRepository.findAll();
-//    }
+    @Autowired private UserService userService;
 
     @GetMapping("/")
     public ResponseEntity<Map<String, Object>> getAll() {
-        try {
-            List<User> users = new ArrayList<>();
-
-            users = userRepository.findAll();
-
-            Map<String, Object> response = new HashMap<>();
-            response.put("status","SUCCESS");
-            response.put("message","SUCCESS");
-            response.put("content", users);
-
-            return new ResponseEntity<>(response, HttpStatus.OK);
-        } catch (Exception e) {
-            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
-        }
+        return userService.getAll();
     }
 
     @PostMapping("/")
-    public User createUser(@Valid @RequestBody User user){
-        return userRepository.save(user);
+    public User createUser(@Valid @RequestBody User userRequest){
+        return userService.createUser(userRequest);
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<User> getUserById(@PathVariable (value = "id")Long user_id) throws ResourceNotFoundExceotion{
-        Optional<User> user = Optional.ofNullable(userRepository.findById(user_id).orElseThrow(() -> new ResourceNotFoundExceotion("USER ID NOT FOUND")));
-
-        try {
-            Map<String, Object> response = new HashMap<>();
-            response.put("message","SUCCESS");
-            response.put("status","SUCCESS");
-            response.put("content", user);
-
-            return new ResponseEntity(response, HttpStatus.OK);
-        } catch (Exception e) {
-            ResourceNotFoundExceotion message = new ResourceNotFoundExceotion("USER ID NOT FOUND");
-            return new ResponseEntity(message, HttpStatus.BAD_REQUEST);
-        }
+       return userService.getUserById(user_id);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<User> updateUserById(@PathVariable (value = "id")Long user_id,@Valid @RequestBody User userDetails)
-            throws ResourceNotFoundExceotion{
-        User user = userRepository.findById(user_id).orElseThrow(() -> new ResourceNotFoundExceotion("USER ID NOTFOUND"));
-
-        user.setUserType(userDetails.getUserType());
-        user.setUserName(userDetails.getUserName());
-        user.setUserCode(userDetails.getUserCode());
-        user.setPassword(userDetails.getPassword());
-        user.setUserStatus(user.getUserStatus());
-        final User updateUserById = userRepository.save(user);
-        return ResponseEntity.ok(updateUserById);
+    public ResponseEntity<User> updateUserById(@PathVariable (value = "id")Long user_id,@Valid @RequestBody User userDetails) throws ResourceNotFoundExceotion{
+        return userService.updateUserById(user_id, userDetails);
     }
 
     @DeleteMapping("/{id}")
-    public Map<String, Boolean> deleteUserById(@PathVariable (value = "id")Long user_id)
-            throws ResourceNotFoundExceotion {
-        User user = userRepository.findById(user_id).orElseThrow(() -> new ResourceNotFoundExceotion("USER ID NOTFOUND"));
-
-        userRepository.delete(user);
-        Map<String , Boolean> resonse = new HashMap<>();
-        resonse.put("DELETED", Boolean.TRUE);
-        return resonse;
+    public Map<String, Boolean> deleteUserById(@PathVariable (value = "id")Long user_id) throws ResourceNotFoundExceotion {
+        return userService.deleteUserById(user_id);
     }
 }
