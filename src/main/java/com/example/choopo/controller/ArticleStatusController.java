@@ -5,7 +5,6 @@ import com.example.choopo.model.ArticleStatus;
 import com.example.choopo.repository.ArticleStatusRepository;
 import com.example.choopo.service.ArticleStatusService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
