@@ -1,5 +1,6 @@
 package com.example.choopo.controller;
 
+import com.example.choopo.dto.ArticleStatusDTO;
 import com.example.choopo.exception.ResourceNotFoundExceotion;
 import com.example.choopo.model.ArticleStatus;
 import com.example.choopo.service.ArticleStatusService;
@@ -22,18 +23,18 @@ public class ArticleStatusController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<ArticleStatus> getArticleStatusById(@PathVariable(value = "id") Long article_status_id) throws ResourceNotFoundExceotion {
+    public ResponseEntity<ArticleStatusDTO> getArticleStatusById(@PathVariable(value = "id") Long article_status_id) throws ResourceNotFoundExceotion {
         return articleStatusService.getArticleStatusById(article_status_id);
     }
 
    @PostMapping("/")
-   public ArticleStatus createArticleStatus(@Valid @RequestBody ArticleStatus articleStatus) {
-       return articleStatusService.createArticleStatus(articleStatus);
+   public ArticleStatusDTO createArticleStatus(@Valid @RequestBody ArticleStatusDTO articleStatusDTO) {
+       return articleStatusService.createArticleStatus(articleStatusDTO);
    }
 
     @PutMapping("/{id}")
-    public ResponseEntity<ArticleStatus> updateArticleStatus(@PathVariable(value = "id") Long article_status_id, @Valid @RequestBody ArticleStatus articleStatusDetails) throws ResourceNotFoundExceotion {
-        return articleStatusService.updateArticleStatus(article_status_id, articleStatusDetails);
+    public ArticleStatusDTO updateArticleStatus(@PathVariable(value = "id") Long article_status_id, @Valid @RequestBody ArticleStatusDTO articleStatusDTODetils) throws ResourceNotFoundExceotion {
+        return articleStatusService.updateArticleStatus(article_status_id, articleStatusDTODetils);
     }
 
     @DeleteMapping("/{id}")

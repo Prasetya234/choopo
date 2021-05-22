@@ -1,8 +1,10 @@
 package com.example.choopo.service;
 
+import com.example.choopo.dto.ArticleStatusDTO;
 import com.example.choopo.exception.ResourceNotFoundExceotion;
 import com.example.choopo.model.ArticleStatus;
 import com.example.choopo.repository.ArticleStatusRepository;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,12 +17,18 @@ public class ArticleStatusService {
 
     @Autowired private ArticleStatusRepository articleStatusRepository;
 
+    @Autowired private ModelMapper modelMapper;
+
     // POST ARTICLE STATUS
-    public ArticleStatus createArticleStatus(ArticleStatus articleStatus) {
+    public ArticleStatusDTO createArticleStatus(ArticleStatusDTO articleStatusDTO) {
 
-        articleStatus = articleStatusRepository.save(articleStatus);
+        // convert dto to entity
+        ArticleStatus articleStatus = mapToEntity(articleStatusDTO);
+        ArticleStatus newArticleStatus = articleStatusRepository.save(articleStatus);
 
-        return articleStatus;
+        // convert entity to dto
+        ArticleStatusDTO postResponse = mapToDTO(newArticleStatus);
+        return postResponse;
     }
 
     // GET ALL ARTICLE STATUS
@@ -38,7 +46,7 @@ public class ArticleStatusService {
     }
 
     // GET ARTICLE STATUS BY ID
-    public ResponseEntity<ArticleStatus> getArticleStatusById(Long article_status_id) throws ResourceNotFoundExceotion {
+    public ResponseEntity<ArticleStatusDTO> getArticleStatusById(Long article_status_id) throws ResourceNotFoundExceotion {
         Optional<ArticleStatus> articleStatus = Optional.ofNullable(articleStatusRepository.findById(article_status_id)
                 .orElseThrow(() ->
                         new ResourceNotFoundExceotion("ARTICLE STATUS ID NOT FOUND")));
@@ -52,16 +60,16 @@ public class ArticleStatusService {
     }
 
     // UPDATE BODY ARTICLE STATUS
-    public ResponseEntity<ArticleStatus> updateArticleStatus( Long article_status_id, ArticleStatus articleStatusDetails) throws ResourceNotFoundExceotion {
+    public ArticleStatusDTO updateArticleStatus(Long article_status_id, ArticleStatusDTO articleStatusDTODetils) throws ResourceNotFoundExceotion {
         ArticleStatus articleStatus = articleStatusRepository.findById(article_status_id)
                 .orElseThrow(() ->
                         new ResourceNotFoundExceotion("ARTICLE STATUS ID NOT FOUND " + article_status_id));
 
-        articleStatus.setArticleStatusName(articleStatusDetails.getArticleStatusName());
-        articleStatus.setArticleStatusCode(articleStatusDetails.getArticleStatusCode());
+        articleStatus.setArticleStatusName(articleStatusDTODetils.getArticleStatusName());
+        articleStatus.setArticleStatusCode(articleStatusDTODetils.getArticleStatusCode());
         final ArticleStatus updateArticleStatus = articleStatusRepository.save(articleStatus);
 
-        return ResponseEntity.ok(updateArticleStatus);
+        return mapToDTO(updateArticleStatus);
     }
 
     // DELETE ARTICLE STATUS BY ID
@@ -74,5 +82,20 @@ public class ArticleStatusService {
         Map<String, Boolean> response = new HashMap<>();
         response.put("DELETED", Boolean.TRUE);
         return response;
+    }
+
+    // CONVERT DTO TO ENTITY
+    private ArticleStatusDTO mapToDTO(ArticleStatus articleStatus) {
+        ArticleStatusDTO articleStatusDTO = modelMapper.map(articleStatus, ArticleStatusDTO.class);
+
+        return  articleStatusDTO;
+    }
+
+
+    // CONVERT DTO TO ENTITY
+    private ArticleStatus mapToEntity(ArticleStatusDTO articleStatusDTO) {
+        ArticleStatus articleStatus = modelMapper.map(articleStatusDTO, ArticleStatus.class);
+
+        return  articleStatus;
     }
 }
