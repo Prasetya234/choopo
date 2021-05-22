@@ -1,5 +1,6 @@
 package com.example.choopo.controller;
 
+import com.example.choopo.dto.BodyDTO;
 import com.example.choopo.exception.ResourceNotFoundExceotion;
 import com.example.choopo.model.Body;
 import com.example.choopo.service.BodyService;
@@ -22,23 +23,23 @@ public class BodyController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Body> getBodyById(@PathVariable(value = "id") Long body_id) throws ResourceNotFoundExceotion {
+    public ResponseEntity<BodyDTO> getBodyById(@PathVariable(value = "id") Long body_id) throws ResourceNotFoundExceotion {
         return bodyService.getBodyById(body_id);
     }
 
     @GetMapping("/findBodyByArticle/{article_id}")
-    public List<Body> byArticleId(@PathVariable(value = "article_id") String article_id) throws ResourceNotFoundExceotion{
-        return bodyService.byArticleId(article_id);
+    public Body byArticleId(@PathVariable(value = "article_id") String article_id) throws ResourceNotFoundExceotion{
+        return (Body) bodyService.byArticleId(article_id);
     }
 
-    @PostMapping("/{id}/type")
-    public Body createBody(@PathVariable(value = "id") Long body_type_id, @Valid @RequestBody Body bodyRequest) throws ResourceNotFoundExceotion {
-        return bodyService.createBody(body_type_id, bodyRequest);
+    @PostMapping("/")
+    public Body createBody(@Valid @RequestBody Body bodyRequest) throws ResourceNotFoundExceotion {
+        return bodyService.createBody(bodyRequest);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Body> updateBody(@PathVariable(value = "id") Long body_id, @Valid @RequestBody Body bodyDetails) throws ResourceNotFoundExceotion {
-       return bodyService.updateBody(body_id, bodyDetails);
+    public BodyDTO updateBody(@PathVariable(value = "id") Long body_id, @Valid @RequestBody Body bodyDTODetails) throws ResourceNotFoundExceotion {
+       return bodyService.updateBody(body_id, bodyDTODetails);
     }
 
     @DeleteMapping("/{id}")

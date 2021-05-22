@@ -1,8 +1,10 @@
 package com.example.choopo.service;
 
+import com.example.choopo.dto.UserTypeDTO;
 import com.example.choopo.exception.ResourceNotFoundExceotion;
 import com.example.choopo.model.UserType;
 import com.example.choopo.repository.UserTypeRepository;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,6 +16,8 @@ import java.util.*;
 public class UserTypeService {
 
     @Autowired private UserTypeRepository userTypeRepository;
+    @Autowired private ModelMapper modelMapper;
+
 
     // GET ALL USER TYPE
     public ResponseEntity<Map<String, Object>> getAll() {
@@ -31,12 +35,16 @@ public class UserTypeService {
     }
 
     // POST USER TYPE
-    public UserType createUserType(UserType userType){
-        return userTypeRepository.save(userType);
+    public UserTypeDTO createUserType(UserTypeDTO userTypeDTO){
+        UserType userType = mapToEntity(userTypeDTO);
+        UserType newUserType = userTypeRepository.save(userType);
+
+        UserTypeDTO postResponse = mapToDTO(newUserType);
+        return postResponse;
     }
 
     // GET USER TYPE BY ID
-    public ResponseEntity<UserType> getUserTypeById(Long  user_type_id) throws ResourceNotFoundExceotion {
+    public ResponseEntity<UserTypeDTO> getUserTypeById(Long  user_type_id) throws ResourceNotFoundExceotion {
         Optional<UserType> userType = Optional.ofNullable(userTypeRepository.findById(user_type_id)
                 .orElseThrow(() ->
                         new ResourceNotFoundExceotion("USER TYPE ID NOT FOUND")));
@@ -50,16 +58,16 @@ public class UserTypeService {
     }
 
     // UPDATE USER TYPE BY ID
-    public ResponseEntity<UserType> updateUserType(Long user_type_id, UserType userTypeDetails) throws ResourceNotFoundExceotion {
+    public UserTypeDTO updateUserType(Long user_type_id, UserTypeDTO userTypeDTODetails) throws ResourceNotFoundExceotion {
         UserType userType = userTypeRepository.findById(user_type_id)
                 .orElseThrow(() ->
                         new ResourceNotFoundExceotion("USER NOT FOUND " + user_type_id));
 
-        userType.setUserTypeName(userTypeDetails.getUserTypeName());
-        userType.setUserTypeCode(userTypeDetails.getUserTypeCode());
+        userType.setUserTypeName(userTypeDTODetails.getUserTypeName());
+        userType.setUserTypeCode(userTypeDTODetails.getUserTypeCode());
         final UserType updateUserType = userTypeRepository.save(userType);
 
-        return ResponseEntity.ok(updateUserType);
+        return mapToDTO(updateUserType);
     }
 
     // DELETE USER TYPE BY ID
@@ -74,5 +82,20 @@ public class UserTypeService {
         response.put("DELETED", Boolean.TRUE);
 
         return response;
+    }
+
+    // CONVERT DTO TO ENTITY
+    private UserTypeDTO mapToDTO(UserType userType) {
+        UserTypeDTO userTypeDTO = modelMapper.map(userType, UserTypeDTO.class);
+
+        return  userTypeDTO;
+    }
+
+
+    // CONVERT DTO TO ENTITY
+    private UserType mapToEntity(UserTypeDTO userTypeDTO) {
+        UserType userType = modelMapper.map(userTypeDTO, UserType.class);
+
+        return  userType;
     }
 }

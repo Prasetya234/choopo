@@ -1,5 +1,6 @@
 package com.example.choopo.controller;
 
+import com.example.choopo.dto.UserTypeDTO;
 import com.example.choopo.model.UserType;
 import com.example.choopo.repository.UserTypeRepository;
 import com.example.choopo.service.UserTypeService;
@@ -27,18 +28,18 @@ public class UserTypeController {
     }
 
     @PostMapping("/")
-    public UserType createUserType(@Valid @RequestBody UserType userType){
-        return userTypeService.createUserType(userType);
+    public UserTypeDTO createUserType(@Valid @RequestBody UserTypeDTO userTypeDTO){
+        return userTypeService.createUserType(userTypeDTO);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<UserType> getUserTypeById(@PathVariable(value = "id") Long  user_type_id) throws ResourceNotFoundExceotion {
+    public ResponseEntity<UserTypeDTO> getUserTypeById(@PathVariable(value = "id") Long  user_type_id) throws ResourceNotFoundExceotion {
         return userTypeService.getUserTypeById(user_type_id);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<UserType>updateUserType(@PathVariable(value = "id") Long user_type_id, @Valid @RequestBody UserType userTypeDetails) throws ResourceNotFoundExceotion {
-        return userTypeService.updateUserType(user_type_id,userTypeDetails);
+    public UserTypeDTO updateUserType(@PathVariable(value = "id") Long user_type_id, @Valid @RequestBody UserTypeDTO userTypeDTODetails) throws ResourceNotFoundExceotion {
+        return userTypeService.updateUserType(user_type_id,userTypeDTODetails);
     }
 
     @DeleteMapping("/{id}")

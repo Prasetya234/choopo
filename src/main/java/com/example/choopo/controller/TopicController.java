@@ -1,5 +1,7 @@
 package com.example.choopo.controller;
 
+import com.example.choopo.dto.ArticleStatusDTO;
+import com.example.choopo.dto.TopicDTO;
 import com.example.choopo.exception.ResourceNotFoundExceotion;
 import com.example.choopo.model.Topic;
 import com.example.choopo.repository.TopicRepository;
@@ -25,18 +27,18 @@ public class TopicController {
     }
 
     @PostMapping("/")
-    public Topic createTopic (@Valid @RequestBody Topic topic){
-        return topicService.createTopic(topic);
+    public TopicDTO createTopic (@Valid @RequestBody TopicDTO topicDTO){
+        return topicService.createTopic(topicDTO);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Topic> getTopicById(@PathVariable (value = "id")Long topic_id) throws ResourceNotFoundExceotion {
+    public ResponseEntity<TopicDTO> getTopicById(@PathVariable (value = "id")Long topic_id) throws ResourceNotFoundExceotion {
         return topicService.getTopicById(topic_id);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Topic> updateTopicById(@PathVariable (value = "id")Long topic_id, @Valid @RequestBody Topic topicDetails) throws ResourceNotFoundExceotion {
-        return topicService.updateTopicById(topic_id,topicDetails);
+    public TopicDTO updateTopicById(@PathVariable(value = "id") Long topic_id, @Valid @RequestBody TopicDTO topicDTODetails) throws ResourceNotFoundExceotion {
+        return topicService.updateTopicById(topic_id, topicDTODetails);
     }
 
     @DeleteMapping("/{id}")

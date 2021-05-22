@@ -1,7 +1,7 @@
 package com.example.choopo.controller;
 
+import com.example.choopo.dto.CategoryDTO;
 import com.example.choopo.exception.ResourceNotFoundExceotion;
-import com.example.choopo.model.Category;
 import com.example.choopo.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -22,18 +22,18 @@ public class CategoryController {
     }
 
     @PostMapping("/")
-    public Category createCategory(@Valid @RequestBody Category category){
-        return categoryService.createCategory(category);
+    public CategoryDTO createCategory(@Valid @RequestBody CategoryDTO categoryDTO){
+        return categoryService.createCategory(categoryDTO);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Category> getCategoryById(@PathVariable (value = "id") Long category_id) throws ResourceNotFoundExceotion{
+    public ResponseEntity<CategoryDTO> getCategoryById(@PathVariable (value = "id") Long category_id) throws ResourceNotFoundExceotion{
         return categoryService.getCategoryById(category_id);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Category> updateCategory(@PathVariable (value = "id") Long category_id,@Valid @RequestBody Category categoryDetails) throws ResourceNotFoundExceotion{
-        return categoryService.updateCategory(category_id, categoryDetails);
+    public CategoryDTO updateCategory(@PathVariable(value = "id") Long category_id, @Valid @RequestBody CategoryDTO categoryDTODetails) throws ResourceNotFoundExceotion {
+        return categoryService.updateCategory(category_id, categoryDTODetails);
     }
 
     @DeleteMapping("/{id}")

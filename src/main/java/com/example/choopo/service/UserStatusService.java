@@ -1,8 +1,10 @@
 package com.example.choopo.service;
 
+import com.example.choopo.dto.UserStatusDTO;
 import com.example.choopo.exception.ResourceNotFoundExceotion;
 import com.example.choopo.model.UserStatus;
 import com.example.choopo.repository.UserStatusRepository;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,6 +16,8 @@ import java.util.*;
 public class UserStatusService {
 
     @Autowired private UserStatusRepository userStatusRepository;
+    @Autowired private ModelMapper modelMapper;
+
 
     // GET ALL USER STATUS
     public ResponseEntity<Map<String, Object>> getAll() {
@@ -31,14 +35,19 @@ public class UserStatusService {
     }
 
     // POST USER STATUS
-    public UserStatus createUserStatus(UserStatus userStatus){
-        return userStatusRepository.save(userStatus);
+    public UserStatusDTO createUserStatus(UserStatusDTO userStatusDTO){
+        UserStatus userStatus = mapToEntity(userStatusDTO);
+        UserStatus newUserStatus = userStatusRepository.save(userStatus);
+
+        UserStatusDTO postResponse = mapToDTO(newUserStatus);
+        return postResponse;
     }
 
     // GET USER STATUS BY ID
-    public ResponseEntity<UserStatus> getUserStatusById(Long user_status_id) throws ResourceNotFoundExceotion {
+    public ResponseEntity<UserStatusDTO> getUserStatusById(Long user_status_id) throws ResourceNotFoundExceotion {
 
-        Optional<UserStatus> userStatus = Optional.ofNullable(userStatusRepository.findById(user_status_id).orElseThrow(() -> new ResourceNotFoundExceotion("USER STATUS ID NOT FOUND")));
+        Optional<UserStatus> userStatus = Optional.ofNullable(userStatusRepository.findById(user_status_id)
+                .orElseThrow(() -> new ResourceNotFoundExceotion("USER STATUS ID NOT FOUND")));
 
             Map<String, Object> response = new HashMap<>();
             response.put("message","SUCCESS");
@@ -49,16 +58,16 @@ public class UserStatusService {
     }
 
     // UDPATE USER STATUS BY ID
-    public ResponseEntity<UserStatus> updateUserStatusById(Long user_status_id, UserStatus userStatusDetails) throws ResourceNotFoundExceotion {
+    public UserStatusDTO updateUserStatusById(Long user_status_id, UserStatusDTO userStatusDTODetails) throws ResourceNotFoundExceotion {
         UserStatus userStatus = userStatusRepository.findById(user_status_id)
                 .orElseThrow(() ->
                         new ResourceNotFoundExceotion("USER STATUS ID NOTFOUND"));
 
-        userStatus.setUserStatusCode(userStatusDetails.getUserStatusCode());
-        userStatus.setUserStatusName(userStatusDetails.getUserStatusName());
+        userStatus.setUserStatusCode(userStatusDTODetails.getUserStatusCode());
+        userStatus.setUserStatusName(userStatusDTODetails.getUserStatusName());
         final UserStatus updateUserStatusById = userStatusRepository.save(userStatus);
 
-        return ResponseEntity.ok(updateUserStatusById);
+        return mapToDTO(updateUserStatusById);
     }
 
     // DELETE USER STATUS BY ID
@@ -74,4 +83,20 @@ public class UserStatusService {
 
         return response;
     }
+
+    // CONVERT DTO TO ENTITY
+    private UserStatusDTO mapToDTO(UserStatus userStatus) {
+        UserStatusDTO userStatusDTO = modelMapper.map(userStatus, UserStatusDTO.class);
+
+        return  userStatusDTO;
+    }
+
+
+    // CONVERT DTO TO ENTITY
+    private UserStatus mapToEntity(UserStatusDTO userStatusDTO) {
+        UserStatus userStatus = modelMapper.map(userStatusDTO, UserStatus.class);
+
+        return  userStatus;
+    }
+
 }

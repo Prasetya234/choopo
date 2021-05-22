@@ -2,7 +2,6 @@ package com.example.choopo.controller;
 
 import com.example.choopo.dto.ArticleStatusDTO;
 import com.example.choopo.exception.ResourceNotFoundExceotion;
-import com.example.choopo.model.ArticleStatus;
 import com.example.choopo.service.ArticleStatusService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

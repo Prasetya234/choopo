@@ -1,5 +1,6 @@
 package com.example.choopo.controller;
 
+import com.example.choopo.dto.UserStatusDTO;
 import com.example.choopo.exception.ResourceNotFoundExceotion;
 import com.example.choopo.model.UserStatus;
 import com.example.choopo.service.UserStatusService;
@@ -22,18 +23,18 @@ public class UserStatusController {
     }
 
     @PostMapping("/")
-    public UserStatus createUserStatus(@Valid @RequestBody UserStatus userStatus){
-        return userStatusService.createUserStatus(userStatus);
+    public UserStatusDTO createUserStatus(@Valid @RequestBody UserStatusDTO userStatusDTO){
+        return userStatusService.createUserStatus(userStatusDTO);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<UserStatus> getUserStatusById(@PathVariable (value = "id")Long user_status_id) throws ResourceNotFoundExceotion{
+    public ResponseEntity<UserStatusDTO> getUserStatusById(@PathVariable (value = "id")Long user_status_id) throws ResourceNotFoundExceotion{
         return userStatusService.getUserStatusById(user_status_id);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<UserStatus> updateUserStatusById(@PathVariable (value = "id")Long user_status_id,@Valid @RequestBody UserStatus userStatusDetails) throws ResourceNotFoundExceotion {
-        return userStatusService.updateUserStatusById(user_status_id,userStatusDetails);
+    public UserStatusDTO updateUserStatusById(@PathVariable (value = "id")Long user_status_id,@Valid @RequestBody UserStatusDTO userStatusDTODetails) throws ResourceNotFoundExceotion {
+        return userStatusService.updateUserStatusById(user_status_id,userStatusDTODetails);
     }
 
     @DeleteMapping("/{id}")
