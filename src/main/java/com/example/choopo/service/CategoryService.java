@@ -17,7 +17,7 @@ public class CategoryService {
 
     // GET ALL CATEGORY
     public ResponseEntity<Map<String, Object>> getAll() {
-        try {
+
             List<Category> categories = new ArrayList<>();
 
             categories = categoryRepository.findAll();
@@ -28,9 +28,6 @@ public class CategoryService {
             response.put("content", categories);
 
             return new ResponseEntity<>(response, HttpStatus.OK);
-        } catch (Exception e) {
-            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
-        }
     }
 
     // POST CATEGORY
@@ -44,17 +41,12 @@ public class CategoryService {
                 .orElseThrow(() ->
                         new ResourceNotFoundExceotion("CATEGORY ID NOT FOUND")));
 
-        try {
             Map<String, Object> response = new HashMap<>();
             response.put("message","SUCCESS");
             response.put("status","SUCCESS");
             response.put("content", category);
 
             return new ResponseEntity(response, HttpStatus.OK);
-        } catch (Exception e) {
-            ResourceNotFoundExceotion message = new ResourceNotFoundExceotion("CATEGORY ID NOT FOUND");
-            return new ResponseEntity(message, HttpStatus.BAD_REQUEST);
-        }
     }
 
     // UPDATE CATEGORY BY ID

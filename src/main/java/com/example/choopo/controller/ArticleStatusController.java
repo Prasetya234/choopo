@@ -31,11 +31,8 @@ public class ArticleStatusController {
        return articleStatusService.createArticleStatus(articleStatus);
    }
 
-
     @PutMapping("/{id}")
     public ResponseEntity<ArticleStatus> updateArticleStatus(@PathVariable(value = "id") Long article_status_id, @Valid @RequestBody ArticleStatus articleStatusDetails) throws ResourceNotFoundExceotion {
-//        articleStatusDetails.setArticleStatusName(articleStatusDetails.getArticleStatusName());
-//        articleStatusDetails.setArticleStatusCode(articleStatusDetails.getArticleStatusCode());
         return articleStatusService.updateArticleStatus(article_status_id, articleStatusDetails);
     }
 

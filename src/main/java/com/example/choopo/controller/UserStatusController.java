@@ -16,7 +16,6 @@ public class UserStatusController {
 
     @Autowired private UserStatusService userStatusService;
 
-
     @GetMapping("/")
     public ResponseEntity<Map<String, Object>> getAll() {
         return userStatusService.getAll();

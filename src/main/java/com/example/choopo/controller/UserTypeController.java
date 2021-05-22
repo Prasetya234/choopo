@@ -16,6 +16,7 @@ import java.util.*;
 @RestController
 @RequestMapping("/reference/user-type")
 public class UserTypeController {
+
     @Autowired private UserTypeRepository userTypeRepository;
 
     @Autowired private UserTypeService userTypeService;

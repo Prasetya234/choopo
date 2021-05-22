@@ -17,7 +17,7 @@ public class BodyTypeService {
 
     // GET ALL BODY TYPE
     public ResponseEntity<Map<String, Object>> getAll() {
-        try {
+
             List<BodyType> bodyTypes = new ArrayList<>();
 
             bodyTypes = bodyTypeRepository.findAll();
@@ -28,9 +28,6 @@ public class BodyTypeService {
             response.put("content", bodyTypes);
 
             return new ResponseEntity<>(response, HttpStatus.OK);
-        } catch (Exception e) {
-            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
-        }
     }
 
     // GET BODY TYPE BY ID
@@ -39,17 +36,12 @@ public class BodyTypeService {
                 .orElseThrow(() ->
                         new ResourceNotFoundExceotion("BODY TYPE ID NOT FOUND")));
 
-        try {
             Map<String, Object> response = new HashMap<>();
             response.put("message","SUCCESS");
             response.put("status","SUCCESS");
             response.put("content", bodyType);
 
             return new ResponseEntity(response, HttpStatus.OK);
-        } catch (Exception e) {
-            ResourceNotFoundExceotion message = new ResourceNotFoundExceotion("BODY TYPE ID NOT FOUND");
-            return new ResponseEntity(message, HttpStatus.BAD_REQUEST);
-        }
     }
 
     // POST BODY TYPE

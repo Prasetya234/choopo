@@ -3,7 +3,9 @@ package com.example.choopo.exception;
 import org.springframework.http.*;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.context.request.WebRequest;
+import org.springframework.web.server.MethodNotAllowedException;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 import java.util.Date;
@@ -27,4 +29,10 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         ErrorDetails errorDetails = new ErrorDetails(new Date(), "ERROR", ex.getBindingResult().toString());
             return new ResponseEntity(errorDetails, HttpStatus.BAD_REQUEST);
     }
+
+//    @ExceptionHandler(MethodNotAllowedException.class)
+//    public  ResponseEntity<Object> handleMethodNotAllowed(MethodNotAllowedException ex, WebRequest request) {
+//        ErrorDetails errorDetails = new ErrorDetails(new Date(), "Method not allowed" , request.getDescription(false));
+//        return  new ResponseEntity(errorDetails, HttpStatus.METHOD_NOT_ALLOWED);
+//    }
 }

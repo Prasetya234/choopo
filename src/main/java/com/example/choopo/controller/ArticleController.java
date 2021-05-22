@@ -27,7 +27,6 @@ public class ArticleController {
         return articleService.findTopTen();
     }
 
-
     @GetMapping("/scramble")
     public ResponseEntity<Map<String, Object>> findMathRandom(){
         return articleService.findMathRandom();

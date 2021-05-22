@@ -15,7 +15,6 @@ import java.util.*;
 @RequestMapping("/topic")
 public class TopicController {
 
-
     @Autowired private TopicRepository topicRepository;
 
     @Autowired private TopicService topicService;

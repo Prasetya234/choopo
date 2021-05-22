@@ -16,11 +16,11 @@ public class BodyService {
 
     @Autowired private BodyRepository bodyRepository;
 
-    @Autowired BodyTypeRepository bodyTypeRepository;
+    @Autowired private BodyTypeRepository bodyTypeRepository;
 
     // GET ALL BODY
     public ResponseEntity<Map<String, Object>> getAll() {
-        try {
+
             List<Body> bodyList = new ArrayList<>();
 
             bodyList = bodyRepository.findAll();
@@ -31,26 +31,20 @@ public class BodyService {
             response.put("content", bodyList);
 
             return new ResponseEntity<>(response, HttpStatus.OK);
-        } catch (Exception e) {
-            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
-        }
     }
 
     // GET BY ID BODY
     public ResponseEntity<Body> getBodyById(Long body_id) throws ResourceNotFoundExceotion {
-        Optional<Body> body = Optional.ofNullable(bodyRepository.findById(body_id).orElseThrow(() -> new ResourceNotFoundExceotion("BODY ID NOT FOUND")));
+        Optional<Body> body = Optional.ofNullable(bodyRepository.findById(body_id)
+                .orElseThrow(() ->
+                        new ResourceNotFoundExceotion("BODY ID NOT FOUND")));
 
-        try {
             Map<String, Object> response = new HashMap<>();
             response.put("message","SUCCESS");
             response.put("status","SUCCESS");
             response.put("content", body);
 
             return new ResponseEntity(response, HttpStatus.OK);
-        } catch (Exception e) {
-            ResourceNotFoundExceotion message = new ResourceNotFoundExceotion("BODY ID NOT FOUND");
-            return new ResponseEntity(message, HttpStatus.BAD_REQUEST);
-        }
     }
 
     // BODY FIND BY ARTICLE
@@ -91,6 +85,7 @@ public class BodyService {
                 bodyRepository.delete(body);
                 Map<String, Boolean> response = new HashMap<>();
                 response.put("DELETED", Boolean.TRUE);
-        return response;
+
+                return response;
     }
 }

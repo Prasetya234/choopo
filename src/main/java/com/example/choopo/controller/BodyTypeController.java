@@ -16,7 +16,6 @@ public class BodyTypeController {
 
     @Autowired private BodyTypeService bodyTypeService;
 
-
     @GetMapping("/")
     public ResponseEntity<Map<String, Object>> getAll() {
         return bodyTypeService.getAll();
