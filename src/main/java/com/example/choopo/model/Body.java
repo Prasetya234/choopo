@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import javax.persistence.*;
 import javax.validation.constraints.*;
 
-@Entity(name="body")
+@Entity
 @Table(name="body")
 public class Body {
     private long bodyId;
@@ -59,10 +59,7 @@ public class Body {
         this.articleId = articleId;
     }
 
-    @ManyToOne(
-            fetch = FetchType.LAZY,
-            optional = false
-    )
+    @OneToOne(fetch = FetchType.LAZY, cascade =  CascadeType.MERGE)
     @JoinColumn(name = "body_type_id", nullable = false)
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     public BodyType getBodyType() {

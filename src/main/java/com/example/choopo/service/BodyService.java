@@ -2,7 +2,7 @@ package com.example.choopo.service;
 
 import com.example.choopo.dto.BodyDTO;
 import com.example.choopo.exception.ResourceNotFoundExceotion;
-import com.example.choopo.model.Article;
+//import com.example.choopo.model.Article;
 import com.example.choopo.model.Body;
 import com.example.choopo.repository.BodyRepository;
 import com.example.choopo.repository.BodyTypeRepository;
@@ -22,7 +22,7 @@ public class BodyService {
 
     @Autowired private BodyTypeRepository bodyTypeRepository;
 
-    @Autowired private ModelMapper modelMapper;
+//    @Autowired private ModelMapper modelMapper;
 
 
     // GET ALL BODY
@@ -41,7 +41,7 @@ public class BodyService {
     }
 
     // GET BODY BY ID
-    public ResponseEntity<BodyDTO> getBodyById(Long body_id) throws ResourceNotFoundExceotion {
+    public ResponseEntity<Body> getBodyById(Long body_id) throws ResourceNotFoundExceotion {
         Optional<Body> body = Optional.ofNullable(bodyRepository.findById(body_id)
                 .orElseThrow(() ->
                         new ResourceNotFoundExceotion("BODY ID NOT FOUND")));
@@ -73,15 +73,15 @@ public class BodyService {
     }
 
     // PUT BODY
-    public BodyDTO updateBody( Long body_id, Body bodyDTODetails) throws ResourceNotFoundExceotion {
+    public Body updateBody( Long body_id, Body bodyDetails) throws ResourceNotFoundExceotion {
         Body body = bodyRepository.findById(body_id)
                 .orElseThrow(() ->
                         new ResourceNotFoundExceotion("BODY ID NOT FOUND " + body_id));
 
-                body.setBodyContent(bodyDTODetails.getBodyContent());
-                body.setArticleId(bodyDTODetails.getArticleId());
+                body.setBodyContent(bodyDetails.getBodyContent());
+                body.setArticleId(bodyDetails.getArticleId());
                 final Body updatedBody = bodyRepository.save(body);
-        return mapToDTO(updatedBody);
+        return updatedBody;
     }
 
     // DELETE BODY
@@ -98,17 +98,17 @@ public class BodyService {
     }
 
     // CONVERT DTO TO ENTITY
-    private BodyDTO mapToDTO(Body body) {
-        BodyDTO bodyDTO = modelMapper.map(body, BodyDTO.class);
-
-        return  bodyDTO;
-    }
-
-
-    // CONVERT DTO TO ENTITY
-    private Body mapToEntity(BodyDTO bodyDTO) {
-        Body body = modelMapper.map(bodyDTO, Body.class);
-
-        return  body;
-    }
+//    private BodyDTO mapToDTO(Body body) {
+//        BodyDTO bodyDTO = modelMapper.map(body, BodyDTO.class);
+//
+//        return  bodyDTO;
+//    }
+//
+//
+//    // CONVERT DTO TO ENTITY
+//    private Body mapToEntity(BodyDTO bodyDTO) {
+//        Body body = modelMapper.map(bodyDTO, Body.class);
+//
+//        return  body;
+//    }
 }

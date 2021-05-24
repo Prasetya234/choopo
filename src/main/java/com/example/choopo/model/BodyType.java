@@ -27,7 +27,7 @@ public class  BodyType {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "body_type_id")
+    @Column(name = "body_type_id", unique = true, nullable = false)
     public long getBodyTypeId() {
         return bodyTypeId;
     }

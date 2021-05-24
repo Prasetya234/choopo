@@ -23,7 +23,7 @@ public class BodyController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<BodyDTO> getBodyById(@PathVariable(value = "id") Long body_id) throws ResourceNotFoundExceotion {
+    public ResponseEntity<Body> getBodyById(@PathVariable(value = "id") Long body_id) throws ResourceNotFoundExceotion {
         return bodyService.getBodyById(body_id);
     }
 
@@ -38,8 +38,8 @@ public class BodyController {
     }
 
     @PutMapping("/{id}")
-    public BodyDTO updateBody(@PathVariable(value = "id") Long body_id, @Valid @RequestBody Body bodyDTODetails) throws ResourceNotFoundExceotion {
-       return bodyService.updateBody(body_id, bodyDTODetails);
+    public Body updateBody(@PathVariable(value = "id") Long body_id, @Valid @RequestBody Body bodyDetails) throws ResourceNotFoundExceotion {
+       return bodyService.updateBody(body_id, bodyDetails);
     }
 
     @DeleteMapping("/{id}")

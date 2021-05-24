@@ -3,7 +3,7 @@ package com.example.choopo.controller;
 import com.example.choopo.dto.UserTypeDTO;
 import com.example.choopo.model.UserType;
 import com.example.choopo.repository.UserTypeRepository;
-import com.example.choopo.service.UserTypeService;
+import com.example.choopo.service.UserTypeImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,30 +20,30 @@ public class UserTypeController {
 
     @Autowired private UserTypeRepository userTypeRepository;
 
-    @Autowired private UserTypeService userTypeService;
+    @Autowired private UserTypeImpl userTypeService;
 
     @GetMapping("/")
-    public ResponseEntity<Map<String, Object>> getAll() {
+    public List<UserType> getAll() {
         return userTypeService.getAll();
     }
 
     @PostMapping("/")
-    public UserTypeDTO createUserType(@Valid @RequestBody UserTypeDTO userTypeDTO){
-        return userTypeService.createUserType(userTypeDTO);
+    public UserType createUserType(@Valid @RequestBody UserType userTypeRequire){
+        return userTypeService.createUserType(userTypeRequire);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<UserTypeDTO> getUserTypeById(@PathVariable(value = "id") Long  user_type_id) throws ResourceNotFoundExceotion {
-        return userTypeService.getUserTypeById(user_type_id);
+    public UserType getUserTypeById(@PathVariable(value = "id") Long  userTypeId) throws ResourceNotFoundExceotion {
+        return userTypeService.getUserTypeById(userTypeId);
     }
 
     @PutMapping("/{id}")
-    public UserTypeDTO updateUserType(@PathVariable(value = "id") Long user_type_id, @Valid @RequestBody UserTypeDTO userTypeDTODetails) throws ResourceNotFoundExceotion {
-        return userTypeService.updateUserType(user_type_id,userTypeDTODetails);
+    public UserType updateUserType(@PathVariable(value = "id") Long userTypeId, @Valid @RequestBody UserType userTypeDetails) throws ResourceNotFoundExceotion {
+        return userTypeService.updateUserType(userTypeId, userTypeDetails);
     }
 
     @DeleteMapping("/{id}")
-    public Map<String, Boolean> deleteUserTypeById(@PathVariable(value = "id") Long user_type_id) throws ResourceNotFoundExceotion {
-        return userTypeService.deleteUserTypeById(user_type_id);
+    public Map<String, Boolean> deleteUserTypeById(@PathVariable(value = "id") Long userTypeId) throws ResourceNotFoundExceotion {
+        return userTypeService.deleteUserTypeById(userTypeId);
     }
 }
