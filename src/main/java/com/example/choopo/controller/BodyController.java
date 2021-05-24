@@ -1,11 +1,9 @@
 package com.example.choopo.controller;
 
-import com.example.choopo.dto.BodyDTO;
 import com.example.choopo.exception.ResourceNotFoundExceotion;
 import com.example.choopo.model.Body;
-import com.example.choopo.service.BodyService;
+import com.example.choopo.service.BodyImpl;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -15,21 +13,21 @@ import java.util.*;
 @RequestMapping("/body")
 public class BodyController {
 
-    @Autowired private BodyService bodyService;
+    @Autowired private BodyImpl bodyService;
 
     @GetMapping("/")
-    public ResponseEntity<Map<String, Object>> getAll() {
+    public List<Body> getAll() {
         return bodyService.getAll();
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Body> getBodyById(@PathVariable(value = "id") Long body_id) throws ResourceNotFoundExceotion {
-        return bodyService.getBodyById(body_id);
+    public Body getBodyById(@PathVariable(value = "id") Long bodyId) throws ResourceNotFoundExceotion {
+        return bodyService.getBodyById(bodyId);
     }
 
     @GetMapping("/findBodyByArticle/{article_id}")
-    public Body byArticleId(@PathVariable(value = "article_id") String article_id) throws ResourceNotFoundExceotion{
-        return (Body) bodyService.byArticleId(article_id);
+    public List<Body> getBodyByArticleId(@PathVariable(value = "article_id") String articleId) throws ResourceNotFoundExceotion{
+        return bodyService.getBodyByArticleId(articleId);
     }
 
     @PostMapping("/")
@@ -38,12 +36,12 @@ public class BodyController {
     }
 
     @PutMapping("/{id}")
-    public Body updateBody(@PathVariable(value = "id") Long body_id, @Valid @RequestBody Body bodyDetails) throws ResourceNotFoundExceotion {
-       return bodyService.updateBody(body_id, bodyDetails);
+    public Body updateBodyById(@PathVariable(value = "id") Long bodyId, @Valid @RequestBody Body bodyDetails) throws ResourceNotFoundExceotion {
+        return bodyService.updateBodyById(bodyId, bodyDetails);
     }
 
     @DeleteMapping("/{id}")
-    public Map<String, Boolean> deleteBody(@PathVariable(value = "id") Long body_id) throws ResourceNotFoundExceotion {
-       return bodyService.deleteBody(body_id);
+    public Map<String, Boolean> deleteBodyById(@PathVariable(value = "id") Long bodyId) throws ResourceNotFoundExceotion {
+        return bodyService.deleteBodyById(bodyId);
     }
 }
