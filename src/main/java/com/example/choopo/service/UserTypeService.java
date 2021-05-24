@@ -1,7 +1,6 @@
 package com.example.choopo.service;
 
 import com.example.choopo.exception.ResourceNotFoundExceotion;
-import com.example.choopo.model.BodyType;
 import com.example.choopo.model.UserType;
 
 import java.util.List;

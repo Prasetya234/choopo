@@ -1,13 +1,9 @@
 package com.example.choopo.controller;
 
-import com.example.choopo.dto.ArticleStatusDTO;
-import com.example.choopo.dto.TopicDTO;
 import com.example.choopo.exception.ResourceNotFoundExceotion;
 import com.example.choopo.model.Topic;
-import com.example.choopo.repository.TopicRepository;
-import com.example.choopo.service.TopicService;
+import com.example.choopo.service.TopicImpl;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -17,32 +13,30 @@ import java.util.*;
 @RequestMapping("/topic")
 public class TopicController {
 
-    @Autowired private TopicRepository topicRepository;
-
-    @Autowired private TopicService topicService;
+    @Autowired private TopicImpl topicService;
 
     @GetMapping("/")
-    public ResponseEntity<Map<String, Object>> getAll() {
+    public List<Topic> getAll() {
         return topicService.getAll();
     }
 
     @PostMapping("/")
-    public TopicDTO createTopic (@Valid @RequestBody TopicDTO topicDTO){
-        return topicService.createTopic(topicDTO);
+    public Topic createTopic (@Valid @RequestBody Topic topicRequire){
+        return topicService.createTopic(topicRequire);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<TopicDTO> getTopicById(@PathVariable (value = "id")Long topic_id) throws ResourceNotFoundExceotion {
-        return topicService.getTopicById(topic_id);
+    public Topic getTopicById(@PathVariable (value = "id")Long topicId) throws ResourceNotFoundExceotion {
+        return topicService.getTopicById(topicId);
     }
 
     @PutMapping("/{id}")
-    public TopicDTO updateTopicById(@PathVariable(value = "id") Long topic_id, @Valid @RequestBody TopicDTO topicDTODetails) throws ResourceNotFoundExceotion {
-        return topicService.updateTopicById(topic_id, topicDTODetails);
+    public Topic updateTopicById(@PathVariable(value = "id") Long topicId, @Valid @RequestBody Topic topicDetails) throws ResourceNotFoundExceotion {
+        return topicService.updateTopicById(topicId, topicDetails);
     }
 
     @DeleteMapping("/{id}")
-    public Map<String, Boolean> deleteTopicById(@PathVariable (value = "id") Long topic_id) throws ResourceNotFoundExceotion {
-        return topicService.deleteTopicById(topic_id);
+    public Map<String, Boolean> deleteTopicById(@PathVariable (value = "id") Long topicId) throws ResourceNotFoundExceotion {
+        return topicService.deleteTopicById(topicId);
     }
 }

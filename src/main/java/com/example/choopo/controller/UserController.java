@@ -2,9 +2,8 @@ package com.example.choopo.controller;
 
 import com.example.choopo.exception.ResourceNotFoundExceotion;
 import com.example.choopo.model.User;
-import com.example.choopo.service.UserService;
+import com.example.choopo.service.UserImpl;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -14,10 +13,10 @@ import java.util.*;
 @RequestMapping("/user")
 public class UserController {
 
-    @Autowired private UserService userService;
+    @Autowired private UserImpl userService;
 
     @GetMapping("/")
-    public ResponseEntity<Map<String, Object>> getAll() {
+    public List<User> getAll() {
         return userService.getAll();
     }
 
@@ -27,17 +26,17 @@ public class UserController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<User> getUserById(@PathVariable (value = "id")Long user_id) throws ResourceNotFoundExceotion{
-       return userService.getUserById(user_id);
+    public User getUserById(@PathVariable (value = "id")Long userId) throws ResourceNotFoundExceotion{
+       return userService.getUserById(userId);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<User> updateUserById(@PathVariable (value = "id")Long user_id,@Valid @RequestBody User userDetails) throws ResourceNotFoundExceotion{
-        return userService.updateUserById(user_id, userDetails);
+    public User updateUserById(@PathVariable (value = "id")Long userId,@Valid @RequestBody User userDetails) throws ResourceNotFoundExceotion{
+        return userService.updateUserById(userId, userDetails);
     }
 
     @DeleteMapping("/{id}")
-    public Map<String, Boolean> deleteUserById(@PathVariable (value = "id")Long user_id) throws ResourceNotFoundExceotion {
-        return userService.deleteUserById(user_id);
+    public Map<String, Boolean> deleteUserById(@PathVariable (value = "id")Long userId) throws ResourceNotFoundExceotion {
+        return userService.deleteUserById(userId);
     }
 }

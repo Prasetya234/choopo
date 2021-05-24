@@ -1,6 +1,5 @@
 package com.example.choopo.controller;
 
-import com.example.choopo.dto.UserTypeDTO;
 import com.example.choopo.model.UserType;
 import com.example.choopo.repository.UserTypeRepository;
 import com.example.choopo.service.UserTypeImpl;
@@ -9,7 +8,6 @@ import org.springframework.web.bind.annotation.*;
 
 
 import com.example.choopo.exception.ResourceNotFoundExceotion;
-import org.springframework.http.ResponseEntity;
 
 import javax.validation.Valid;
 import java.util.*;
