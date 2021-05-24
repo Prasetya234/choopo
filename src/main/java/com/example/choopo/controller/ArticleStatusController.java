@@ -3,6 +3,8 @@ package com.example.choopo.controller;
 import com.example.choopo.dto.ArticleStatusDTO;
 import com.example.choopo.exception.ResourceNotFoundExceotion;
 import com.example.choopo.model.ArticleStatus;
+import com.example.choopo.response.CommonResponse;
+import com.example.choopo.response.CommonResponseGenerator;
 import com.example.choopo.service.ArticleStatusImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -16,24 +18,35 @@ public class ArticleStatusController {
 
     @Autowired private ArticleStatusImpl articleStatusService;
 
+    @Autowired private CommonResponseGenerator commonResponseGenerator;
+
     @GetMapping("/")
-    public List<ArticleStatus> getAll() {
-        return articleStatusService.getAll();
+    public CommonResponse<List<ArticleStatus>> getAll() {
+
+        List<ArticleStatus> articleStatusList = articleStatusService.getAll();
+
+        return commonResponseGenerator.successResponse(articleStatusList);
     }
 
     @GetMapping("/{id}")
-    public ArticleStatus getArticleStatusById(@PathVariable(value = "id") Long articleStatusId) throws ResourceNotFoundExceotion {
-        return articleStatusService.getArticleStatusById(articleStatusId);
+    public CommonResponse<ArticleStatus> getArticleStatusById(@PathVariable(value = "id") Long articleStatusId) throws ResourceNotFoundExceotion {
+        ArticleStatus articleStatus = articleStatusService.getArticleStatusById(articleStatusId);
+
+        return commonResponseGenerator.successResponse(articleStatus);
     }
 
     @PostMapping("/")
-    public ArticleStatus createArticleStatus(@Valid @RequestBody ArticleStatus articleStatus) {
-        return articleStatusService.createArticleStatus(articleStatus);
+    public CommonResponse<ArticleStatus> createArticleStatus(@Valid @RequestBody ArticleStatus articleStatusRequire) {
+        ArticleStatus articleStatus = articleStatusService.createArticleStatus(articleStatusRequire);
+
+        return commonResponseGenerator.successResponse(articleStatus);
     }
 
     @PutMapping("/{id}")
-    public ArticleStatus updateArticleStatusById(@PathVariable(value = "id") Long articleStatusId, @Valid @RequestBody ArticleStatus articleStatusDetils) throws ResourceNotFoundExceotion {
-        return articleStatusService.updateArticleStatusById(articleStatusId, articleStatusDetils);
+    public CommonResponse<ArticleStatus> updateArticleStatusById(@PathVariable(value = "id") Long articleStatusId, @Valid @RequestBody ArticleStatus articleStatusDetils) throws ResourceNotFoundExceotion {
+        ArticleStatus articleStatus = articleStatusService.updateArticleStatusById(articleStatusId, articleStatusDetils);
+
+        return commonResponseGenerator.successResponse(articleStatus);
     }
 
     @DeleteMapping("/{id}")

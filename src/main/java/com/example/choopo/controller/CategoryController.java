@@ -2,6 +2,8 @@ package com.example.choopo.controller;
 
 import com.example.choopo.exception.ResourceNotFoundExceotion;
 import com.example.choopo.model.Category;
+import com.example.choopo.response.CommonResponse;
+import com.example.choopo.response.CommonResponseGenerator;
 import com.example.choopo.service.CategoryImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -15,24 +17,34 @@ public class CategoryController {
 
     @Autowired private CategoryImpl categoryService;
 
+    @Autowired private CommonResponseGenerator commonResponseGenerator;
+
     @GetMapping("/")
-    public List<Category> getAll() {
-        return categoryService.getAll();
+    public CommonResponse<List<Category>> getAll() {
+        List<Category> categoryList = categoryService.getAll();
+
+        return commonResponseGenerator.successResponse(categoryList);
     }
 
     @PostMapping("/")
-    public Category createCategory(@Valid @RequestBody Category categoryRequire){
-        return categoryService.createCategory(categoryRequire);
+    public CommonResponse<Category> createCategory(@Valid @RequestBody Category categoryRequire){
+        Category category = categoryService.createCategory(categoryRequire);
+
+        return commonResponseGenerator.successResponse(category);
     }
 
     @GetMapping("/{id}")
-    public Category getCategoryById(@PathVariable (value = "id") Long categoryId) throws ResourceNotFoundExceotion{
-        return categoryService.getCategoryById(categoryId);
+    public CommonResponse<Category> getCategoryById(@PathVariable (value = "id") Long categoryId) throws ResourceNotFoundExceotion{
+        Category category = categoryService.getCategoryById(categoryId);
+
+        return commonResponseGenerator.successResponse(category);
     }
 
     @PutMapping("/{id}")
-    public Category updateCategory(@PathVariable(value = "id") Long categoryId, @Valid @RequestBody Category categoryDetails) throws ResourceNotFoundExceotion {
-        return categoryService.updateCategory(categoryId, categoryDetails);
+    public CommonResponse<Category> updateCategory(@PathVariable(value = "id") Long categoryId, @Valid @RequestBody Category categoryDetails) throws ResourceNotFoundExceotion {
+        Category category = categoryService.updateCategory(categoryId, categoryDetails);
+
+        return commonResponseGenerator.successResponse(category);
     }
 
     @DeleteMapping("/{id}")
