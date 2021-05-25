@@ -95,6 +95,17 @@
 			<artifactId>modelmapper</artifactId>
 			<version>2.3.5</version>
 		</dependency>
+		<!--JWT -->
+<!--		<dependency>-->
+<!--			<groupId>io.jsonwebtoken</groupId>-->
+<!--			<artifactId>jjwt</artifactId>-->
+<!--			<version>0.9.1</version>-->
+<!--		</dependency>-->
+<!--		&lt;!&ndash;Security JPA&ndash;&gt;-->
+<!--		<dependency>-->
+<!--			<groupId>org.springframework.boot</groupId>-->
+<!--			<artifactId>spring-boot-starter-security</artifactId>-->
+<!--		</dependency>-->
 	</dependencies>
 
 	<build>
