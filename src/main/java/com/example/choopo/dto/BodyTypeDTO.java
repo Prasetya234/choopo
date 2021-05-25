@@ -7,7 +7,6 @@ import javax.validation.constraints.Size;
 
 public class BodyTypeDTO {
 
-    @Id
     private long bodyTypeId;
 
     @NotBlank

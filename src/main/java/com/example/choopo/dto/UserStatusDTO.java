@@ -6,14 +6,11 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 public class UserStatusDTO {
-    @Id
+
     private long userStatusId;
 
-    @NotBlank
-    @Size(min = 1, max= 255, message = "user_status_name has exceeded the limit")
     private String userStatusName;
 
-    @NotNull
     private int userStatusCode;
 
     // GET & SET

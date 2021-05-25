@@ -6,7 +6,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 public class CategoryDTO {
-    @Id
+
     private long categoryId;
 
     @NotNull
@@ -15,7 +15,6 @@ public class CategoryDTO {
     @NotBlank
     @Size(min = 1,max = 255, message = "CategoryName has exceeded the limit")
     private String categoryName;
-
 
     // GET & SET
     public long getCategoryId() {

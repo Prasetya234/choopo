@@ -5,7 +5,6 @@ import javax.validation.constraints.NotNull;
 
 public class ArticleStatusDTO {
 
-    @Id
     private Long articleStatusId;
 
     @NotNull

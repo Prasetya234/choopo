@@ -6,14 +6,11 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 public class TopicDTO {
-    @Id
+
     private long topicId;
 
-    @NotBlank
-    @Size(min = 1,max=255, message = "name has exceeded the limit")
     private String topicName;
 
-    @NotNull
     private int topicCode;
 
     // GET & SET
