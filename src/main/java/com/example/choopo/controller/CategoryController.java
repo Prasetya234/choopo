@@ -1,15 +1,18 @@
 package com.example.choopo.controller;
 
+import com.example.choopo.dto.CategoryDTO;
 import com.example.choopo.exception.ResourceNotFoundExceotion;
 import com.example.choopo.model.Category;
 import com.example.choopo.response.CommonResponse;
 import com.example.choopo.response.CommonResponseGenerator;
 import com.example.choopo.service.CategoryImpl;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.*;
+import java.util.stream.Stream;
 
 @RestController
 @RequestMapping("/category")
@@ -17,33 +20,44 @@ public class CategoryController {
 
     @Autowired private CategoryImpl categoryService;
 
+    @Autowired private ModelMapper modelMapper;
+
     @Autowired private CommonResponseGenerator commonResponseGenerator;
 
     @GetMapping("/")
-    public CommonResponse<List<Category>> getAll() {
-        List<Category> categoryList = categoryService.getAll();
+    public CommonResponse<CategoryDTO> getAll() {
+        Stream<Object> categoryList = categoryService.getAll()
+                .stream()
+                .map(category
+                        -> modelMapper.map(category, CategoryDTO.class));
 
         return commonResponseGenerator.successResponse(categoryList);
     }
 
     @PostMapping("/")
-    public CommonResponse<Category> createCategory(@Valid @RequestBody Category categoryRequire){
+    public CommonResponse<CategoryDTO> createCategory(@Valid @RequestBody CategoryDTO categoryDTORequire){
+        Category categoryRequire = modelMapper.map(categoryDTORequire, Category.class);
         Category category = categoryService.createCategory(categoryRequire);
 
-        return commonResponseGenerator.successResponse(category);
+        CategoryDTO categoryDTO = modelMapper.map(category, CategoryDTO.class);
+        return commonResponseGenerator.successResponse(categoryDTO);
     }
 
     @GetMapping("/{id}")
-    public CommonResponse<Category> getCategoryById(@PathVariable (value = "id") Long categoryId) throws ResourceNotFoundExceotion{
+    public CommonResponse<CategoryDTO> getCategoryById(@PathVariable (value = "id") Long categoryId) throws ResourceNotFoundExceotion{
         Category category = categoryService.getCategoryById(categoryId);
 
-        return commonResponseGenerator.successResponse(category);
+        CategoryDTO categoryDTO = modelMapper.map(category, CategoryDTO.class);
+
+        return commonResponseGenerator.successResponse(categoryDTO);
     }
 
     @PutMapping("/{id}")
-    public CommonResponse<Category> updateCategory(@PathVariable(value = "id") Long categoryId, @Valid @RequestBody Category categoryDetails) throws ResourceNotFoundExceotion {
+    public CommonResponse<CategoryDTO> updateCategory(@PathVariable(value = "id") Long categoryId, @Valid @RequestBody CategoryDTO categoryDTODetails) throws ResourceNotFoundExceotion {
+        Category categoryDetails = modelMapper.map(categoryDTODetails, Category.class);
         Category category = categoryService.updateCategory(categoryId, categoryDetails);
 
+        CategoryDTO categoryDTO = modelMapper.map(category, CategoryDTO.class);
         return commonResponseGenerator.successResponse(category);
     }
 
