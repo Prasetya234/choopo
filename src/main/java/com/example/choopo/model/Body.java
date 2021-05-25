@@ -10,12 +10,8 @@ import javax.validation.constraints.*;
 public class Body {
     private long bodyId;
 
-    @NotBlank
-    @Size(min = 1,max = 255, message = "body has exceeded the limit")
     private String bodyContent;
 
-    @NotBlank
-    @Size(min = 1, max = 255, message = "body has exceeded the limit")
     private String articleId;
 
     private BodyType bodyType;

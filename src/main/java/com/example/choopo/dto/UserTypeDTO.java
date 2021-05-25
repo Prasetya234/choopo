@@ -9,8 +9,11 @@ public class UserTypeDTO {
 
         private long userTypeId;
 
+        @NotBlank
+        @Size(min = 1, max = 255, message = "user_type_name has exceeded the limit")
         private String userTypeName;
 
+        @NotNull
         private int userTypeCode;
 
         // GET & SET

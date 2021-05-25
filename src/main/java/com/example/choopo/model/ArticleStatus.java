@@ -12,11 +12,8 @@ public class ArticleStatus {
 
     private long articleStatusId;
 
-    @NotBlank
-    @Size(min = 1,max = 255, message = "articleStatusName has exceeded the limit")
     private String articleStatusName;
 
-    @NotNull
     private int articleStatusCode;
 
     public ArticleStatus(){}

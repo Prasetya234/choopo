@@ -19,33 +19,20 @@ public class Article {
 
     private long articleId;
 
-    @Temporal(TemporalType.TIMESTAMP)
-    @JsonFormat(pattern = "dd-MM-yyyy HH:mm:ss", timezone = "Asia/Jakarta")
     private Date createdDate;
 
-    @NotBlank(message = "DATA TIDAK BOLEH KOSONG KOSONG")
-    @Size(max = 255, message = "subtitle has exceeded the limit")
     private String subtitle;
 
-    @NotBlank(message = "DATA TIDAK BOLEH KOSONG KOSONG")
-    @Size(max = 255, message = "title has exceeded the limit")
     private String title;
 
-    @NotBlank(message = "DATA TIDAK BOLEH KOSONG KOSONG")
-    @Size(max = 1000000, message = "main title has exceeded the limit")
     private String mainImage;
 
-    @NotBlank(message = "DATA TIDAK BOLEH KOSONG KOSONG")
-    @Size(max = 255, message = "topic has exceeded the limit")
     private String topic;
 
-    @NotNull
     private int totalView;
 
-    @NotNull(message = "DATA TIDAK BOLEH KOSONG KOSONG")
     private ArticleStatus articleStatus;
 
-    @NotNull(message = "DATA TIDAK BOLEH KOSONG KOSONG")
     private Category category;
 
     // Constructor

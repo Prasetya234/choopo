@@ -1,17 +1,28 @@
 package com.example.choopo.dto;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
 public class UserDTO {
 
     private Long userId;
 
+    @NotNull
     private int userType;
 
+    @NotBlank
+    @Size(min = 1, max = 255, message = "Username has exceeded the limit")
     private String userName;
 
+    @NotNull
     private int userCode;
 
+    @NotBlank
+    @Size(min=2, max = 20, message = "The password must be 4 - 20 words long")
     private String password;
 
+    @NotNull
     private int userStatus;
 
     public Long getUserId() {

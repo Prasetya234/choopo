@@ -9,11 +9,8 @@ public class  BodyType {
 
     private long bodyTypeId;
 
-    @NotBlank
-    @Size(min = 1,max = 255,message = "BodyTypeName has exceeded the limit")
     private String bodyTypeName;
 
-    @NotNull
     private int bodyTypeCode;
 
     public BodyType(){

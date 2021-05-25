@@ -12,11 +12,8 @@ public class Category {
 
     private long categoryId;
 
-    @NotNull
     private int parentId;
 
-    @NotBlank
-    @Size(min = 1,max = 255, message = "CategoryName has exceeded the limit")
     private String categoryName;
 
     public  Category(){

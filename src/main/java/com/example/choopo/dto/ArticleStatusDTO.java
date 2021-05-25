@@ -1,13 +1,16 @@
 package com.example.choopo.dto;
 
 import javax.persistence.Id;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 public class ArticleStatusDTO {
 
     private Long articleStatusId;
 
-    @NotNull
+    @NotBlank
+    @Size(min = 1,max = 255, message = "articleStatusName has exceeded the limit")
     private String articleStatusName;
 
     @NotNull

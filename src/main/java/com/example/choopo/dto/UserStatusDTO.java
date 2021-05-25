@@ -9,8 +9,11 @@ public class UserStatusDTO {
 
     private long userStatusId;
 
+    @NotBlank
+    @Size(min = 1, max= 255, message = "user_status_name has exceeded the limit")
     private String userStatusName;
 
+    @NotNull
     private int userStatusCode;
 
     // GET & SET
