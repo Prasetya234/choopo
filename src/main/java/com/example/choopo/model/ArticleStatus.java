@@ -1,11 +1,15 @@
 package com.example.choopo.model;
 
+
 import javax.persistence.*;
-import javax.validation.constraints.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "article_status")
 public class ArticleStatus {
+
     private long articleStatusId;
 
     @NotBlank
@@ -14,9 +18,6 @@ public class ArticleStatus {
 
     @NotNull
     private int articleStatusCode;
-
-//    @OneToOne(mappedBy = "articleStatus", targetEntity=Article.class , cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY, optional = false)
-//    private Article article;
 
     public ArticleStatus(){}
 

@@ -4,22 +4,20 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.annotations.CreationTimestamp;
 
-import javax.persistence.*;
-import javax.validation.constraints.*;
 
+import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.Date;
 
 // Model Article
 
 @Entity
-@Table(name="article")
+@Table(name = "article")
 public class Article {
 
-    // variable declaration or called Fields
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     private long articleId;
-
 
     @Temporal(TemporalType.TIMESTAMP)
     @JsonFormat(pattern = "dd-MM-yyyy HH:mm:ss", timezone = "Asia/Jakarta")
@@ -64,7 +62,8 @@ public class Article {
 
     // Getter and Setter
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO, generator = "auto_gen")
+    @SequenceGenerator(name = "auto_gen", sequenceName = "article_id")
     @Column(name = "article_id")
     public long getArticleId() {
         return articleId;
@@ -102,7 +101,8 @@ public class Article {
         this.title = title;
     }
 
-    @Column(name = "main_image",columnDefinition = "TEXT(1000000)", nullable = false)
+    @Lob
+    @Column(name = "main_image", nullable = false)
     public String getMainImage() {
         return mainImage;
     }
@@ -141,7 +141,7 @@ public class Article {
     }
 
     @OneToOne(fetch = FetchType.LAZY, cascade =  CascadeType.MERGE)
-    @JoinColumn(name = "category", nullable = false)
+    @JoinColumn(name = "category_id", nullable = false)
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     public Category getCategory() {
         return category;

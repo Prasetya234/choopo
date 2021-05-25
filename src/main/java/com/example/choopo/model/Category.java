@@ -1,7 +1,10 @@
 package com.example.choopo.model;
 
+
 import javax.persistence.*;
-import javax.validation.constraints.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 @Entity
 @Table(name="category")
@@ -15,9 +18,6 @@ public class Category {
     @NotBlank
     @Size(min = 1,max = 255, message = "CategoryName has exceeded the limit")
     private String categoryName;
-
-//    @OneToOne(mappedBy="category", targetEntity=Article.class, fetch=FetchType.EAGER)
-//    private Article article;
 
     public  Category(){
 
