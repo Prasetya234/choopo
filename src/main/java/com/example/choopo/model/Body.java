@@ -56,7 +56,6 @@ public class Body {
 
     @OneToOne(fetch = FetchType.LAZY, cascade =  CascadeType.MERGE)
     @JoinColumn(name = "body_type_id", nullable = false)
-    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     public BodyType getBodyType() {
         return bodyType;
     }

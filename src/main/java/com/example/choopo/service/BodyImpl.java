@@ -1,6 +1,5 @@
 package com.example.choopo.service;
 
-import com.example.choopo.dto.BodyDTO;
 import com.example.choopo.exception.ResourceNotFoundExceotion;
 import com.example.choopo.model.Body;
 import com.example.choopo.repository.BodyRepository;

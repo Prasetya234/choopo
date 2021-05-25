@@ -3,10 +3,6 @@ package com.example.choopo.dto;
 import com.example.choopo.model.BodyType;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
-import javax.persistence.FetchType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -24,6 +20,7 @@ public class BodyDTO {
     private String articleId;
 
     @NotNull(message = "DATA TIDAK BOLEH KOSONG")
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private BodyType bodyType;
 
     // GET & SET

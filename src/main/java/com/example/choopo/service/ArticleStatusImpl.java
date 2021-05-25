@@ -1,6 +1,5 @@
 package com.example.choopo.service;
 
-import com.example.choopo.dto.ArticleStatusDTO;
 import com.example.choopo.exception.ResourceNotFoundExceotion;
 import com.example.choopo.model.ArticleStatus;
 import com.example.choopo.repository.ArticleStatusRepository;
