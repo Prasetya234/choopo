@@ -1,14 +1,9 @@
 package com.example.choopo.model;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.annotations.CreationTimestamp;
 
-
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 import java.util.Date;
 
 // Model Article
@@ -118,7 +113,6 @@ public class Article {
 
     @OneToOne(fetch = FetchType.LAZY, cascade =  CascadeType.MERGE)
     @JoinColumn(name = "article_status_id", nullable = false)
-    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     public ArticleStatus getArticleStatus() {
         return articleStatus;
     }
@@ -129,7 +123,6 @@ public class Article {
 
     @OneToOne(fetch = FetchType.LAZY, cascade =  CascadeType.MERGE)
     @JoinColumn(name = "category_id", nullable = false)
-    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     public Category getCategory() {
         return category;
     }

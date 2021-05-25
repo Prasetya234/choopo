@@ -1,10 +1,12 @@
 package com.example.choopo.controller;
 
+import com.example.choopo.dto.ArticleDTO;
 import com.example.choopo.exception.ResourceNotFoundExceotion;
 import com.example.choopo.model.Article;
 import com.example.choopo.response.CommonResponse;
 import com.example.choopo.response.CommonResponseGenerator;
 import com.example.choopo.service.ArticleImpl;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 
 import java.util.*;
+import java.util.stream.Stream;
 
 @RestController
 @RequestMapping("/article")
@@ -19,50 +22,61 @@ public class ArticleController {
 
     @Autowired private ArticleImpl articleService;
 
+    @Autowired private ModelMapper modelMapper;
+
     @Autowired private CommonResponseGenerator commonResponseGenerator;
 
     @GetMapping("/top-news")
-    public CommonResponse<List<Article>> findLatestNews(){
-        List<Article> articleList = articleService.findLatestNews();
+    public CommonResponse<List<ArticleDTO>> findLatestNews(){
+        Stream<Object> articleList = articleService.findLatestNews().stream().map(article -> modelMapper.map(article, ArticleDTO.class));
         return commonResponseGenerator.successResponse(articleList);
     }
 
     @GetMapping("/top-10")
-    public CommonResponse<List<Article>> findTopTen() {
-        List<Article> articleList = articleService.findTopTen();
+    public CommonResponse<List<ArticleDTO>> findTopTen() {
+        Stream<Object> articleList = articleService.findTopTen().stream().map(article -> modelMapper.map(article, ArticleDTO.class));
         return commonResponseGenerator.successResponse(articleList);
     }
 
     @GetMapping("/scramble")
-    public CommonResponse<List<Article>> findMathRandom(){
-        List<Article> articleList = articleService.findMathRandom();
+    public CommonResponse<List<ArticleDTO>> findMathRandom(){
+        Stream<Object> articleList = articleService.findMathRandom().stream().map(article -> modelMapper.map(article, ArticleDTO.class));
         return commonResponseGenerator.successResponse(articleList);
     }
 
     @GetMapping("/")
-    public CommonResponse<List<Article>> getAllArticle(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "5") int size){
-        List<Article> articleList = articleService.getAllArticle(page, size);
+    public CommonResponse<List<ArticleDTO>> getAllArticle(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "5") int size){
+        Stream<Object> articleList = articleService.getAllArticle(page, size).stream().map(article -> modelMapper.map(article, ArticleDTO.class));
         return commonResponseGenerator.successResponse(articleList);
     }
 
     @GetMapping("/{id}")
-    public CommonResponse<Article> getArticleById(@PathVariable(value = "id") Long articleId) throws ResourceNotFoundExceotion {
+    public CommonResponse<ArticleDTO> getArticleById(@PathVariable(value = "id") Long articleId) throws ResourceNotFoundExceotion {
         Article article = articleService.getArticleById(articleId);
-        return commonResponseGenerator.successResponse(article);
+
+        ArticleDTO articleDTO = modelMapper.map(article, ArticleDTO.class);
+        return commonResponseGenerator.successResponse(articleDTO);
     }
 
     @PostMapping("/")
-    public CommonResponse<Article> createArticle(@Valid @RequestBody Article articleRequest) throws ResourceNotFoundExceotion {
-       Article article = articleService.createArticle(articleRequest);
+    public CommonResponse<ArticleDTO> createArticle(@Valid @RequestBody ArticleDTO articleDTORequest) throws ResourceNotFoundExceotion {
+        Article articleRequest = modelMapper.map(articleDTORequest, Article.class);
 
-        return commonResponseGenerator.successResponse(article);
+        Article article = articleService.createArticle(articleRequest);
+
+        ArticleDTO articleDTO = modelMapper.map(article, ArticleDTO.class);
+        return commonResponseGenerator.successResponse(articleDTO);
     }
 
     @PutMapping("/{id}")
-    public CommonResponse<Article> updateArticle(@PathVariable(value = "id") Long articleId, @Valid @RequestBody Article articleDetails) throws ResourceNotFoundExceotion {
+    public CommonResponse<Article> updateArticle(@PathVariable(value = "id") Long articleId, @Valid @RequestBody ArticleDTO articleDTODetails) throws ResourceNotFoundExceotion {
+        Article articleDetails = modelMapper.map(articleDTODetails, Article.class);
+
         Article article = articleService.updateArticle(articleId,articleDetails);
 
-        return commonResponseGenerator.successResponse(article);
+        ArticleDTO articleDTO = modelMapper.map(article, ArticleDTO.class);
+
+        return commonResponseGenerator.successResponse(articleDTO);
     }
 
     @DeleteMapping("/{id}")

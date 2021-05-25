@@ -8,6 +8,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 public class BodyDTO {
@@ -22,6 +23,7 @@ public class BodyDTO {
     @Size(min = 1, max = 255, message = "body has exceeded the limit")
     private String articleId;
 
+    @NotNull(message = "DATA TIDAK BOLEH KOSONG")
     private BodyType bodyType;
 
     // GET & SET
@@ -50,12 +52,6 @@ public class BodyDTO {
         this.articleId = articleId;
     }
 
-    @ManyToOne(
-            fetch = FetchType.LAZY,
-            optional = false
-    )
-    @JoinColumn(name = "body_type_id", nullable = false)
-    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     public BodyType getBodyType() {
         return bodyType;
     }

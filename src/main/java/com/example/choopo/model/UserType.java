@@ -10,7 +10,6 @@ public class UserType {
 
     private String userTypeName;
 
-    @NotNull
     private int userTypeCode;
 
     public UserType(){

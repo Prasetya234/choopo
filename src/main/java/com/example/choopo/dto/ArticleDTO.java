@@ -3,6 +3,7 @@ package com.example.choopo.dto;
 import com.example.choopo.model.ArticleStatus;
 import com.example.choopo.model.Category;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -39,9 +40,11 @@ public class ArticleDTO {
     private int totalView;
 
     @NotNull(message = "DATA TIDAK BOLEH KOSONG KOSONG")
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private ArticleStatus articleStatus;
 
     @NotNull(message = "DATA TIDAK BOLEH KOSONG KOSONG")
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private Category category;
 
 
