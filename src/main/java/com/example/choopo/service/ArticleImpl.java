@@ -2,6 +2,7 @@ package com.example.choopo.service;
 
 import com.example.choopo.exception.ResourceNotFoundExceotion;
 import com.example.choopo.model.Article;
+import com.example.choopo.model.ArticleStatus;
 import com.example.choopo.repository.ArticleRepository;
 import com.example.choopo.repository.ArticleStatusRepository;
 import com.example.choopo.repository.CategoryRepository;
@@ -12,6 +13,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -63,6 +65,7 @@ public class ArticleImpl implements ArticleService{
         return articleRepository.articleTopTen();
     }
 
+    @Transactional
     @Override
     public List<Article> findMathRandom() {
         return articleRepository.articleScramble();

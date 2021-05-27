@@ -1,7 +1,7 @@
 package com.example.choopo.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -44,8 +44,8 @@ public class Article {
 
     // Getter and Setter
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO, generator = "auto_gen")
-    @SequenceGenerator(name = "auto_gen", sequenceName = "article_id")
+    @GeneratedValue(strategy = GenerationType.AUTO, generator = "auto_article")
+    @SequenceGenerator(name = "auto_article", sequenceName = "article_id")
     @Column(name = "article_id")
     public long getArticleId() {
         return articleId;
@@ -84,6 +84,7 @@ public class Article {
     }
 
     @Lob
+    @Type(type = "org.hibernate.type.TextType")
     @Column(name = "main_image", nullable = false)
     public String getMainImage() {
         return mainImage;

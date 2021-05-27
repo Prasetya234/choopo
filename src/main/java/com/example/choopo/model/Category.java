@@ -26,7 +26,8 @@ public class Category {
     }
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO, generator = "auto_category")
+    @SequenceGenerator(name = "auto_category", sequenceName = "category_id")
     @Column(name = "category_id")
     public long getCategoryId() {
         return categoryId;

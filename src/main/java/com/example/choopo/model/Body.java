@@ -26,7 +26,8 @@ public class Body {
     }
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO, generator = "auto_body")
+    @SequenceGenerator(name = "auto_body", sequenceName = "body_id")
     @Column(name = "body_id")
     public long getBodyId() {
         return bodyId;

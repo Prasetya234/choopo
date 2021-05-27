@@ -23,7 +23,8 @@ public class Topic {
 
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO, generator = "auto_topic")
+    @SequenceGenerator(name = "auto_topic", sequenceName = "topic_id")
     @Column(name = "topic_id")
     public long getTopicId() {
         return topicId;

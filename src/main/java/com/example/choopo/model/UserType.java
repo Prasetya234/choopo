@@ -22,7 +22,8 @@ public class UserType {
     }
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO, generator = "auto_user_type")
+    @SequenceGenerator(name = "auto_user_type", sequenceName = "user_type_id")
     @Column(name = "user_type_id")
     public long getUserTypeId() {
         return userTypeId;

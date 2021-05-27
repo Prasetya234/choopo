@@ -2,9 +2,6 @@ package com.example.choopo.model;
 
 
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "article_status")
@@ -25,7 +22,8 @@ public class ArticleStatus {
 
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO, generator = "auto_article_status")
+    @SequenceGenerator(name = "auto_article_status", sequenceName = "article_status_id")
     @Column(name = "article_status_id")
     public long getArticleStatusId() {
         return articleStatusId;
