@@ -36,9 +36,9 @@ public class BodyImpl implements BodyService {
 
     @Override
     public Body createBody(Body bodyRequest) throws ResourceNotFoundExceotion {
-        Body body = bodyTypeRepository.findById(bodyRequest.getBodyType().getBodyTypeId())
-                .map(bodyType -> {
-                    bodyRequest.setBodyType(bodyType);
+        Body body = bodyTypeRepository.findById(Long.valueOf(bodyRequest.getBodyType()))
+                .map(bodyTypeId -> {
+                    bodyRequest.setBodyTypeId(bodyTypeId);
                     return bodyRequest;
                 }).orElseThrow(() -> new ResourceNotFoundExceotion("BODY TYPE ID NOT FOUND"));
         return bodyRepository.save(bodyRequest);

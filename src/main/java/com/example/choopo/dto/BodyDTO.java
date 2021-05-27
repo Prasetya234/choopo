@@ -20,8 +20,11 @@ public class BodyDTO {
     private String articleId;
 
     @NotNull(message = "DATA TIDAK BOLEH KOSONG")
+    private String bodyType;
+
+//    @NotNull(message = "DATA TIDAK BOLEH KOSONG")
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-    private BodyType bodyType;
+    private BodyType bodyTypeId;
 
     // GET & SET
 
@@ -49,11 +52,19 @@ public class BodyDTO {
         this.articleId = articleId;
     }
 
-    public BodyType getBodyType() {
+    public String getBodyType() {
         return bodyType;
     }
 
-    public void setBodyType(BodyType bodyType) {
+    public void setBodyType(String bodyType) {
         this.bodyType = bodyType;
+    }
+
+    public BodyType getBodyTypeId() {
+        return bodyTypeId;
+    }
+
+    public void setBodyTypeId(BodyType bodyTypeId) {
+        this.bodyTypeId = bodyTypeId;
     }
 }

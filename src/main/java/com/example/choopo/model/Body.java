@@ -14,15 +14,18 @@ public class Body {
 
     private String articleId;
 
-    private BodyType bodyType;
+    private String bodyType;
+
+    private BodyType bodyTypeId;
 
     public Body(){
 
     }
 
-    public Body(String bodyContent, String articleId) {
+    public Body(String bodyContent, String articleId, String bodyType) {
         this.bodyContent = bodyContent;
         this.articleId = articleId;
+        this.bodyType = bodyType;
     }
 
     @Id
@@ -55,14 +58,23 @@ public class Body {
         this.articleId = articleId;
     }
 
-    @OneToOne(fetch = FetchType.LAZY, cascade =  CascadeType.MERGE)
-    @JoinColumn(name = "body_type_id", nullable = false)
-    public BodyType getBodyType() {
+    @Column(name = "body_type_implements")
+    public String getBodyType() {
         return bodyType;
     }
 
-    public void setBodyType(BodyType bodyType) {
+    public void setBodyType(String bodyType) {
         this.bodyType = bodyType;
+    }
+
+    @OneToOne(fetch = FetchType.LAZY, cascade =  CascadeType.MERGE)
+    @JoinColumn(name = "body_type_id", nullable = true)
+    public BodyType getBodyTypeId() {
+        return bodyTypeId;
+    }
+
+    public void setBodyTypeId(BodyType bodyTypeId) {
+        this.bodyTypeId = bodyTypeId;
     }
 
     @Override
