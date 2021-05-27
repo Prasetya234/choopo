@@ -31,15 +31,15 @@ public class ArticleImpl implements ArticleService{
 
     @Override
     public Article createArticle(Article articleRequire) throws ResourceNotFoundExceotion {
-        Article articleStatus1 = articleStatusRepository.findById(articleRequire.getArticleStatus().getArticleStatusId())
-                .map(articleStatus -> {
-                    articleRequire.setArticleStatus(articleStatus);
+        Article articleStatus = articleStatusRepository.findById(Long.valueOf(articleRequire.getArticleStatus()))
+                .map(articleStatus1 -> {
+                    articleRequire.setArticleStatusId(articleStatus1);
                     return articleRequire;
                 }).orElseThrow(() -> new ResourceNotFoundExceotion("ARTICLE STATUS ID NOT FOUND"));
-        Article category1 = categoryRepository.findById(articleRequire.getCategory().getCategoryId())
-                .map(category -> {
-                    articleRequire.setCategory(category);
-                    return articleStatus1;
+        Article category = categoryRepository.findById(Long.valueOf(articleRequire.getCategory()))
+                .map(category1 -> {
+                    articleRequire.setCategoryId(category1);
+                    return articleStatus;
                 }).orElseThrow(() -> new ResourceNotFoundExceotion("CATEGORY ID NOT FOUND"));
         return articleRepository.save(articleRequire);
     }
@@ -91,6 +91,20 @@ public class ArticleImpl implements ArticleService{
         article.setTitle(articleDetails.getTitle());
         article.setMainImage(articleDetails.getMainImage());
         article.setTopic(articleDetails.getTopic());
+        article.setArticleStatus(articleDetails.getArticleStatus());
+        article.setCategory(articleDetails.getCategory());
+        Article articleStatus1 = articleStatusRepository.findById(Long.valueOf(articleDetails.getArticleStatus())).map(articleStatus -> {
+            articleDetails.setArticleStatusId(articleStatus);
+            return articleDetails;
+        }).orElseThrow(() ->
+                new ResourceNotFoundExceotion("ARTICLE STATUS ID NOT FOUND"));
+        Article category1 = categoryRepository.findById(Long.valueOf(articleDetails.getCategory())).map(category -> {
+            articleDetails.setCategoryId(category);
+            return articleStatus1;
+        }).orElseThrow(() ->
+                new ResourceNotFoundExceotion("CATEGORY ID NOT FOUND"));
+        article.setArticleStatusId(articleStatus1.getArticleStatusId());
+        article.setCategoryId(category1.getCategoryId());
         final Article updateData = articleRepository.save(article);
 
         return updateData;

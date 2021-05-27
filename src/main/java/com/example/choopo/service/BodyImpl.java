@@ -51,6 +51,12 @@ public class BodyImpl implements BodyService {
 
         body.setBodyContent(bodyDetails.getBodyContent());
         body.setArticleId(bodyDetails.getArticleId());
+        body.setBodyType(bodyDetails.getBodyType());
+           Body body2 = bodyTypeRepository.findById(Long.valueOf(bodyDetails.getBodyType())).map(bodyType -> {
+               bodyDetails.setBodyTypeId(bodyType);
+               return bodyDetails;
+           }).orElseThrow(() -> new ResourceNotFoundExceotion("BODY TYPE ID NOT FOUND"));
+        body.setBodyTypeId(body2.getBodyTypeId());
         final Body updateData = bodyRepository.save(body);
         return updateData;
     }
@@ -69,18 +75,4 @@ public class BodyImpl implements BodyService {
     }
 
 
-    // CONVERT DTO TO ENTITY
-//    private BodyDTO mapToDTO(Body body) {
-//        BodyDTO bodyDTO = modelMapper.map(body, BodyDTO.class);
-//
-//        return  bodyDTO;
-//    }
-//
-//
-//    // CONVERT DTO TO ENTITY
-//    private Body mapToEntity(BodyDTO bodyDTO) {
-//        Body body = modelMapper.map(bodyDTO, Body.class);
-//
-//        return  body;
-//    }
 }

@@ -52,14 +52,6 @@ public class BodyDTO {
         this.articleId = articleId;
     }
 
-    public String getBodyType() {
-        return bodyType;
-    }
-
-    public void setBodyType(String bodyType) {
-        this.bodyType = bodyType;
-    }
-
     public BodyType getBodyTypeId() {
         return bodyTypeId;
     }
@@ -67,4 +59,5 @@ public class BodyDTO {
     public void setBodyTypeId(BodyType bodyTypeId) {
         this.bodyTypeId = bodyTypeId;
     }
+
 }

@@ -39,13 +39,17 @@ public class ArticleDTO {
     @NotNull
     private int totalView;
 
-    @NotNull(message = "DATA TIDAK BOLEH KOSONG KOSONG")
-    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-    private ArticleStatus articleStatus;
+    @NotNull(message = "DATA TIDAK BOLEH KOSONG")
+    private String articleStatus;
 
-    @NotNull(message = "DATA TIDAK BOLEH KOSONG KOSONG")
+    @NotNull(message = "DATA TIDAK BOLEH KOSONG")
+    private String category;
+
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-    private Category category;
+    private ArticleStatus articleStatusId;
+
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+    private Category categoryId;
 
 
     // GET & SET
@@ -106,19 +110,21 @@ public class ArticleDTO {
         this.totalView = totalView;
     }
 
-    public ArticleStatus getArticleStatus() {
-        return articleStatus;
+
+    public ArticleStatus getArticleStatusId() {
+        return articleStatusId;
     }
 
-    public void setArticleStatus(ArticleStatus articleStatus) {
-        this.articleStatus = articleStatus;
+    public void setArticleStatusId(ArticleStatus articleStatusId) {
+        this.articleStatusId = articleStatusId;
     }
 
-    public Category getCategory() {
-        return category;
+    public Category getCategoryId() {
+        return categoryId;
     }
 
-    public void setCategory(Category category) {
-        this.category = category;
+    public void setCategoryId(Category categoryId) {
+        this.categoryId = categoryId;
     }
+
 }

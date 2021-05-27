@@ -1,9 +1,7 @@
 package com.example.choopo.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
-import javax.validation.constraints.*;
 
 @Entity
 @Table(name="body")

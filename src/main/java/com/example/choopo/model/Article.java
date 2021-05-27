@@ -26,20 +26,26 @@ public class Article {
 
     private int totalView;
 
-    private ArticleStatus articleStatus;
+    private String articleStatus;
 
-    private Category category;
+    private String category;
+
+    private ArticleStatus articleStatusId;
+
+    private Category categoryId;
 
     // Constructor
     public Article() {
 
     }
 
-    public Article(String subtitle, String title, String mainImage, String topic) {
+    public Article(String subtitle, String title, String mainImage, String topic, String articleStatus, String category) {
         this.subtitle = subtitle;
         this.title = title;
         this.mainImage = mainImage;
         this.topic = topic;
+        this.articleStatus = articleStatus;
+        this.category = category;
     }
 
     // Getter and Setter
@@ -112,24 +118,42 @@ public class Article {
         this.totalView = totalView;
     }
 
-    @OneToOne(fetch = FetchType.LAZY, cascade =  CascadeType.MERGE)
-    @JoinColumn(name = "article_status_id", nullable = false)
-    public ArticleStatus getArticleStatus() {
+    @Column(name = "article_status_implements")
+    public String getArticleStatus() {
         return articleStatus;
     }
 
-    public void setArticleStatus(ArticleStatus articleStatus) {
+    public void setArticleStatus(String articleStatus) {
         this.articleStatus = articleStatus;
+    }
+
+    @Column(name = "category_implements")
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
+    @OneToOne(fetch = FetchType.LAZY, cascade =  CascadeType.MERGE)
+    @JoinColumn(name = "article_status_id", nullable = false)
+    public ArticleStatus getArticleStatusId() {
+        return articleStatusId;
+    }
+
+    public void setArticleStatusId(ArticleStatus articleStatusId) {
+        this.articleStatusId = articleStatusId;
     }
 
     @OneToOne(fetch = FetchType.LAZY, cascade =  CascadeType.MERGE)
     @JoinColumn(name = "category_id", nullable = false)
-    public Category getCategory() {
-        return category;
+    public Category getCategoryId() {
+        return categoryId;
     }
 
-    public void setCategory(Category category) {
-        this.category = category;
+    public void setCategoryId(Category categoryId) {
+        this.categoryId = categoryId;
     }
 
     /**
