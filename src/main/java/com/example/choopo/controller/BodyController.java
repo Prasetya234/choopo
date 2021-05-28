@@ -50,7 +50,7 @@ public class BodyController {
     }
 
     @PostMapping("/")
-    public CommonResponse<Body> createBody(@Valid @RequestBody Body bodyDTORequest) throws ResourceNotFoundExceotion {
+    public CommonResponse<BodyDTO> createBody(@Valid @RequestBody BodyDTO bodyDTORequest) throws ResourceNotFoundExceotion {
         Body bodyRequire = modelMapper.map(bodyDTORequest, Body.class);
         Body body = bodyService.createBody(bodyRequire);
 
@@ -59,7 +59,7 @@ public class BodyController {
     }
 
     @PutMapping("/{id}")
-    public CommonResponse<Body> updateBodyById(@PathVariable(value = "id") Long bodyId, @Valid @RequestBody Body bodyDTODetails) throws ResourceNotFoundExceotion {
+    public CommonResponse<BodyDTO> updateBodyById(@PathVariable(value = "id") Long bodyId, @Valid @RequestBody BodyDTO bodyDTODetails) throws ResourceNotFoundExceotion {
         Body bodyDetails = modelMapper.map(bodyDTODetails, Body.class);
         Body body = bodyService.updateBodyById(bodyId, bodyDetails);
 

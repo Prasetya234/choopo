@@ -59,7 +59,7 @@ public class ArticleController {
     }
 
     @PostMapping("/")
-    public CommonResponse<Article> createArticle(@Valid @RequestBody Article articleDTORequest) throws ResourceNotFoundExceotion {
+    public CommonResponse<ArticleDTO> createArticle(@Valid @RequestBody ArticleDTO articleDTORequest) throws ResourceNotFoundExceotion {
         Article articleRequest = modelMapper.map(articleDTORequest, Article.class);
 
         Article article = articleService.createArticle(articleRequest);
@@ -69,7 +69,7 @@ public class ArticleController {
     }
 
     @PutMapping("/{id}")
-    public CommonResponse<Article> updateArticle(@PathVariable(value = "id") Long articleId, @Valid @RequestBody Article articleDTODetails) throws ResourceNotFoundExceotion {
+    public CommonResponse<ArticleDTO> updateArticle(@PathVariable(value = "id") Long articleId, @Valid @RequestBody ArticleDTO articleDTODetails) throws ResourceNotFoundExceotion {
         Article articleDetails = modelMapper.map(articleDTODetails, Article.class);
 
         Article article = articleService.updateArticle(articleId,articleDetails);

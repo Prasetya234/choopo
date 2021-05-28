@@ -4,6 +4,7 @@ import com.example.choopo.model.ArticleStatus;
 import com.example.choopo.model.Category;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -36,12 +37,14 @@ public class ArticleDTO {
     @Size(max = 255, message = "topic has exceeded the limit")
     private String topic;
 
-    @NotNull
+    @NotNull(message = "TOTAL VIEWS")
     private int totalView;
 
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @NotNull(message = "DATA TIDAK BOLEH KOSONG")
     private String articleStatus;
 
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @NotNull(message = "DATA TIDAK BOLEH KOSONG")
     private String category;
 
@@ -110,6 +113,21 @@ public class ArticleDTO {
         this.totalView = totalView;
     }
 
+    public String getArticleStatus() {
+        return articleStatus;
+    }
+
+    public void setArticleStatus(String articleStatus) {
+        this.articleStatus = articleStatus;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
 
     public ArticleStatus getArticleStatusId() {
         return articleStatusId;
