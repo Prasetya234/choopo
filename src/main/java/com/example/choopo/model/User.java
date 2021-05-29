@@ -10,7 +10,7 @@ public class User {
 
     private int userType;
 
-    private String userName;
+    private String username;
 
     private int userCode;
 
@@ -22,9 +22,9 @@ public class User {
 
     }
 
-    public User(int userType, String userName, int userCode, String password, int userStatus) {
+    public User(int userType, String username, int userCode, String password, int userStatus) {
         this.userType = userType;
-        this.userName = userName;
+        this.username = username;
         this.userCode = userCode;
         this.password = password;
         this.userStatus = userStatus;
@@ -51,13 +51,13 @@ public class User {
         this.userType = userType;
     }
 
-    @Column(name = "user_name", nullable = false)
-    public String getUserName() {
-        return userName;
+    @Column(name = "username", nullable = false)
+    public String getUsername() {
+        return username;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     @Column(name = "user_code", nullable = false)
@@ -92,7 +92,7 @@ public class User {
         return "User{" +
                 "userId=" + userId +
                 ", userType=" + userType +
-                ", userName='" + userName + '\'' +
+                ", userName='" + username + '\'' +
                 ", userCode=" + userCode +
                 ", password='" + password + '\'' +
                 ", userStatus=" + userStatus +

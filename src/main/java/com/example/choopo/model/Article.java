@@ -50,8 +50,7 @@ public class Article {
 
     // Getter and Setter
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO, generator = "auto_article")
-    @SequenceGenerator(name = "auto_article", sequenceName = "article_id")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "article_id")
     public long getArticleId() {
         return articleId;
