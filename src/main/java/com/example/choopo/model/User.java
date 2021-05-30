@@ -2,6 +2,7 @@ package com.example.choopo.model;
 
 import javax.persistence.*;
 import javax.validation.constraints.*;
+import java.util.List;
 
 @Entity
 @Table(name = "useres")
@@ -31,8 +32,7 @@ public class User {
     }
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO, generator = "auto_user")
-    @SequenceGenerator(name = "auto_user", sequenceName = "user_id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id")
     public long getUserId() {
         return userId;

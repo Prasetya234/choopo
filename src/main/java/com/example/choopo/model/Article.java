@@ -117,7 +117,7 @@ public class Article {
         this.totalView = totalView;
     }
 
-    @Column(name = "article_status_implements")
+    @Transient
     public String getArticleStatus() {
         return articleStatus;
     }
@@ -126,7 +126,7 @@ public class Article {
         this.articleStatus = articleStatus;
     }
 
-    @Column(name = "category_implements")
+    @Transient
     public String getCategory() {
         return category;
     }

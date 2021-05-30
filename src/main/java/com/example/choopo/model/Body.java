@@ -55,7 +55,7 @@ public class Body {
         this.articleId = articleId;
     }
 
-    @Column(name = "body_type_implements")
+    @Transient
     public String getBodyType() {
         return bodyType;
     }

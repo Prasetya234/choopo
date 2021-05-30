@@ -18,8 +18,7 @@ public class AuthenticationResponse {
     }
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO, generator = "auto_jwt")
-    @SequenceGenerator(name = "auto_jwt", sequenceName = "id_jwt")
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id_jwt")
     public Long getIdJwt() {
         return idJwt;
@@ -29,8 +28,7 @@ public class AuthenticationResponse {
         this.idJwt = idJwt;
     }
 
-
-    @Column(name = "jwt")
+    @Column(name = "jwt", columnDefinition = "TEXT(2000)")
     public String getJwt() {
         return jwt;
     }
@@ -38,4 +36,14 @@ public class AuthenticationResponse {
     public void setJwt(String jwt) {
         this.jwt = jwt;
     }
+
+//    private final String jwt;
+//
+//    public AuthenticationResponse(String jwt) {
+//        this.jwt = jwt;
+//    }
+//
+//    public String getJwt() {
+//        return jwt;
+//    }
 }
