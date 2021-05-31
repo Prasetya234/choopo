@@ -56,6 +56,8 @@ public class User {
         this.userType = userType;
     }
 
+    @NotEmpty(message = "USERNAME HARUS DI ISI")
+    @Size(min = 4, max = 10, message = "USERNAME MUST 4 - 10 CHARACTERS")
     @Column(name = "username", nullable = false)
     public String getUsername() {
         return username;
@@ -75,6 +77,8 @@ public class User {
     }
 
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    @NotEmpty(message = "PASSWORD HARUS DI ISI")
+    @Size(min=4, max = 20, message = "PASSWORD MUST 4 - 20 CHARACTERS")
     @Column(name = "password", nullable = false)
     public String getPassword() {
         return password;

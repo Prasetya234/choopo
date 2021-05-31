@@ -2,7 +2,6 @@ package com.example.choopo.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -14,15 +13,11 @@ public class UserDTO {
     @NotNull
     private int userType;
 
-    @NotBlank
-    @Size(min = 1, max = 255, message = "Username has exceeded the limit")
     private String username;
 
     @NotNull
     private int userCode;
 
-    @NotEmpty(message = "PASSWORD HARUS DI ISI")
-    @Size(min=4, max = 20, message = "The password must be 4 - 20 words long")
     private String password;
 
     @NotNull

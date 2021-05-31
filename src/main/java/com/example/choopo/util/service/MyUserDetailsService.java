@@ -4,7 +4,6 @@ import com.example.choopo.dto.UserDTO;
 import com.example.choopo.model.User;
 import com.example.choopo.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -36,20 +35,17 @@ public class MyUserDetailsService implements UserDetailsService {
         }
     }
 
-    public com.example.choopo.model.User save(UserDTO userDTO) {
+
+    public User save(UserDTO userDTO) {
+
 
         com.example.choopo.model.User newUser = new com.example.choopo.model.User();
+        newUser.setUserType(userDTO.getUserType());
         newUser.setUsername(userDTO.getUsername());
+        newUser.setUserCode(userDTO.getUserCode());
         newUser.setPassword(userDTO.getPassword());
+        newUser.setUserStatus(userDTO.getUserStatus());
         newUser.setPasswordNonEncode(passwordEncoder.encode(newUser.getPassword()));
         return userRepository.save(newUser);
-
-//        User aa = new User();
-//        aa.setUsername(newUser.getUsername());
-//        aa.setPassword(newUser.getPassword());
-//        aa.setPasswordNonEncode(new.getPasswordNonEncode());
-//        final User updateEncode = userRepository.save(aa);
-//
-//        return updateEncode;
     }
 }

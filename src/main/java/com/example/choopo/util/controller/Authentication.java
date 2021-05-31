@@ -1,6 +1,10 @@
 package com.example.choopo.util.controller;
 
 import com.example.choopo.dto.UserDTO;
+import com.example.choopo.model.User;
+import com.example.choopo.response.CommonResponse;
+import com.example.choopo.response.CommonResponseGenerator;
+import com.example.choopo.util.repository.AuthenticationResponseRepository;
 import com.example.choopo.util.service.MyUserDetailsService;
 import com.example.choopo.util.JwtUtil;
 import com.example.choopo.util.model.AuthenticationRequest;
@@ -21,16 +25,22 @@ import javax.validation.Valid;
 public class Authentication {
 
     @Autowired
+    private CommonResponseGenerator commonResponseGenerator;
+
+    @Autowired
     private AuthenticationManager authenticationManager;
 
     @Autowired
     private MyUserDetailsService userDetailsService;
 
     @Autowired
+    private AuthenticationResponseRepository authenticationResponseRepository;
+
+    @Autowired
     private JwtUtil jwtTokenUtil;
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public ResponseEntity<?> createAuthenticationToken(@RequestBody AuthenticationRequest authenticationRequest) throws Exception {
+    public CommonResponse<AuthenticationRequest> createAuthenticationToken(@RequestBody AuthenticationRequest authenticationRequest) throws Exception {
 
         authenticate(authenticationRequest.getUsername(), authenticationRequest.getPassword());
 
@@ -38,13 +48,17 @@ public class Authentication {
 
         final String jwt = jwtTokenUtil.generateToken(userDetails);
 
+        AuthenticationResponse authenticationResponse = new AuthenticationResponse();
+        authenticationResponse.setJwt(jwt);
 
-        return ResponseEntity.ok(new AuthenticationResponse(jwt));
+        authenticationResponseRepository.save(authenticationResponse);
+
+        return commonResponseGenerator.successResponse(authenticationResponse);
     }
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)
-    public ResponseEntity<?> saveUser(@RequestBody @Valid UserDTO userRequire) {
-        return ResponseEntity.ok(userDetailsService.save(userRequire));
+    public CommonResponse<User> saveUser(@RequestBody @Valid UserDTO userDTO) {
+        return commonResponseGenerator.successResponse(userDetailsService.save(userDTO));
     }
 
     private void authenticate(String username, String password) throws Exception {
