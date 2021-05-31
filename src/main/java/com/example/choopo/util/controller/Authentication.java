@@ -58,6 +58,7 @@ public class Authentication {
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     public CommonResponse<User> saveUser(@RequestBody @Valid UserDTO userDTO) {
+
         return commonResponseGenerator.successResponse(userDetailsService.save(userDTO));
     }
 

@@ -11,6 +11,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class MyUserDetailsService implements UserDetailsService {
@@ -37,15 +38,17 @@ public class MyUserDetailsService implements UserDetailsService {
 
 
     public User save(UserDTO userDTO) {
-
-
-        com.example.choopo.model.User newUser = new com.example.choopo.model.User();
-        newUser.setUserType(userDTO.getUserType());
-        newUser.setUsername(userDTO.getUsername());
-        newUser.setUserCode(userDTO.getUserCode());
-        newUser.setPassword(userDTO.getPassword());
-        newUser.setUserStatus(userDTO.getUserStatus());
-        newUser.setPasswordNonEncode(passwordEncoder.encode(newUser.getPassword()));
-        return userRepository.save(newUser);
+        User userList = userRepository.findByUsernameCek(userDTO.getUsername());
+        if (userList == null) {
+            com.example.choopo.model.User newUser = new com.example.choopo.model.User();
+            newUser.setUserType(userDTO.getUserType());
+            newUser.setUsername(userDTO.getUsername());
+            newUser.setUserCode(userDTO.getUserCode());
+            newUser.setPassword(userDTO.getPassword());
+            newUser.setUserStatus(userDTO.getUserStatus());
+            newUser.setPasswordNonEncode(passwordEncoder.encode(newUser.getPassword()));
+            return userRepository.save(newUser);
+        }
+        throw new RuntimeException("USER ALREADY EXIST");
     }
 }
