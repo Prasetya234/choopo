@@ -3,6 +3,7 @@ package com.example.choopo.dto;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -20,13 +21,14 @@ public class UserDTO {
     @NotNull
     private int userCode;
 
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-    @NotBlank
-    @Size(min=2, max = 20, message = "The password must be 4 - 20 words long")
+    @NotEmpty(message = "PASSWORD HARUS DI ISI")
+    @Size(min=4, max = 20, message = "The password must be 4 - 20 words long")
     private String password;
 
     @NotNull
     private int userStatus;
+
+    private String passwordNonEncode;
 
     public Long getUserId() {
         return userId;
@@ -76,5 +78,12 @@ public class UserDTO {
         this.userStatus = userStatus;
     }
 
+    public String getPasswordNonEncode() {
+        return passwordNonEncode;
+    }
+
+    public void setPasswordNonEncode(String passwordNonEncode) {
+        this.passwordNonEncode = passwordNonEncode;
+    }
 }
 

@@ -32,7 +32,7 @@ public class MyUserDetailsService implements UserDetailsService {
         if (user == null) {
             throw  new UsernameNotFoundException("USER TIDAK DITEMUKAN");
         } else {
-            return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), new ArrayList<>());
+            return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPasswordNonEncode(), new ArrayList<>());
         }
     }
 
@@ -41,11 +41,15 @@ public class MyUserDetailsService implements UserDetailsService {
         com.example.choopo.model.User newUser = new com.example.choopo.model.User();
         newUser.setUsername(userDTO.getUsername());
         newUser.setPassword(userDTO.getPassword());
-        userRepository.save(newUser);
+        newUser.setPasswordNonEncode(passwordEncoder.encode(newUser.getPassword()));
+        return userRepository.save(newUser);
 
-        User aa = new User();
-        aa.setUsername(newUser.getUsername());
-        aa.setPassword(passwordEncoder.encode(newUser.getPassword()));
-        return aa;
+//        User aa = new User();
+//        aa.setUsername(newUser.getUsername());
+//        aa.setPassword(newUser.getPassword());
+//        aa.setPasswordNonEncode(new.getPasswordNonEncode());
+//        final User updateEncode = userRepository.save(aa);
+//
+//        return updateEncode;
     }
 }
