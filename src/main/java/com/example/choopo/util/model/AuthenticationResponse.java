@@ -1,6 +1,7 @@
 package com.example.choopo.util.model;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @Entity
 @Table(name = "temporary_token")
@@ -9,6 +10,8 @@ public class AuthenticationResponse {
     private Long idJwt;
 
     private String jwt;
+
+    private Date expiredDate;
 
     public AuthenticationResponse() {
     }
@@ -37,13 +40,12 @@ public class AuthenticationResponse {
         this.jwt = jwt;
     }
 
-//    private final String jwt;
-//
-//    public AuthenticationResponse(String jwt) {
-//        this.jwt = jwt;
-//    }
-//
-//    public String getJwt() {
-//        return jwt;
-//    }
+    @Column(name = "expired_date")
+    public Date getExpiredDate() {
+        return expiredDate;
+    }
+
+    public void setExpiredDate(Date expiredDate) {
+        this.expiredDate = expiredDate;
+    }
 }

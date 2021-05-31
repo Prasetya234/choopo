@@ -1,7 +1,7 @@
 package com.example.choopo.util.filters;
 
 import com.example.choopo.util.service.MyUserDetailsService;
-import com.example.choopo.util.JwtUtil;
+import com.example.choopo.util.service.JwtUtil;
 import io.jsonwebtoken.ExpiredJwtException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
