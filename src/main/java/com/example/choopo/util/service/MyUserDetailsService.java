@@ -89,6 +89,4 @@ public class MyUserDetailsService extends UserDetailsImpl implements UserDetails
             throw new Exception("INVALID_CREDENTIALS", e);
         }
     }
-
-
 }

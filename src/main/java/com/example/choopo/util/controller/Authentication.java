@@ -33,9 +33,7 @@ public class Authentication {
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     public CommonResponse<UserDTO> saveUser(@RequestBody @Valid UserDTO userDTO) {
-
         User userRequest = modelMapper.map(userDTO, User.class);
-        UserDTO fin = modelMapper.map(userRequest, UserDTO.class);
-        return commonResponseGenerator.successResponse(userDetailsService.save(fin));
+        return commonResponseGenerator.successResponse(userDetailsService.save(modelMapper.map(userRequest, UserDTO.class)));
     }
 }
