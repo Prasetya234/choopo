@@ -1,5 +1,6 @@
 package com.example.choopo.util.filters;
 
+import com.example.choopo.util.model.AuthenticationResponse;
 import com.example.choopo.util.service.MyUserDetailsService;
 import com.example.choopo.util.service.JwtUtil;
 import io.jsonwebtoken.ExpiredJwtException;
@@ -28,13 +29,14 @@ public class JwtRequestFilter extends OncePerRequestFilter {
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
+        AuthenticationResponse authenticationResponse = new AuthenticationResponse();
         final String autorizationHeader = request.getHeader("Authorization");
 
         String username = null;
-        String jwt = null;
+        String jwt =  authenticationResponse.getJwt();
 
-        if (autorizationHeader != null && autorizationHeader.startsWith("Choopoo ")) {
-            jwt = autorizationHeader.substring(7);
+        if (autorizationHeader != null) {
+            jwt = autorizationHeader.substring(0);
             try {
                 username = jwtUtil.extractUsername(jwt);
             } catch (IllegalArgumentException e) {
@@ -43,7 +45,7 @@ public class JwtRequestFilter extends OncePerRequestFilter {
                 System.out.println("JWT Token has expired");
             }
         } else {
-            logger.warn("TAMBAHKAN KATA 'Choopoo' SEMELUM MEMASUKAN TOKEN JWT");
+            logger.warn("MASUKAN TOKEN JWT TERLEBIH DAHULU");
         }
 
         if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {

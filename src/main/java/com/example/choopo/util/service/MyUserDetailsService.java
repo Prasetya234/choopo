@@ -84,10 +84,10 @@ public class MyUserDetailsService extends UserDetailsImpl implements UserDetails
                 authenticationResponse.setUser(String.valueOf(aa.getUserId()));
                 authenticationResponseRepository.save(authenticationResponse);
                 if (authenticationResponse != null) {
-                    AuthenticationResponse authenticationResponse1 = userRepository.findById(Long.valueOf(authenticationResponse.getUser())).map(bodyTypeId -> {
-                        authenticationResponse.setUserUser(bodyTypeId);
+                    AuthenticationResponse authenticationResponse1 = userRepository.findById(Long.valueOf(authenticationResponse.getUser())).map(userId -> {
+                        authenticationResponse.setUserUser(userId);
                         return authenticationResponse;
-                    }).orElseThrow(() -> new ResourceNotFoundExceotion("BODY TYPE ID NOT FOUND"));
+                    }).orElseThrow(() -> new ResourceNotFoundExceotion("USER ID NOT FOUND"));
                     return authenticationResponseRepository.save(authenticationResponse1);
                 }
 
