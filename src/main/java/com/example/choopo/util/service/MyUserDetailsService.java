@@ -1,6 +1,7 @@
 package com.example.choopo.util.service;
 
 import com.example.choopo.dto.UserDTO;
+import com.example.choopo.exception.ResourceNotFoundExceotion;
 import com.example.choopo.model.User;
 import com.example.choopo.repository.UserRepository;
 import com.example.choopo.util.model.AuthenticationRequest;
@@ -18,7 +19,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 
 @Service
 public class MyUserDetailsService extends UserDetailsImpl implements UserDetailsService {
@@ -54,7 +57,7 @@ public class MyUserDetailsService extends UserDetailsImpl implements UserDetails
 
     @Override
     public User save(UserDTO userDTO) {
-        User userList = userRepository.findByUsernameCek(userDTO.getUsername());
+        User userList = userRepository.findByUsername(userDTO.getUsername());
         if (userList == null) {
             com.example.choopo.model.User newUser = new com.example.choopo.model.User();
             newUser.setUserType(userDTO.getUserType());
@@ -70,14 +73,28 @@ public class MyUserDetailsService extends UserDetailsImpl implements UserDetails
 
     @Override
     public AuthenticationResponse login(AuthenticationRequest authenticationRequest) throws Exception {
-        authenticate(authenticationRequest.getUsername(), authenticationRequest.getPassword());
-        final UserDetails userDetails = userDetailsService.loadUserByUsername(authenticationRequest.getUsername());
-        final String jwt = jwtTokenUtil.generateToken(userDetails);
+        try {
+            authenticate(authenticationRequest.getUsername(), authenticationRequest.getPassword());
+            final UserDetails userDetails = userDetailsService.loadUserByUsername(authenticationRequest.getUsername());
+            final String jwt = jwtTokenUtil.generateToken(userDetails);
+            User aa = userRepository.findByUsername(authenticationRequest.getUsername());
+                AuthenticationResponse authenticationResponse = new AuthenticationResponse();
+                authenticationResponse.setJwt(jwt);
+                authenticationResponse.setExpiredDate(new Date(System.currentTimeMillis() + 900000));
+                authenticationResponse.setUser(String.valueOf(aa.getUserId()));
+                authenticationResponseRepository.save(authenticationResponse);
+                if (authenticationResponse != null) {
+                    AuthenticationResponse authenticationResponse1 = userRepository.findById(Long.valueOf(authenticationResponse.getUser())).map(bodyTypeId -> {
+                        authenticationResponse.setUserUser(bodyTypeId);
+                        return authenticationResponse;
+                    }).orElseThrow(() -> new ResourceNotFoundExceotion("BODY TYPE ID NOT FOUND"));
+                    return authenticationResponseRepository.save(authenticationResponse1);
+                }
 
-        AuthenticationResponse authenticationResponse = new AuthenticationResponse();
-        authenticationResponse.setJwt(jwt);
-        authenticationResponse.setExpiredDate(new Date(System.currentTimeMillis() + 900000));
-         return authenticationResponseRepository.save(authenticationResponse);
+                return authenticationResponse;
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+        }
     }
 
     private void authenticate(String username, String password) throws Exception {

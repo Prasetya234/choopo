@@ -12,7 +12,7 @@ import java.util.List;
 @Repository
 public interface AuthenticationResponseRepository extends JpaRepository<AuthenticationResponse, Long> {
 
-    @Query(value = "select * from temporary_token where expired_date > :expired" , nativeQuery = true)
+    @Query(value = "select * from temporary_token where expired_date < :expired" , nativeQuery = true)
     List<AuthenticationResponse> findDateExpired(Date expired);
 
 }

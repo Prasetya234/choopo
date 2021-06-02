@@ -17,17 +17,18 @@ public class ScheduledTasks {
     @Autowired
     private AuthenticationResponseRepository authenticationResponseRepository;
 
-    @Scheduled(fixedDelay = 1000000)
+    //86400000 = 1 Day
+    @Scheduled(fixedDelay = 86400000)
     public void deleteToken() {
         List<AuthenticationResponse> expired = authenticationResponseRepository.findDateExpired(new Date());
-        List<AuthenticationResponse> result=authenticationResponseRepository.findDateExpired(new Date());
-        List<Object> arr= Arrays.asList(result);
-        for(AuthenticationResponse a:result){
-            if (expired == null) {
+        List<Object> arr= Arrays.asList(expired);
+        for(AuthenticationResponse a:expired){
+            if (a == null) {
                 return;
             } else {
                 authenticationResponseRepository.delete(a);
             }
         }
+        System.out.println("INSPECTION WALKING IN BACKGROUND\n");
     }
 }
