@@ -1,6 +1,5 @@
 package com.example.choopo.util.filters;
 
-import com.example.choopo.util.model.AuthenticationResponse;
 import com.example.choopo.util.service.MyUserDetailsService;
 import com.example.choopo.util.service.JwtUtil;
 import io.jsonwebtoken.ExpiredJwtException;

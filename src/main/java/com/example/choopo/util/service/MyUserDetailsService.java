@@ -81,7 +81,7 @@ public class MyUserDetailsService implements UserDetailsService, UserDetailsImpl
                 authenticationResponse.setExpiredDate(new Date(System.currentTimeMillis() + 900000));
                 authenticationResponse.setUser(String.valueOf(aa.getUserId()));
                 authenticationResponseRepository.save(authenticationResponse);
-                if (authenticationResponse != null) {
+                if (authenticationResponse.getUser() != null) {
                     AuthenticationResponse authenticationResponse1 = userRepository.findById(Long.valueOf(authenticationResponse.getUser())).map(userId -> {
                         authenticationResponse.setUserUser(userId);
                         return authenticationResponse;
