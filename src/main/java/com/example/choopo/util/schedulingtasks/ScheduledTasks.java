@@ -20,15 +20,15 @@ public class ScheduledTasks {
     //86400000 = 1 Day
     @Scheduled(fixedDelay = 86400000)
     public void deleteToken() {
-        List<AuthenticationResponse> expired = authenticationResponseRepository.findDateExpired(new Date());
-        List<Object> arr= Arrays.asList(expired);
-        for(AuthenticationResponse a:expired){
-            if (a == null) {
-                return;
-            } else {
-                authenticationResponseRepository.delete(a);
-            }
-        }
-        System.out.println("INSPECTION WALKING IN BACKGROUND\n");
+//        List<AuthenticationResponse> expired = authenticationResponseRepository.findDateExpired(new Date());
+//        List<Object> arr= Arrays.asList(expired);
+//        for(AuthenticationResponse a:expired){
+//            if (a == null) {
+//                return;
+//            } else {
+//                authenticationResponseRepository.delete(a);
+//            }
+//        }
+//        System.out.println("INSPECTION WALKING IN BACKGROUND\n");
     }
 }

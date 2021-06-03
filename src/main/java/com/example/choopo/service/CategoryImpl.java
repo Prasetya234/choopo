@@ -3,6 +3,7 @@ package com.example.choopo.service;
 import com.example.choopo.exception.ResourceNotFoundExceotion;
 import com.example.choopo.model.Category;
 import com.example.choopo.repository.CategoryRepository;
+import com.example.choopo.util.repository.AuthenticationResponseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,6 +13,8 @@ import java.util.*;
 public class CategoryImpl implements CategoryService{
 
     @Autowired private CategoryRepository categoryRepository;
+
+    @Autowired private AuthenticationResponseRepository authenticationResponseRepository;
 
     @Override
     public List<Category> getAll() {
@@ -49,22 +52,5 @@ public class CategoryImpl implements CategoryService{
         return response;
     }
 
-//    @Autowired private ModelMapper modelMapper;
 
-
-
-//    // CONVERT DTO TO ENTITY
-//    private CategoryDTO mapToDTO(Category category) {
-//        CategoryDTO categoryDTO = modelMapper.map(category, CategoryDTO.class);
-//
-//        return  categoryDTO;
-//    }
-//
-//
-//    // CONVERT DTO TO ENTITY
-//    private Category mapToEntity(CategoryDTO categoryDTO) {
-//        Category category = modelMapper.map(categoryDTO, Category.class);
-//
-//        return  category;
-//    }
 }

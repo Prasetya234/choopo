@@ -5,7 +5,7 @@ import com.example.choopo.model.User;
 import com.example.choopo.util.model.AuthenticationRequest;
 import com.example.choopo.util.model.AuthenticationResponse;
 
-public abstract class UserDetailsImpl {
-    public abstract User save(UserDTO userDTO);
-    public abstract AuthenticationResponse login(AuthenticationRequest authenticationRequest) throws Exception;
+public interface UserDetailsImpl {
+    User save(UserDTO userDTO);
+    AuthenticationResponse login(AuthenticationRequest authenticationRequest) throws Exception;
 }
