@@ -80,7 +80,13 @@ public class TemporaryTokenService implements UserDetailsService,TemporaryTokenI
             temporaryToken.setToken(String.valueOf(token));
             temporaryToken.setExpiredDate(new Date(System.currentTimeMillis() + 900000));
             temporaryToken.setUser(aunthenticationRequest.getUsername());
-            return temporaryTokenRepository.save(temporaryToken);
+            TemporaryToken temporaryToken1 = temporaryTokenRepository.cekUser(temporaryToken.getUser());
+            if (temporaryToken1 == null) {
+                return temporaryTokenRepository.save(temporaryToken);
+            } else {
+                temporaryTokenRepository.deleteById(temporaryToken1.getIdToken());
+                return temporaryTokenRepository.save(temporaryToken);
+            }
         } catch (Exception e) {
             throw new RuntimeException(e);
         }

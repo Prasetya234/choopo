@@ -2,7 +2,6 @@ package com.example.choopo.util.repository;
 
 import com.example.choopo.util.model.TemporaryToken;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
@@ -21,7 +20,7 @@ public interface TemporaryTokenRepository extends JpaRepository<TemporaryToken, 
     @Query(value = "select * from temporary_token where expired_date < :expired" , nativeQuery = true)
     List<TemporaryToken> findDateExpired(Date expired);
 
-    @Modifying
-    @Query(value = "UPDATE temporary_token SET expired_date= :expired234 WHERE token= :token234", nativeQuery = true)
-    void updateToken(Date expired234, String token234);
+    @Query(value = "select * from temporary_token where user= :username" , nativeQuery = true)
+    TemporaryToken cekUser(String username);
+
 }
