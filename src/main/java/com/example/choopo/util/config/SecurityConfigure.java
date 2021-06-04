@@ -1,13 +1,10 @@
-package com.example.choopo.config;
+package com.example.choopo.util.config;
 
-import com.example.choopo.util.filters.JwtRequestFilter;
-import com.example.choopo.util.repository.AuthenticationResponseRepository;
-import com.example.choopo.util.schedulingtasks.ScheduledTasks;
-import com.example.choopo.util.service.MyUserDetailsService;
+import com.example.choopo.util.filter.TokenRequestFilter;
+import com.example.choopo.util.service.TemporaryTokenService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpMethod;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -24,22 +21,16 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @EnableScheduling
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
-public class SecurityConfigurer extends WebSecurityConfigurerAdapter {
+public class SecurityConfigure extends WebSecurityConfigurerAdapter {
+    @Autowired
+    private TemporaryTokenService temporaryTokenService;
 
     @Autowired
-    private JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
-    @Autowired
-    private MyUserDetailsService myUserDetailsService;
-
-    @Autowired
-    private JwtRequestFilter jwtRequestFilter;
-
-    @Autowired
-    private AuthenticationResponseRepository authen;
+    private TokenRequestFilter tokenRequestFilter;
 
     @Autowired
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(myUserDetailsService).passwordEncoder(passwordEncoder());
+        auth.userDetailsService(temporaryTokenService).passwordEncoder(passwordEncoder());
     }
 
     @Bean
@@ -50,21 +41,16 @@ public class SecurityConfigurer extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable()
-                .authorizeRequests().antMatchers("/login", "/", "/register").permitAll()
+                .authorizeRequests().antMatchers("/login", "/", "/register", "/get-token").permitAll()
                 .anyRequest().authenticated()
-                .and().sessionManagement()
-                .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-        http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
+                .and()
+                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+        http.addFilterBefore(tokenRequestFilter, UsernamePasswordAuthenticationFilter.class);
     }
 
     @Override
     @Bean
     public AuthenticationManager authenticationManagerBean() throws Exception {
         return  super.authenticationManagerBean();
-    }
-
-    @Bean
-    public ScheduledTasks task() {
-        return new ScheduledTasks();
     }
 }

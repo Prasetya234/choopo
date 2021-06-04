@@ -4,7 +4,6 @@ import com.example.choopo.exception.ResourceNotFoundExceotion;
 import com.example.choopo.model.User;
 import com.example.choopo.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -13,6 +12,7 @@ import java.util.*;
 public class UserImpl implements UserService{
 
     @Autowired private UserRepository userRepository;
+
 
     @Override
     public List<User> getAll() {

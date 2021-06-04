@@ -50,7 +50,8 @@ public class Article {
 
     // Getter and Setter
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.AUTO, generator = "auto_article")
+    @SequenceGenerator(name = "auto_article", sequenceName = "article_id")
     @Column(name = "article_id")
     public long getArticleId() {
         return articleId;
@@ -117,7 +118,7 @@ public class Article {
         this.totalView = totalView;
     }
 
-    @Transient
+    @Column(name = "article_status_implements")
     public String getArticleStatus() {
         return articleStatus;
     }
@@ -126,7 +127,7 @@ public class Article {
         this.articleStatus = articleStatus;
     }
 
-    @Transient
+    @Column(name = "category_implements")
     public String getCategory() {
         return category;
     }

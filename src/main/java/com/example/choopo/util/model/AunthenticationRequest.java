@@ -1,13 +1,11 @@
 package com.example.choopo.util.model;
 
-public class AuthenticationRequest {
+public class AunthenticationRequest {
+
     private String username;
     private String password;
 
-    public AuthenticationRequest() {
-    }
-
-    public AuthenticationRequest(String username, String password) {
+    public AunthenticationRequest(String username, String password) {
         this.username = username;
         this.password = password;
     }
