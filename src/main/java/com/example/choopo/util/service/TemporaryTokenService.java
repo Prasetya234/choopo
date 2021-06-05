@@ -17,6 +17,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.*;
 
 @Service
@@ -64,45 +65,42 @@ public class TemporaryTokenService implements UserDetailsService,TemporaryTokenI
     }
 
     @Override
-    public TemporaryToken login(AunthenticationRequest aunthenticationRequest) {
-        try {
-            User validateLogin = userRepository.login(aunthenticationRequest.getUsername(), aunthenticationRequest.getPassword());
-            authenticate(aunthenticationRequest.getUsername(), aunthenticationRequest.getPassword());
-            UserDetails userDetails = userDetailsService.loadUserByUsername(aunthenticationRequest.getUsername());
-            if (userDetails == null) {
-                throw new Exception("USER NOT FOUND");
-            }
+    public TemporaryToken login(HttpServletRequest request) throws Exception {
+        String autorizationHeaderUsername = request.getHeader("username");
+        String autorizationHeaderPassword = request.getHeader("password");
+
+        String username;
+        String password;
+
+        if(autorizationHeaderUsername != null && autorizationHeaderPassword != null) {
+            username = autorizationHeaderUsername;
+            password = autorizationHeaderPassword;
+
+            User validateLogin = userRepository.login(username, password);
             if (validateLogin == null) {
-                throw new Exception("USER NOT FOUND");
+                throw new Exception("USERNAME OR PASSWORD NOT EMPTY");
+            }
+            UserDetails userDetails = userDetailsService.loadUserByUsername(username);
+            if (userDetails == null) {
+                throw new Exception("USERNAME AND PASSWORD NO FOUND");
             }
             String token = UUID.randomUUID().toString();
             TemporaryToken temporaryToken = new TemporaryToken();
             temporaryToken.setToken(String.valueOf(token));
             temporaryToken.setExpiredDate(new Date(System.currentTimeMillis() + 900000));
-            temporaryToken.setUser(aunthenticationRequest.getUsername());
+            temporaryToken.setUser(username);
             TemporaryToken temporaryToken1 = temporaryTokenRepository.cekUser(temporaryToken.getUser());
             if (temporaryToken1 != null) {
                 temporaryTokenRepository.deleteById(temporaryToken1.getIdToken());
                 return temporaryTokenRepository.save(temporaryToken);
             }
             return temporaryTokenRepository.save(temporaryToken);
-        } catch (Exception e) {
-            throw new RuntimeException(e);
         }
+        throw new Exception("NOT VALIDATED");
     }
 
     @Override
     public List<TemporaryToken> getTokenList() {
         return temporaryTokenRepository.findAll();
-    }
-
-    private void authenticate(String username, String password) throws Exception {
-        try {
-            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
-        } catch (DisabledException e) {
-            throw new Exception("USER DISABLED", e);
-        } catch (BadCredentialsException e) {
-            throw new Exception("USERNAME OR PASSWORD NOT FOUND", e);
-        }
     }
 }

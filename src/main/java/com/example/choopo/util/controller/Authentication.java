@@ -11,6 +11,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 @RestController
@@ -27,9 +28,9 @@ public class Authentication {
     private TemporaryTokenService temporaryTokenService;
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public CommonResponse<AunthenticationRequest> createAuthenticationToken(@RequestBody AunthenticationRequest authenticationRequest) throws Exception {
+    public CommonResponse<AunthenticationRequest> createAuthenticationToken(HttpServletRequest request) throws Exception {
 
-        return commonResponseGenerator.successResponse(temporaryTokenService.login(authenticationRequest));
+        return commonResponseGenerator.successResponse(temporaryTokenService.login(request));
     }
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)

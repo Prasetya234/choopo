@@ -39,7 +39,7 @@ public class TokenRequestFilter extends OncePerRequestFilter{
         String token = null;
 
         if (autorizationHeader != null) {
-            token = autorizationHeader.substring(0);
+            token = autorizationHeader;
             TemporaryToken temporaryToken = temporaryTokenRepository.cekToken(token);
             try {
                 username = temporaryToken.getUser();
