@@ -64,16 +64,16 @@ public class TemporaryTokenService implements UserDetailsService,TemporaryTokenI
     }
 
     @Override
-    public TemporaryToken login(AunthenticationRequest aunthenticationRequest) throws ResourceNotFoundExceotion {
+    public TemporaryToken login(AunthenticationRequest aunthenticationRequest) {
         try {
             User validateLogin = userRepository.login(aunthenticationRequest.getUsername(), aunthenticationRequest.getPassword());
             authenticate(aunthenticationRequest.getUsername(), aunthenticationRequest.getPassword());
             UserDetails userDetails = userDetailsService.loadUserByUsername(aunthenticationRequest.getUsername());
             if (userDetails == null) {
-                throw new ResourceNotFoundExceotion("USER NOT FOUND");
+                throw new Exception("USER NOT FOUND");
             }
             if (validateLogin == null) {
-                throw new ResourceNotFoundExceotion("USER NOT FOUND");
+                throw new Exception("USER NOT FOUND");
             }
             String token = UUID.randomUUID().toString();
             TemporaryToken temporaryToken = new TemporaryToken();
@@ -81,12 +81,11 @@ public class TemporaryTokenService implements UserDetailsService,TemporaryTokenI
             temporaryToken.setExpiredDate(new Date(System.currentTimeMillis() + 900000));
             temporaryToken.setUser(aunthenticationRequest.getUsername());
             TemporaryToken temporaryToken1 = temporaryTokenRepository.cekUser(temporaryToken.getUser());
-            if (temporaryToken1 == null) {
-                return temporaryTokenRepository.save(temporaryToken);
-            } else {
+            if (temporaryToken1 != null) {
                 temporaryTokenRepository.deleteById(temporaryToken1.getIdToken());
                 return temporaryTokenRepository.save(temporaryToken);
             }
+            return temporaryTokenRepository.save(temporaryToken);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -101,9 +100,9 @@ public class TemporaryTokenService implements UserDetailsService,TemporaryTokenI
         try {
             authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
         } catch (DisabledException e) {
-            throw new Exception("USER_DISABLED", e);
+            throw new Exception("USER DISABLED", e);
         } catch (BadCredentialsException e) {
-            throw new Exception("INVALID_CREDENTIALS", e);
+            throw new Exception("USERNAME OR PASSWORD NOT FOUND", e);
         }
     }
 }
