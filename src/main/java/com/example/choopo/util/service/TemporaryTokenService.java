@@ -3,6 +3,7 @@ package com.example.choopo.util.service;
 import com.example.choopo.exception.ResourceNotFoundExceotion;
 import com.example.choopo.model.User;
 import com.example.choopo.repository.UserRepository;
+import com.example.choopo.repository.UserTypeRepository;
 import com.example.choopo.util.model.AunthenticationRequest;
 import com.example.choopo.util.model.TemporaryToken;
 import com.example.choopo.util.repository.TemporaryTokenRepository;
@@ -36,6 +37,9 @@ public class TemporaryTokenService implements UserDetailsService,TemporaryTokenI
     private UserRepository userRepository;
 
     @Autowired
+    private UserTypeRepository userTypeRepository;
+
+    @Autowired
     private PasswordEncoder passwordEncoder;
 
     @Override
@@ -49,15 +53,20 @@ public class TemporaryTokenService implements UserDetailsService,TemporaryTokenI
     }
 
     @Override
-    public User register(User userDTO) {
+    public User register(User userDTO) throws ResourceNotFoundExceotion{
         User user = userRepository.findByUsername(userDTO.getUsername());
         if (user == null) {
             User newUser = new User();
-            newUser.setUserType(userDTO.getUserType());
             newUser.setUsername(userDTO.getUsername());
             newUser.setUserCode(userDTO.getUserCode());
             newUser.setUserStatus(userDTO.getUserStatus());
             newUser.setPassword(userDTO.getPassword());
+            newUser.setUserType(String.valueOf(2));
+            userTypeRepository.findById(Long.valueOf(newUser.getUserType()))
+                    .map(user1 -> {
+                        newUser.setUserTypeId(user1);
+                        return newUser;
+                    }).orElseThrow(() -> new ResourceNotFoundExceotion("USER TYPE ID NOT FOUND"));
             newUser.setPasswordEncoder(passwordEncoder.encode(newUser.getPassword()));
             return userRepository.save(newUser);
         }
@@ -78,11 +87,11 @@ public class TemporaryTokenService implements UserDetailsService,TemporaryTokenI
 
             User validateLogin = userRepository.login(username, password);
             if (validateLogin == null) {
-                throw new Exception("USERNAME OR PASSWORD NOT EMPTY");
+                throw new Exception("USERNAME OR PASSWORD EMPTY");
             }
             UserDetails userDetails = userDetailsService.loadUserByUsername(username);
             if (userDetails == null) {
-                throw new Exception("USERNAME AND PASSWORD NO FOUND");
+                throw new Exception("USERNAME AND PASSWORD NOT FOUND");
             }
             String token = UUID.randomUUID().toString();
             TemporaryToken temporaryToken = new TemporaryToken();

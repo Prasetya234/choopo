@@ -10,7 +10,7 @@ public interface UserService {
 
     List<User> getAll();
 
-    User createUser(User userRequire);
+    User createUser(User userRequire) throws ResourceNotFoundExceotion ;
 
     User getUserById(Long userId) throws ResourceNotFoundExceotion;
 

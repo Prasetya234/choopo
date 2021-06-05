@@ -1,6 +1,7 @@
 package com.example.choopo.util.controller;
 
 import com.example.choopo.dto.UserDTO;
+import com.example.choopo.exception.ResourceNotFoundExceotion;
 import com.example.choopo.model.User;
 import com.example.choopo.response.CommonResponse;
 import com.example.choopo.response.CommonResponseGenerator;
@@ -11,6 +12,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
@@ -34,7 +36,7 @@ public class Authentication {
     }
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)
-    public CommonResponse<User> saveUser(@RequestBody @Valid User user) {
+    public CommonResponse<User> saveUser(@RequestBody @Valid User user) throws ResourceNotFoundExceotion {
 
         return commonResponseGenerator.successResponse(temporaryTokenService.register(user));
     }

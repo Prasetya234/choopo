@@ -8,8 +8,6 @@ import javax.validation.constraints.*;
 public class User {
     private long userId;
 
-    private int userType;
-
     private String username;
 
     private int userCode;
@@ -18,13 +16,17 @@ public class User {
 
     private int userStatus;
 
+    private String userType;
+
+    private UserType userTypeId;
+
     private String passwordEncoder;
 
     public User(){
 
     }
 
-    public User(int userType, String username, int userCode, String password, int userStatus, String passwordEncoder) {
+    public User(String userType, String username, int userCode, String password, int userStatus, String passwordEncoder) {
         this.userType = userType;
         this.username = username;
         this.userCode = userCode;
@@ -46,11 +48,11 @@ public class User {
     }
 
     @Column(name = "user_type", nullable = false)
-    public int getUserType() {
+    public String getUserType() {
         return userType;
     }
 
-    public void setUserType(int userType) {
+    public void setUserType(String userType) {
         this.userType = userType;
     }
 
@@ -99,11 +101,20 @@ public class User {
         this.passwordEncoder = passwordEncoder;
     }
 
+    @OneToOne(fetch = FetchType.LAZY, cascade =  CascadeType.MERGE)
+    @JoinColumn(name = "user_type_id", nullable = true)
+    public UserType getUserTypeId() {
+        return userTypeId;
+    }
+
+    public void setUserTypeId(UserType userTypeId) {
+        this.userTypeId = userTypeId;
+    }
+
     @Override
     public String toString() {
         return "User{" +
                 "userId=" + userId +
-                ", userType=" + userType +
                 ", username='" + username + '\'' +
                 ", userCode=" + userCode +
                 ", userStatus=" + userStatus +

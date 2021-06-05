@@ -35,7 +35,7 @@ public class UserController {
     }
 
     @PostMapping("/")
-    public CommonResponse<UserDTO> createUser(@Valid @RequestBody UserDTO userDTORequest){
+    public CommonResponse<UserDTO> createUser(@Valid @RequestBody UserDTO userDTORequest) throws ResourceNotFoundExceotion {
         User userRequest = modelMapper.map(userDTORequest, User.class);
 
         User user = userService.createUser(userRequest);

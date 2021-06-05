@@ -1,5 +1,7 @@
 package com.example.choopo.dto;
 
+import com.example.choopo.model.UserType;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.validation.constraints.NotBlank;
@@ -11,7 +13,6 @@ public class UserDTO {
     private Long userId;
 
     @NotNull
-    private int userType;
 
     @NotBlank
     @Size(min = 1, max = 255, message = "Username has exceeded the limit")
@@ -30,6 +31,15 @@ public class UserDTO {
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private  String passwordEncoder;
 
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    @NotNull(message = "DATA TIDAK BOLEH KOSONG")
+    private String userType;
+
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+    private UserType userTypeId;
+
+    // GET & SET
+
     public Long getUserId() {
         return userId;
     }
@@ -38,11 +48,11 @@ public class UserDTO {
         this.userId = userId;
     }
 
-    public int getUserType() {
+    public String getUserType() {
         return userType;
     }
 
-    public void setUserType(int userType) {
+    public void setUserType(String userType) {
         this.userType = userType;
     }
 
@@ -84,6 +94,14 @@ public class UserDTO {
 
     public void setUserStatus(int userStatus) {
         this.userStatus = userStatus;
+    }
+
+    public UserType getUserTypeId() {
+        return userTypeId;
+    }
+
+    public void setUserTypeId(UserType userTypeId) {
+        this.userTypeId = userTypeId;
     }
 }
 
