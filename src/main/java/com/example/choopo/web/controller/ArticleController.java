@@ -16,7 +16,7 @@ import java.util.*;
 import java.util.stream.Stream;
 
 @RestController
-@RequestMapping("/article/")
+@RequestMapping("/admin/article/")
 public class ArticleController {
 
     @Autowired private ArticleImpl articleService;
@@ -67,7 +67,7 @@ public class ArticleController {
         return commonResponseGenerator.successResponse(articleDTO);
     }
 
-    @PutMapping("{id}")
+    @PutMapping("nonactive/reactive/{id}")
     public CommonResponse<ArticleDTO> updateArticle(@PathVariable(value = "id") Long articleId, @Valid @RequestBody ArticleDTO articleDTODetails) throws ResourceNotFoundExceotion {
         Article articleDetails = modelMapper.map(articleDTODetails, Article.class);
 
@@ -78,7 +78,7 @@ public class ArticleController {
         return commonResponseGenerator.successResponse(articleDTO);
     }
 
-    @DeleteMapping("{id}")
+    @DeleteMapping("nonactive/{id}")
     public Map<String, Boolean> deleteArticle(@PathVariable(value = "id") Long articleId) throws ResourceNotFoundExceotion {
         return articleService.deleteArticle(articleId);
     }

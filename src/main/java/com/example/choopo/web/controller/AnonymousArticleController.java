@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.stream.Stream;
 
 @RestController
-@RequestMapping("/article/anonymous/")
+@RequestMapping("/article")
 public class AnonymousArticleController {
     @Autowired
     private ArticleImpl articleService;
@@ -27,9 +27,12 @@ public class AnonymousArticleController {
         return commonResponseGenerator.successResponse(articleList);
     }
 
-    @GetMapping("scramble")
+    @GetMapping("/scramble")
     public CommonResponse<List<ArticleDTO>> findMathRandom(){
         Stream<Object> articleList = articleService.getAnonymousScramble("1").stream().map(article -> modelMapper.map(article, ArticleDTO.class));
         return commonResponseGenerator.successResponse(articleList);
     }
+
+//    @GetMapping("/{id}")
+
 }

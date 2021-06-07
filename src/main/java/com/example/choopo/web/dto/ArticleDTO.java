@@ -54,6 +54,11 @@ public class ArticleDTO {
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private Category categoryId;
 
+    @NotNull
+    private boolean isDeleted = false;
+
+    @NotNull
+    private boolean isTakedown = false;
 
     // GET & SET
 
@@ -145,4 +150,19 @@ public class ArticleDTO {
         this.categoryId = categoryId;
     }
 
+    public boolean isDeleted() {
+        return isDeleted;
+    }
+
+    public void setDeleted(boolean deleted) {
+        isDeleted = deleted;
+    }
+
+    public boolean isTakedown() {
+        return isTakedown;
+    }
+
+    public void setTakedown(boolean takedown) {
+        isTakedown = takedown;
+    }
 }

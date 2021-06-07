@@ -34,18 +34,24 @@ public class Article {
 
     private Category categoryId;
 
+    private boolean isDeleted = false;
+
+    private boolean isTakedown = false;
+
     // Constructor
     public Article() {
 
     }
 
-    public Article(String subtitle, String title, String mainImage, String topic, String articleStatus, String category) {
+    public Article(String subtitle, String title, String mainImage, String topic, String articleStatus, String category, boolean isDeleted, boolean isTakedown) {
         this.subtitle = subtitle;
         this.title = title;
         this.mainImage = mainImage;
         this.topic = topic;
         this.articleStatus = articleStatus;
         this.category = category;
+        this.isDeleted = isDeleted;
+        this.isTakedown = isTakedown;
     }
 
     // Getter and Setter
@@ -154,6 +160,24 @@ public class Article {
 
     public void setCategoryId(Category categoryId) {
         this.categoryId = categoryId;
+    }
+
+    @Column(name = "is_deleted")
+    public boolean isDeleted() {
+        return isDeleted;
+    }
+
+    public void setDeleted(boolean deleted) {
+        isDeleted = deleted;
+    }
+
+    @Column(name = "is_takedown")
+    public boolean isTakedown() {
+        return isTakedown;
+    }
+
+    public void setTakedown(boolean takedown) {
+        isTakedown = takedown;
     }
 
     /**
