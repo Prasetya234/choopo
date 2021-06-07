@@ -35,14 +35,14 @@ public class UserTypeController {
     }
 
     @PostMapping("/")
-    public CommonResponse<UserTypeDTO> createUserType(@Valid @RequestBody UserTypeDTO userTypeDTORequire){
-        UserType userTypeRequire = modelMapper.map(userTypeDTORequire, UserType.class);
+    public CommonResponse<UserType> createUserType(@Valid @RequestBody UserType userTypeDTORequire){
+//        UserType userTypeRequire = modelMapper.map(userTypeDTORequire, UserType.class);
 
-        UserType createUserType = userTypeService.createUserType(userTypeRequire);
+        UserType createUserType = userTypeService.createUserType(userTypeDTORequire);
 
-        UserTypeDTO userTypeDTO = modelMapper.map(userTypeDTORequire, UserTypeDTO.class);
+//        UserTypeDTO userTypeDTO = modelMapper.map(userTypeDTORequire, UserTypeDTO.class);
 
-        return commonResponseGenerator.successResponse(userTypeDTO);
+        return commonResponseGenerator.successResponse(createUserType);
     }
 
     @GetMapping("/{id}")

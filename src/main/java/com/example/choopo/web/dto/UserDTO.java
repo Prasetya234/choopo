@@ -32,7 +32,7 @@ public class UserDTO {
     private  String passwordEncoder;
 
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-    @NotNull(message = "DATA TIDAK BOLEH KOSONG")
+//    @NotNull(message = "DATA TIDAK BOLEH KOSONG")
     private String userType;
 
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
