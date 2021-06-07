@@ -23,4 +23,8 @@ public interface ArticleService {
     Article updateArticle(Long articleId, Article articleDetails) throws ResourceNotFoundExceotion;
 
     Map<String, Boolean> deleteArticle(Long articleId) throws ResourceNotFoundExceotion;
+
+    List<Article> getAnonymousArticle(String status);
+
+    List<Article> getAnonymousScramble(String status);
 }

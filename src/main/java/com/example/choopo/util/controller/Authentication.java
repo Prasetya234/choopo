@@ -1,6 +1,5 @@
 package com.example.choopo.util.controller;
 
-import com.example.choopo.dto.UserDTO;
 import com.example.choopo.exception.ResourceNotFoundExceotion;
 import com.example.choopo.model.User;
 import com.example.choopo.response.CommonResponse;
@@ -8,11 +7,9 @@ import com.example.choopo.response.CommonResponseGenerator;
 import com.example.choopo.util.model.AunthenticationRequest;
 import com.example.choopo.util.model.TemporaryToken;
 import com.example.choopo.util.service.TemporaryTokenService;
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 

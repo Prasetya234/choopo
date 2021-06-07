@@ -1,7 +1,6 @@
 package com.example.choopo.model;
 
 import javax.persistence.*;
-import javax.validation.constraints.*;
 
 @Entity
 @Table(name = "user_type")

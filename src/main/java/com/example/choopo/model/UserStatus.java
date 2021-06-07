@@ -23,8 +23,7 @@ public class UserStatus {
     }
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO, generator = "auto_user_status")
-    @SequenceGenerator(name = "auto_user_status", sequenceName = "user_status_id")
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "user_status_id")
     public long getUserStatusId() {
         return userStatusId;

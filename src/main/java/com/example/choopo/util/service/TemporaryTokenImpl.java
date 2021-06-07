@@ -2,7 +2,6 @@ package com.example.choopo.util.service;
 
 import com.example.choopo.exception.ResourceNotFoundExceotion;
 import com.example.choopo.model.User;
-import com.example.choopo.util.model.AunthenticationRequest;
 import com.example.choopo.util.model.TemporaryToken;
 
 import javax.servlet.http.HttpServletRequest;

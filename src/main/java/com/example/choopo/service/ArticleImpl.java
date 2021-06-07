@@ -123,4 +123,15 @@ public class ArticleImpl implements ArticleService{
 
         return response;
     }
+
+    @Override
+    public List<Article> getAnonymousArticle(String status) {
+        return articleRepository.anonymousView(status);
+    }
+
+    @Override
+    public List<Article> getAnonymousScramble(String status) {
+        return articleRepository.anonymousViewScramble(status);
+    }
+
 }

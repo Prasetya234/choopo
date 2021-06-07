@@ -4,14 +4,14 @@ import com.example.choopo.exception.ResourceNotFoundExceotion;
 import com.example.choopo.model.User;
 import com.example.choopo.repository.UserRepository;
 import com.example.choopo.repository.UserTypeRepository;
-import com.example.choopo.util.model.AunthenticationRequest;
 import com.example.choopo.util.model.TemporaryToken;
 import com.example.choopo.util.repository.TemporaryTokenRepository;
+import org.apache.catalina.Group;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.BadCredentialsException;
-import org.springframework.security.authentication.DisabledException;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.AuthorityUtils;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -19,6 +19,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
+import java.nio.charset.StandardCharsets;
 import java.util.*;
 
 @Service
@@ -48,10 +49,17 @@ public class TemporaryTokenService implements UserDetailsService,TemporaryTokenI
         if (user == null) {
             throw new UsernameNotFoundException("USER TIDAK DITEMUKAN");
         } else {
-            return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPasswordEncoder(), new ArrayList<>());
+           org.springframework.security.core.userdetails.User.UserBuilder userDetails = org.springframework.security.core.userdetails.User.withUsername(user.getUsername()).password(user.getPasswordEncoder()).authorities(user.getUserTypeId().getUserTypeName());
+            return userDetails.build();
         }
     }
 
+    private Collection<GrantedAuthority> getAutorities(User user) {
+        String userGroups = user.getUserTypeId().getUserTypeName();
+        Collection<GrantedAuthority> authorities = new ArrayList(Integer.parseInt(userGroups));
+        authorities.add(new SimpleGrantedAuthority(Arrays.toString(userGroups.getBytes(StandardCharsets.UTF_8))));
+        return authorities;
+    }
     @Override
     public User register(User userDTO) throws ResourceNotFoundExceotion{
         User user = userRepository.findByUsername(userDTO.getUsername());
@@ -61,7 +69,7 @@ public class TemporaryTokenService implements UserDetailsService,TemporaryTokenI
             newUser.setUserCode(userDTO.getUserCode());
             newUser.setUserStatus(userDTO.getUserStatus());
             newUser.setPassword(userDTO.getPassword());
-            newUser.setUserType(String.valueOf(2));
+            newUser.setUserType(String.valueOf(1));
             userTypeRepository.findById(Long.valueOf(newUser.getUserType()))
                     .map(user1 -> {
                         newUser.setUserTypeId(user1);
@@ -87,7 +95,7 @@ public class TemporaryTokenService implements UserDetailsService,TemporaryTokenI
 
             User validateLogin = userRepository.login(username, password);
             if (validateLogin == null) {
-                throw new Exception("USERNAME OR PASSWORD EMPTY");
+                throw new Exception("USERNAME OR PASSWORD NOT FOUND");
             }
             UserDetails userDetails = userDetailsService.loadUserByUsername(username);
             if (userDetails == null) {
@@ -112,4 +120,5 @@ public class TemporaryTokenService implements UserDetailsService,TemporaryTokenI
     public List<TemporaryToken> getTokenList() {
         return temporaryTokenRepository.findAll();
     }
+
 }

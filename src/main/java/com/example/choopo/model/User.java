@@ -1,6 +1,7 @@
 package com.example.choopo.model;
 
 import javax.persistence.*;
+import javax.transaction.Transactional;
 import javax.validation.constraints.*;
 
 @Entity
@@ -101,8 +102,9 @@ public class User {
         this.passwordEncoder = passwordEncoder;
     }
 
-    @OneToOne(fetch = FetchType.LAZY, cascade =  CascadeType.MERGE)
-    @JoinColumn(name = "user_type_id", nullable = true)
+    @Transactional
+    @OneToOne(fetch = FetchType.EAGER, cascade =  CascadeType.MERGE)
+    @JoinColumn(name = "user_type_id")
     public UserType getUserTypeId() {
         return userTypeId;
     }

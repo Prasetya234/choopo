@@ -1,6 +1,5 @@
 package com.example.choopo.util.model;
 
-import com.example.choopo.model.User;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.persistence.*;
