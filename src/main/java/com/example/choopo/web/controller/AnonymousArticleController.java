@@ -1,8 +1,8 @@
 package com.example.choopo.web.controller;
 
 import com.example.choopo.web.dto.ArticleDTO;
-import com.example.choopo.web.service.response.CommonResponse;
-import com.example.choopo.web.service.response.CommonResponseGenerator;
+import com.example.choopo.web.response.CommonResponse;
+import com.example.choopo.web.response.CommonResponseGenerator;
 import com.example.choopo.web.service.ArticleImpl;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;

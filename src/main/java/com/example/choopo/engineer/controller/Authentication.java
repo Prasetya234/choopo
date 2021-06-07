@@ -3,7 +3,6 @@ package com.example.choopo.engineer.controller;
 import com.example.choopo.web.exception.ResourceNotFoundExceotion;
 import com.example.choopo.web.model.User;
 import com.example.choopo.web.service.response.CommonResponse;
-import com.example.choopo.web.service.response.CommonResponseGenerator;
 import com.example.choopo.engineer.model.AunthenticationRequest;
 import com.example.choopo.engineer.model.TemporaryToken;
 import com.example.choopo.engineer.service.TemporaryTokenService;

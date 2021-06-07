@@ -2,8 +2,8 @@ package com.example.choopo.web.controller;
 
 import com.example.choopo.web.dto.UserTypeDTO;
 import com.example.choopo.web.model.UserType;
-import com.example.choopo.web.service.response.CommonResponse;
-import com.example.choopo.web.service.response.CommonResponseGenerator;
+import com.example.choopo.web.response.CommonResponse;
+import com.example.choopo.web.response.CommonResponseGenerator;
 import com.example.choopo.web.service.UserTypeImpl;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;

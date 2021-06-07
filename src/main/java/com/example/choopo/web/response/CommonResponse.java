@@ -1,4 +1,4 @@
-package com.example.choopo.web.service.response;
+package com.example.choopo.web.response;
 
 public class CommonResponse<T> {
 
