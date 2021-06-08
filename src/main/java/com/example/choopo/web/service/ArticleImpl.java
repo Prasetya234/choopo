@@ -27,7 +27,18 @@ public class ArticleImpl implements ArticleService{
 
     @Override
     public Article createArticle(Article articleRequire) throws ResourceNotFoundExceotion {
-        Article articleStatus = articleStatusRepository.findById(Long.valueOf(articleRequire.getArticleStatus()))
+
+        Article article = new Article();
+        article.setSubtitle(articleRequire.getSubtitle());
+        article.setTitle(articleRequire.getTitle());
+        article.setMainImage(articleRequire.getMainImage());
+        article.setTopic(articleRequire.getTopic());
+        article.setArticleStatus("2");
+        article.setCategory(articleRequire.getCategory());
+        article.setTakedown(false);
+        article.setDeleted(false);
+
+        Article articleStatus = articleStatusRepository.findById(Long.valueOf(article.getArticleStatus()))
                 .map(articleStatus1 -> {
                     articleRequire.setArticleStatusId(articleStatus1);
                     return articleRequire;
@@ -87,19 +98,15 @@ public class ArticleImpl implements ArticleService{
         article.setTitle(articleDetails.getTitle());
         article.setMainImage(articleDetails.getMainImage());
         article.setTopic(articleDetails.getTopic());
-        article.setArticleStatus(articleDetails.getArticleStatus());
+//        article.setArticleStatus(articleDetails.getArticleStatus());
         article.setCategory(articleDetails.getCategory());
-        Article articleStatus1 = articleStatusRepository.findById(Long.valueOf(articleDetails.getArticleStatus())).map(articleStatus -> {
-            articleDetails.setArticleStatusId(articleStatus);
-            return articleDetails;
-        }).orElseThrow(() ->
-                new ResourceNotFoundExceotion("ARTICLE STATUS ID NOT FOUND"));
+
         Article category1 = categoryRepository.findById(Long.valueOf(articleDetails.getCategory())).map(category -> {
             articleDetails.setCategoryId(category);
-            return articleStatus1;
+            return articleDetails;
         }).orElseThrow(() ->
                 new ResourceNotFoundExceotion("CATEGORY ID NOT FOUND"));
-        article.setArticleStatusId(articleStatus1.getArticleStatusId());
+//        article.setArticleStatusId(articleStatus1.getArticleStatusId());
         article.setCategoryId(category1.getCategoryId());
         final Article updateData = articleRepository.save(article);
 
@@ -108,11 +115,12 @@ public class ArticleImpl implements ArticleService{
 
     @Override
     public Map<String, Boolean> deleteArticle(Long articleId) throws ResourceNotFoundExceotion {
-        Article article = articleRepository.findById(articleId)
-                .orElseThrow(() ->
-                        new ResourceNotFoundExceotion("ARTICLE ID NOT FOUND " + articleId));
-
-        articleRepository.delete(article);
+        Article article = articleRepository.anonymousViewById(articleId);
+        if (article == null) {
+            throw new ResourceNotFoundExceotion("KEGAGALAN MEMUAT DATA COBA PERIKSA LAGI DATA ANDA");
+        }
+        article.setDeleted(true);
+        articleRepository.save(article);
 
         Map<String, Boolean> response = new HashMap<>();
         response.put("DELETED", Boolean.TRUE);
@@ -121,13 +129,75 @@ public class ArticleImpl implements ArticleService{
     }
 
     @Override
-    public List<Article> getAnonymousArticle(String status) {
-        return articleRepository.anonymousView(status);
+    public Article getArticlePublikasi(Long articleId) throws ResourceNotFoundExceotion {
+        Article article = articleRepository.anonymousPublicViews(articleId);
+        if (article == null) {
+            throw new ResourceNotFoundExceotion("ARTICLE TELAH TER-AUTORISASI");
+        }
+        article.setArticleStatus("1");
+        return articleStatusRepository.findById(Long.valueOf(article.getArticleStatus())).map(articleStatus -> { article.setArticleStatusId(articleStatus);
+            return articleRepository.save(article);
+        }).orElseThrow(() ->
+                new ResourceNotFoundExceotion("ARTICLE STATUS ID NOT FOUND"));
+    }
+
+    @Override
+    public Map<String, Boolean> deleteArticleTakedown(Long articleId) throws ResourceNotFoundExceotion {
+        Article article = articleRepository.anonymousViewById(articleId);
+        if (article == null) {
+            throw new ResourceNotFoundExceotion("KEGAGALAN MEMUAT DATA COBA PERIKSA LAGI DATA ANDA");
+        }
+        article.setTakedown(true);
+        articleRepository.save(article);
+
+        Map<String, Boolean> response = new HashMap<>();
+        response.put("DELETED", Boolean.TRUE);
+
+        return response;
+    }
+
+    @Override
+    public Article takedownReactivate(Long articleId) throws ResourceNotFoundExceotion {
+        Article article = articleRepository.anonymousActivAgainTakedown(articleId);
+        if (article == null) {
+            throw new ResourceNotFoundExceotion("KEGAGALAN MEMUAT DATA COBA PERIKSA LAGI DATA ANDA");
+        }
+        article.setTakedown(false);
+        return articleRepository.save(article);
+    }
+
+    @Override
+    public List<Article> getAnonymousArticle() throws  ResourceNotFoundExceotion{
+        List<Article> article = articleRepository.anonymousView();
+        if (article == null ) {
+            throw new ResourceNotFoundExceotion("ARTICLE KOSONG");
+        }
+        return article;
     }
 
     @Override
     public List<Article> getAnonymousScramble(String status) {
         return articleRepository.anonymousViewScramble(status);
+    }
+
+    @Override
+    public Article getAnonymousById(Long articleId) throws ResourceNotFoundExceotion {
+        Article article = articleRepository.anonymousViewById(articleId);
+        if (article == null) {
+            throw new ResourceNotFoundExceotion("ARTICLE ID TIDAK DITEMUKAN");
+        }
+        article.setTotalView(article.getTotalView() + 1);
+        return articleRepository.save(article);
+    }
+
+    @Override
+    public Article getAnonymousActiveAgain(Long articleId) throws ResourceNotFoundExceotion {
+        Article article = articleRepository.anonymousActiveAgain(articleId);
+        if (article == null) {
+            throw new ResourceNotFoundExceotion("PEMULIHAN ARTICLE ID TIDAK DI TEMUKAN");
+        }
+        article.setDeleted(false);
+        return articleRepository.save(article);
     }
 
 }

@@ -41,7 +41,6 @@ public class ArticleDTO {
     private int totalView;
 
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-    @NotNull(message = "DATA TIDAK BOLEH KOSONG")
     private String articleStatus;
 
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
@@ -55,10 +54,10 @@ public class ArticleDTO {
     private Category categoryId;
 
     @NotNull
-    private boolean isDeleted = false;
+    private boolean isDeleted;
 
     @NotNull
-    private boolean isTakedown = false;
+    private boolean isTakedown;
 
     // GET & SET
 
@@ -154,15 +153,15 @@ public class ArticleDTO {
         return isDeleted;
     }
 
-    public void setDeleted(boolean deleted) {
-        isDeleted = deleted;
+    public void setDeleted(boolean isDeleted) {
+        this.isDeleted = isDeleted;
     }
 
     public boolean isTakedown() {
         return isTakedown;
     }
 
-    public void setTakedown(boolean takedown) {
-        isTakedown = takedown;
+    public void setTakedown(boolean isTakedown) {
+        this.isTakedown = isTakedown;
     }
 }

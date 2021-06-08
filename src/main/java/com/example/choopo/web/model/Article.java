@@ -34,9 +34,9 @@ public class Article {
 
     private Category categoryId;
 
-    private boolean isDeleted = false;
+    private boolean isDeleted;
 
-    private boolean isTakedown = false;
+    private boolean isTakedown;
 
     // Constructor
     public Article() {
@@ -167,8 +167,8 @@ public class Article {
         return isDeleted;
     }
 
-    public void setDeleted(boolean deleted) {
-        isDeleted = deleted;
+    public void setDeleted(boolean isDeleted) {
+        this.isDeleted = isDeleted;
     }
 
     @Column(name = "is_takedown")
@@ -176,8 +176,8 @@ public class Article {
         return isTakedown;
     }
 
-    public void setTakedown(boolean takedown) {
-        isTakedown = takedown;
+    public void setTakedown(boolean isTakedown) {
+        this.isTakedown = isTakedown;
     }
 
     /**

@@ -67,7 +67,7 @@ public class ArticleController {
         return commonResponseGenerator.successResponse(articleDTO);
     }
 
-    @PutMapping("nonactive/reactive/{id}")
+    @PutMapping("{id}")
     public CommonResponse<ArticleDTO> updateArticle(@PathVariable(value = "id") Long articleId, @Valid @RequestBody ArticleDTO articleDTODetails) throws ResourceNotFoundExceotion {
         Article articleDetails = modelMapper.map(articleDTODetails, Article.class);
 
@@ -81,5 +81,37 @@ public class ArticleController {
     @DeleteMapping("nonactive/{id}")
     public Map<String, Boolean> deleteArticle(@PathVariable(value = "id") Long articleId) throws ResourceNotFoundExceotion {
         return articleService.deleteArticle(articleId);
+    }
+
+    @PutMapping("nonactive/reactive/{id}")
+    public CommonResponse<ArticleDTO> updateActive(@PathVariable("id") Long articleId) throws ResourceNotFoundExceotion {
+        Article article = articleService.getAnonymousActiveAgain(articleId);
+
+        ArticleDTO articleDTO = modelMapper.map(article, ArticleDTO.class);
+
+        return commonResponseGenerator.successResponse(articleDTO);
+    }
+
+    @PutMapping("authorized/{id}")
+    public CommonResponse<ArticleDTO> updatePublikasi(@PathVariable("id") Long articleId) throws ResourceNotFoundExceotion {
+        Article article = articleService.getArticlePublikasi(articleId);
+
+        ArticleDTO articleDTO = modelMapper.map(article, ArticleDTO.class);
+
+        return commonResponseGenerator.successResponse(articleDTO);
+    }
+
+    @DeleteMapping("takedown/{id}")
+    public Map<String, Boolean> deleteArticleTakedown(@PathVariable(value = "id") Long articleId) throws ResourceNotFoundExceotion {
+        return articleService.deleteArticleTakedown(articleId);
+    }
+
+    @PutMapping("takedown/reactivate/{id}")
+    public CommonResponse<ArticleDTO> updateTakedownFalse(@PathVariable(value = "id") Long articleId) throws ResourceNotFoundExceotion {
+        Article article = articleService.takedownReactivate(articleId);
+
+        ArticleDTO articleDTO = modelMapper.map(article, ArticleDTO.class);
+
+        return commonResponseGenerator.successResponse(articleDTO);
     }
 }

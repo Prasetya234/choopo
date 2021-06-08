@@ -67,7 +67,7 @@ public class TemporaryTokenService implements UserDetailsService,TemporaryTokenI
             newUser.setUserCode(userDTO.getUserCode());
             newUser.setUserStatus(userDTO.getUserStatus());
             newUser.setPassword(userDTO.getPassword());
-            newUser.setUserType(String.valueOf(2));
+            newUser.setUserType(String.valueOf(1));
             userTypeRepository.findById(Long.valueOf(newUser.getUserType()))
                     .map(user1 -> {
                         newUser.setUserTypeId(user1);

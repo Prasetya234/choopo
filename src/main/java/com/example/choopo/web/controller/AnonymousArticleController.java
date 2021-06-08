@@ -1,6 +1,8 @@
 package com.example.choopo.web.controller;
 
 import com.example.choopo.web.dto.ArticleDTO;
+import com.example.choopo.web.exception.ResourceNotFoundExceotion;
+import com.example.choopo.web.model.Article;
 import com.example.choopo.web.response.CommonResponse;
 import com.example.choopo.web.response.CommonResponseGenerator;
 import com.example.choopo.web.service.ArticleImpl;
@@ -22,17 +24,24 @@ public class AnonymousArticleController {
     @Autowired private CommonResponseGenerator commonResponseGenerator;
 
     @GetMapping
-    public CommonResponse<List<ArticleDTO>> getAllArticle(){
-        Stream<Object> articleList = articleService.getAnonymousArticle("1").stream().map(article -> modelMapper.map(article, ArticleDTO.class));
+    public CommonResponse<List<ArticleDTO>> getAllArticleAnonymous() throws  ResourceNotFoundExceotion{
+        Stream<Object> articleList = articleService.getAnonymousArticle().stream().map(article -> modelMapper.map(article, ArticleDTO.class));
         return commonResponseGenerator.successResponse(articleList);
     }
 
     @GetMapping("/scramble")
-    public CommonResponse<List<ArticleDTO>> findMathRandom(){
+    public CommonResponse<List<ArticleDTO>> findMathRandomAnonymous(){
         Stream<Object> articleList = articleService.getAnonymousScramble("1").stream().map(article -> modelMapper.map(article, ArticleDTO.class));
         return commonResponseGenerator.successResponse(articleList);
     }
 
-//    @GetMapping("/{id}")
+    @GetMapping("/{id}")
+    public CommonResponse<ArticleDTO> findByIdAnonymous(@PathVariable("id") Long articletatusId) throws ResourceNotFoundExceotion {
 
+        Article article = articleService.getAnonymousById(articletatusId);
+
+        ArticleDTO articleDTO = modelMapper.map(article, ArticleDTO.class);
+
+        return commonResponseGenerator.successResponse(articleDTO);
+    }
 }

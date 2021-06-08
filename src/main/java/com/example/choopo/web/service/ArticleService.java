@@ -24,7 +24,18 @@ public interface ArticleService {
 
     Map<String, Boolean> deleteArticle(Long articleId) throws ResourceNotFoundExceotion;
 
-    List<Article> getAnonymousArticle(String status);
+    Article getArticlePublikasi(Long articleId) throws ResourceNotFoundExceotion;
+
+    Map<String, Boolean> deleteArticleTakedown(Long articleId) throws ResourceNotFoundExceotion;
+
+    Article takedownReactivate(Long articleId) throws ResourceNotFoundExceotion;
+    //       ANONYMOUS AREA
+
+    List<Article> getAnonymousArticle() throws ResourceNotFoundExceotion;
 
     List<Article> getAnonymousScramble(String status);
+
+    Article getAnonymousById(Long articleId) throws ResourceNotFoundExceotion;
+
+    Article getAnonymousActiveAgain(Long articleId) throws ResourceNotFoundExceotion;
 }
