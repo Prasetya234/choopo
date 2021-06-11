@@ -16,8 +16,8 @@ import java.util.stream.Stream;
 @RestController
 @RequestMapping("/article")
 public class AnonymousArticleController {
-    @Autowired
-    private ArticleImpl articleService;
+
+    @Autowired private ArticleImpl articleService;
 
     @Autowired private ModelMapper modelMapper;
 
@@ -31,7 +31,7 @@ public class AnonymousArticleController {
 
     @GetMapping("/scramble")
     public CommonResponse<List<ArticleDTO>> findMathRandomAnonymous(){
-        Stream<Object> articleList = articleService.getAnonymousScramble("1").stream().map(article -> modelMapper.map(article, ArticleDTO.class));
+        Stream<Object> articleList = articleService.getAnonymousScramble().stream().map(article -> modelMapper.map(article, ArticleDTO.class));
         return commonResponseGenerator.successResponse(articleList);
     }
 

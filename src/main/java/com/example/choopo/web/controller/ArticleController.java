@@ -8,6 +8,7 @@ import com.example.choopo.web.response.CommonResponseGenerator;
 import com.example.choopo.web.service.ArticleImpl;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -16,7 +17,6 @@ import java.util.*;
 import java.util.stream.Stream;
 
 @RestController
-@RequestMapping("/admin/article/")
 public class ArticleController {
 
     @Autowired private ArticleImpl articleService;
@@ -25,31 +25,36 @@ public class ArticleController {
 
     @Autowired private CommonResponseGenerator commonResponseGenerator;
 
-    @GetMapping("top-news")
+    @PreAuthorize("hasAnyAuthority('ADMIN', 'WRITER')")
+    @RequestMapping(value = "/admin/article/top-news", method = RequestMethod.GET)
     public CommonResponse<List<ArticleDTO>> findLatestNews(){
         Stream<Object> articleList = articleService.findLatestNews().stream().map(article -> modelMapper.map(article, ArticleDTO.class));
         return commonResponseGenerator.successResponse(articleList);
     }
 
-    @GetMapping("top-10")
+    @PreAuthorize("hasAnyAuthority('ADMIN', 'WRITER')")
+    @RequestMapping(value = "/admin/article/top-10", method = RequestMethod.GET)
     public CommonResponse<List<ArticleDTO>> findTopTen() {
         Stream<Object> articleList = articleService.findTopTen().stream().map(article -> modelMapper.map(article, ArticleDTO.class));
         return commonResponseGenerator.successResponse(articleList);
     }
 
-    @GetMapping("scramble")
+    @PreAuthorize("hasAnyAuthority('ADMIN', 'WRITER')")
+    @RequestMapping(value = "/admin/article/scramble", method = RequestMethod.GET)
     public CommonResponse<List<ArticleDTO>> findMathRandom(){
         Stream<Object> articleList = articleService.findMathRandom().stream().map(article -> modelMapper.map(article, ArticleDTO.class));
         return commonResponseGenerator.successResponse(articleList);
     }
 
-    @GetMapping
+    @PreAuthorize("hasAnyAuthority('ADMIN', 'WRITER')")
+    @RequestMapping(value = "/admin/article/", method = RequestMethod.GET)
     public CommonResponse<List<ArticleDTO>> getAllArticle(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "5") int size){
         Stream<Object> articleList = articleService.getAllArticle(page, size).stream().map(article -> modelMapper.map(article, ArticleDTO.class));
         return commonResponseGenerator.successResponse(articleList);
     }
 
-    @GetMapping("{id}")
+    @PreAuthorize("hasAnyAuthority('ADMIN', 'WRITER')")
+    @RequestMapping(value = "/admin/article/{id}", method = RequestMethod.GET)
     public CommonResponse<ArticleDTO> getArticleById(@PathVariable(value = "id") Long articleId) throws ResourceNotFoundExceotion {
         Article article = articleService.getArticleById(articleId);
 
@@ -57,7 +62,10 @@ public class ArticleController {
         return commonResponseGenerator.successResponse(articleDTO);
     }
 
-    @PostMapping
+    // WRITER AREA -----------------------------------
+
+    @PreAuthorize("hasAnyAuthority('WRITER')")
+    @RequestMapping(value = "/admin/article/", method = RequestMethod.POST)
     public CommonResponse<ArticleDTO> createArticle(@Valid @RequestBody ArticleDTO articleDTORequest) throws ResourceNotFoundExceotion {
         Article articleRequest = modelMapper.map(articleDTORequest, Article.class);
 
@@ -67,7 +75,8 @@ public class ArticleController {
         return commonResponseGenerator.successResponse(articleDTO);
     }
 
-    @PutMapping("{id}")
+    @PreAuthorize("hasAnyAuthority('WRITER')")
+    @RequestMapping(value = "/admin/article/{id}", method = RequestMethod.PUT)
     public CommonResponse<ArticleDTO> updateArticle(@PathVariable(value = "id") Long articleId, @Valid @RequestBody ArticleDTO articleDTODetails) throws ResourceNotFoundExceotion {
         Article articleDetails = modelMapper.map(articleDTODetails, Article.class);
 
@@ -78,12 +87,19 @@ public class ArticleController {
         return commonResponseGenerator.successResponse(articleDTO);
     }
 
-    @DeleteMapping("nonactive/{id}")
-    public Map<String, Boolean> deleteArticle(@PathVariable(value = "id") Long articleId) throws ResourceNotFoundExceotion {
-        return articleService.deleteArticle(articleId);
+    @PreAuthorize("hasAnyAuthority('WRITER')")
+    @RequestMapping(value = "/admin/nonactive-article/{id}", method = RequestMethod.PUT)
+    public CommonResponse<Article> deleteArticle(@PathVariable(value = "id") Long articleId) throws ResourceNotFoundExceotion {
+
+        Article article = articleService.deleteArticle(articleId);
+
+        ArticleDTO articleDTO = modelMapper.map(article, ArticleDTO.class);
+
+        return commonResponseGenerator.successResponse(articleDTO);
     }
 
-    @PutMapping("nonactive/reactive/{id}")
+    @PreAuthorize("hasAnyAuthority('WRITER')")
+    @RequestMapping(value = "/admin/nonactive-article/reactive/{id}", method = RequestMethod.PUT)
     public CommonResponse<ArticleDTO> updateActive(@PathVariable("id") Long articleId) throws ResourceNotFoundExceotion {
         Article article = articleService.getAnonymousActiveAgain(articleId);
 
@@ -92,7 +108,10 @@ public class ArticleController {
         return commonResponseGenerator.successResponse(articleDTO);
     }
 
-    @PutMapping("authorized/{id}")
+    // Admin AREA  -----------------------------------
+
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
+    @RequestMapping(value = "/admin/article/authorized/{id}", method = RequestMethod.PUT)
     public CommonResponse<ArticleDTO> updatePublikasi(@PathVariable("id") Long articleId) throws ResourceNotFoundExceotion {
         Article article = articleService.getArticlePublikasi(articleId);
 
@@ -101,12 +120,18 @@ public class ArticleController {
         return commonResponseGenerator.successResponse(articleDTO);
     }
 
-    @DeleteMapping("takedown/{id}")
-    public Map<String, Boolean> deleteArticleTakedown(@PathVariable(value = "id") Long articleId) throws ResourceNotFoundExceotion {
-        return articleService.deleteArticleTakedown(articleId);
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
+    @RequestMapping(value = "/admin/takedown-article/{id}", method = RequestMethod.PUT)
+    public CommonResponse<Article> deleteArticleTakedown(@PathVariable(value = "id") Long articleId) throws ResourceNotFoundExceotion {
+        Article article = articleService.deleteArticleTakedown(articleId);
+
+        ArticleDTO articleDTO = modelMapper.map(article, ArticleDTO.class);
+
+        return commonResponseGenerator.successResponse(articleDTO);
     }
 
-    @PutMapping("takedown/reactivate/{id}")
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
+    @RequestMapping(value = "/admin/takedown-article/reactive/{id}", method = RequestMethod.PUT)
     public CommonResponse<ArticleDTO> updateTakedownFalse(@PathVariable(value = "id") Long articleId) throws ResourceNotFoundExceotion {
         Article article = articleService.takedownReactivate(articleId);
 

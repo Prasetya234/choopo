@@ -8,6 +8,7 @@ import com.example.choopo.web.response.CommonResponseGenerator;
 import com.example.choopo.web.service.TopicImpl;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -15,6 +16,7 @@ import java.util.*;
 import java.util.stream.Stream;
 
 @RestController
+@PreAuthorize("hasAnyAuthority('ADMIN', 'WRITER')")
 @RequestMapping("/topic")
 public class TopicController {
 

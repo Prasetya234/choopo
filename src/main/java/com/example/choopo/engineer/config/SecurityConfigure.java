@@ -5,6 +5,7 @@ import com.example.choopo.engineer.service.TemporaryTokenService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.http.HttpMethod;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -21,7 +22,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @Configuration
 @EnableScheduling
 @EnableWebSecurity
-@EnableGlobalMethodSecurity(securedEnabled = true, prePostEnabled = true)
+@EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfigure extends WebSecurityConfigurerAdapter {
 
     @Autowired
@@ -47,20 +48,6 @@ public class SecurityConfigure extends WebSecurityConfigurerAdapter {
                 .permitAll()
                 .antMatchers(HttpMethod.GET, "/article/**", "/")
                 .permitAll()
-                .antMatchers("/refrernce/**", "/body", "/category", "/topic",  "/user")
-                .hasAnyAuthority("ADMIN", "WRITER")
-                .antMatchers(HttpMethod.POST, "/admin/article/")
-                .hasAnyAuthority("WRITER")
-                .antMatchers(HttpMethod.PUT, "/admin/article/**", "/admin/article/nonactive/reactive/**")
-                .hasAnyAuthority("WRITER")
-                .antMatchers(HttpMethod.DELETE, "admin/article/nonactive/**")
-                .hasAnyAuthority("WRITER")
-                .antMatchers(HttpMethod.PUT, "/admin/article/authorized/**", "/admin/article/takedown/reactivate/**")
-                .hasAnyAuthority("ADMIN")
-                .antMatchers(HttpMethod.DELETE, "admin/article/takedown/**")
-                .hasAnyAuthority("ADMIN")
-                .antMatchers(HttpMethod.GET, "/admin/article/**")
-                .hasAnyAuthority("ADMIN", "WRITER")
                 .anyRequest().authenticated()
                 .and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);

@@ -22,18 +22,19 @@ public interface ArticleService {
 
     Article updateArticle(Long articleId, Article articleDetails) throws ResourceNotFoundExceotion;
 
-    Map<String, Boolean> deleteArticle(Long articleId) throws ResourceNotFoundExceotion;
+    Article deleteArticle(Long articleId) throws ResourceNotFoundExceotion;
 
     Article getArticlePublikasi(Long articleId) throws ResourceNotFoundExceotion;
 
-    Map<String, Boolean> deleteArticleTakedown(Long articleId) throws ResourceNotFoundExceotion;
+    Article deleteArticleTakedown(Long articleId) throws ResourceNotFoundExceotion;
 
     Article takedownReactivate(Long articleId) throws ResourceNotFoundExceotion;
-    //       ANONYMOUS AREA
+
+    //   ANONYMOUS AREA  -----
 
     List<Article> getAnonymousArticle() throws ResourceNotFoundExceotion;
 
-    List<Article> getAnonymousScramble(String status);
+    List<Article> getAnonymousScramble();
 
     Article getAnonymousById(Long articleId) throws ResourceNotFoundExceotion;
 

@@ -8,6 +8,7 @@ import com.example.choopo.web.response.CommonResponseGenerator;
 import com.example.choopo.web.service.BodyTypeImpl;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -15,6 +16,7 @@ import java.util.*;
 import java.util.stream.Stream;
 
 @RestController
+@PreAuthorize("hasAnyAuthority('ADMIN', 'WRITER')")
 @RequestMapping("/reference/body-type")
 public class BodyTypeController {
 
@@ -28,8 +30,7 @@ public class BodyTypeController {
     public CommonResponse<BodyTypeDTO> getAll() {
         Stream<Object> bodyTypeList = bodyTypeService.getAll()
                 .stream()
-                .map(bodyType
-                        -> modelMapper.map(bodyType, BodyTypeDTO.class));
+                .map(bodyType -> modelMapper.map(bodyType, BodyTypeDTO.class));
 
         return commonResponseGenerator.successResponse(bodyTypeList);
     }

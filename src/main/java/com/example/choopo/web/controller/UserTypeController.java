@@ -7,6 +7,7 @@ import com.example.choopo.web.response.CommonResponseGenerator;
 import com.example.choopo.web.service.UserTypeImpl;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 
@@ -17,6 +18,7 @@ import java.util.*;
 import java.util.stream.Stream;
 
 @RestController
+@PreAuthorize("hasAnyAuthority('ADMIN', 'WRITER')")
 @RequestMapping("/reference/user-type")
 public class UserTypeController {
 

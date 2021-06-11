@@ -124,7 +124,7 @@ public class Article {
         this.totalView = totalView;
     }
 
-    @Column(name = "article_status_implements")
+    @Column(name = "article_status_implements", nullable = false)
     public String getArticleStatus() {
         return articleStatus;
     }
@@ -133,7 +133,7 @@ public class Article {
         this.articleStatus = articleStatus;
     }
 
-    @Column(name = "category_implements")
+    @Column(name = "category_implements", nullable = false)
     public String getCategory() {
         return category;
     }

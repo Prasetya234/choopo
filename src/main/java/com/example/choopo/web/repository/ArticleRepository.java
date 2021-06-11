@@ -19,13 +19,13 @@ public interface ArticleRepository extends JpaRepository<Article, Long> {
     @Query(value = "select d.* from article d order by d.created_date desc limit 10", nativeQuery = true)
     List<Article> articleLatestNews();
 
-    //   ------ANONYMOUS QUERY ----
+    //   ------ ANONYMOUS QUERY ------
 
     @Query(value = "select e.* from article e where article_status_id = 1 and is_takedown = false and is_deleted = false", nativeQuery = true)
     List<Article> anonymousView();
 
-    @Query(value = "select f.* from article f where f.article_status_id = :status order by rand()", nativeQuery = true)
-    List<Article> anonymousViewScramble(String status);
+    @Query(value = "select f.* from article where f.article_status_id  = 1 and is_deleted = false and is_takedown = false order by rand();", nativeQuery = true)
+    List<Article> anonymousViewScramble();
 
     @Query(value = "select g.* from article g where g.article_id= :articleId and is_takedown = false and is_deleted = false", nativeQuery = true)
     Article anonymousViewById(Long articleId);

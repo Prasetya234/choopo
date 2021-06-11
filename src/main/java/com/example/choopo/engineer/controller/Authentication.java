@@ -7,7 +7,6 @@ import com.example.choopo.web.model.User;
 import com.example.choopo.web.response.CommonResponse;
 import com.example.choopo.web.response.CommonResponseGenerator;
 import com.example.choopo.engineer.model.AunthenticationRequest;
-import com.example.choopo.engineer.model.TemporaryToken;
 import com.example.choopo.engineer.service.TemporaryTokenService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;

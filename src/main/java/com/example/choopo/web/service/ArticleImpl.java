@@ -72,7 +72,6 @@ public class ArticleImpl implements ArticleService{
         return articleRepository.articleTopTen();
     }
 
-    @Transactional
     @Override
     public List<Article> findMathRandom() {
         return articleRepository.articleScramble();
@@ -98,7 +97,6 @@ public class ArticleImpl implements ArticleService{
         article.setTitle(articleDetails.getTitle());
         article.setMainImage(articleDetails.getMainImage());
         article.setTopic(articleDetails.getTopic());
-//        article.setArticleStatus(articleDetails.getArticleStatus());
         article.setCategory(articleDetails.getCategory());
 
         Article category1 = categoryRepository.findById(Long.valueOf(articleDetails.getCategory())).map(category -> {
@@ -106,7 +104,6 @@ public class ArticleImpl implements ArticleService{
             return articleDetails;
         }).orElseThrow(() ->
                 new ResourceNotFoundExceotion("CATEGORY ID NOT FOUND"));
-//        article.setArticleStatusId(articleStatus1.getArticleStatusId());
         article.setCategoryId(category1.getCategoryId());
         final Article updateData = articleRepository.save(article);
 
@@ -114,25 +111,20 @@ public class ArticleImpl implements ArticleService{
     }
 
     @Override
-    public Map<String, Boolean> deleteArticle(Long articleId) throws ResourceNotFoundExceotion {
+    public Article deleteArticle(Long articleId) throws ResourceNotFoundExceotion {
         Article article = articleRepository.anonymousViewById(articleId);
         if (article == null) {
             throw new ResourceNotFoundExceotion("KEGAGALAN MEMUAT DATA COBA PERIKSA LAGI DATA ANDA");
         }
         article.setDeleted(true);
-        articleRepository.save(article);
-
-        Map<String, Boolean> response = new HashMap<>();
-        response.put("DELETED", Boolean.TRUE);
-
-        return response;
+        return articleRepository.save(article);
     }
 
     @Override
     public Article getArticlePublikasi(Long articleId) throws ResourceNotFoundExceotion {
         Article article = articleRepository.anonymousPublicViews(articleId);
         if (article == null) {
-            throw new ResourceNotFoundExceotion("ARTICLE TELAH TER-AUTORISASI");
+            throw new ResourceNotFoundExceotion("ARTICLE TELAH AKTIF");
         }
         article.setArticleStatus("1");
         return articleStatusRepository.findById(Long.valueOf(article.getArticleStatus())).map(articleStatus -> { article.setArticleStatusId(articleStatus);
@@ -142,18 +134,13 @@ public class ArticleImpl implements ArticleService{
     }
 
     @Override
-    public Map<String, Boolean> deleteArticleTakedown(Long articleId) throws ResourceNotFoundExceotion {
+    public Article deleteArticleTakedown(Long articleId) throws ResourceNotFoundExceotion {
         Article article = articleRepository.anonymousViewById(articleId);
         if (article == null) {
             throw new ResourceNotFoundExceotion("KEGAGALAN MEMUAT DATA COBA PERIKSA LAGI DATA ANDA");
         }
         article.setTakedown(true);
-        articleRepository.save(article);
-
-        Map<String, Boolean> response = new HashMap<>();
-        response.put("DELETED", Boolean.TRUE);
-
-        return response;
+        return articleRepository.save(article);
     }
 
     @Override
@@ -176,8 +163,8 @@ public class ArticleImpl implements ArticleService{
     }
 
     @Override
-    public List<Article> getAnonymousScramble(String status) {
-        return articleRepository.anonymousViewScramble(status);
+    public List<Article> getAnonymousScramble() {
+        return articleRepository.anonymousViewScramble();
     }
 
     @Override
